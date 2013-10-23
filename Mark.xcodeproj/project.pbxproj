@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30F63E9164EE423AAD53EE0A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA64B0997D2402389BEC0E1 /* libPods.a */; };
+		991A2C711817EEFA00B6C024 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A486001816DB5F00D7AE33 /* CoreData.framework */; };
+		991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */; };
+		991A2C771817F01B00B6C024 /* MKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C761817F01B00B6C024 /* MKTag.m */; };
+		991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C791817F01B00B6C024 /* MKNote.m */; };
 		99A485FD1816DB5F00D7AE33 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A485FC1816DB5F00D7AE33 /* Cocoa.framework */; };
 		99A486071816DB5F00D7AE33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99A486051816DB5F00D7AE33 /* InfoPlist.strings */; };
 		99A486091816DB5F00D7AE33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A486081816DB5F00D7AE33 /* main.m */; };
@@ -31,6 +36,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AA64B0997D2402389BEC0E1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		36A7761578334B52A6B46CAB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		991A2C731817EF8400B6C024 /* Mark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mark.xcdatamodel; sourceTree = "<group>"; };
+		991A2C751817F01B00B6C024 /* MKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTag.h; sourceTree = "<group>"; };
+		991A2C761817F01B00B6C024 /* MKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTag.m; sourceTree = "<group>"; };
+		991A2C781817F01B00B6C024 /* MKNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNote.h; sourceTree = "<group>"; };
+		991A2C791817F01B00B6C024 /* MKNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNote.m; sourceTree = "<group>"; };
 		99A485F91816DB5F00D7AE33 /* Mark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99A485FC1816DB5F00D7AE33 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		99A485FF1816DB5F00D7AE33 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -57,7 +69,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				991A2C711817EEFA00B6C024 /* CoreData.framework in Frameworks */,
 				99A485FD1816DB5F00D7AE33 /* Cocoa.framework in Frameworks */,
+				30F63E9164EE423AAD53EE0A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +94,7 @@
 				99A486201816DB6000D7AE33 /* MarkTests */,
 				99A485FB1816DB5F00D7AE33 /* Frameworks */,
 				99A485FA1816DB5F00D7AE33 /* Products */,
+				36A7761578334B52A6B46CAB /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +113,7 @@
 				99A485FC1816DB5F00D7AE33 /* Cocoa.framework */,
 				99A4861B1816DB5F00D7AE33 /* XCTest.framework */,
 				99A485FE1816DB5F00D7AE33 /* Other Frameworks */,
+				1AA64B0997D2402389BEC0E1 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,6 +136,11 @@
 				99A486111816DB5F00D7AE33 /* MainMenu.xib */,
 				99A486141816DB5F00D7AE33 /* Images.xcassets */,
 				99A486031816DB5F00D7AE33 /* Supporting Files */,
+				991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */,
+				991A2C781817F01B00B6C024 /* MKNote.h */,
+				991A2C791817F01B00B6C024 /* MKNote.m */,
+				991A2C751817F01B00B6C024 /* MKTag.h */,
+				991A2C761817F01B00B6C024 /* MKTag.m */,
 			);
 			path = Mark;
 			sourceTree = "<group>";
@@ -161,9 +182,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99A4862A1816DB6000D7AE33 /* Build configuration list for PBXNativeTarget "Mark" */;
 			buildPhases = (
+				68102968AD6B4F34B07B17C8 /* Check Pods Manifest.lock */,
 				99A485F51816DB5F00D7AE33 /* Sources */,
 				99A485F61816DB5F00D7AE33 /* Frameworks */,
 				99A485F71816DB5F00D7AE33 /* Resources */,
+				F27ADDDE8440431BA003D439 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -248,12 +271,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		68102968AD6B4F34B07B17C8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F27ADDDE8440431BA003D439 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		99A485F51816DB5F00D7AE33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */,
 				99A486101816DB5F00D7AE33 /* MKAppDelegate.m in Sources */,
+				991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */,
+				991A2C771817F01B00B6C024 /* MKTag.m in Sources */,
 				99A486091816DB5F00D7AE33 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +443,7 @@
 		};
 		99A4862B1816DB6000D7AE33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36A7761578334B52A6B46CAB /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -397,6 +457,7 @@
 		};
 		99A4862C1816DB6000D7AE33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36A7761578334B52A6B46CAB /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -467,6 +528,7 @@
 				99A4862C1816DB6000D7AE33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		99A4862D1816DB6000D7AE33 /* Build configuration list for PBXNativeTarget "MarkTests" */ = {
 			isa = XCConfigurationList;
@@ -475,8 +537,22 @@
 				99A4862F1816DB6000D7AE33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				991A2C731817EF8400B6C024 /* Mark.xcdatamodel */,
+			);
+			currentVersion = 991A2C731817EF8400B6C024 /* Mark.xcdatamodel */;
+			path = Mark.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 99A485F11816DB5F00D7AE33 /* Project object */;
 }

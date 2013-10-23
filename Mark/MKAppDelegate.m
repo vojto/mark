@@ -7,11 +7,21 @@
 //
 
 #import "MKAppDelegate.h"
-#import <QuartzCore/QuartzCore.h>
+#import "MKTag.h"
 
 @implementation MKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [MagicalRecord setupAutoMigratingCoreDataStack];
+    
+    self.managedContext = [NSManagedObjectContext defaultContext];
+    
+    if ([MKTag countOfEntities] == 0) {
+        MKTag *tag = [MKTag createEntity];
+        tag.name = @"work";
+        
+        [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
+    }
 
 }
 
