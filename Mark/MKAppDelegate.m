@@ -7,12 +7,12 @@
 //
 
 #import "MKAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MKAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    // Insert code here to initialize your application
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+
 }
 
 @end
