@@ -10,4 +10,17 @@
 
 @implementation MKTagsArrayController
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if ((self = [super initWithCoder:aDecoder])) {
+        self.extraItem = @{@"name": @"All tags"};
+    }
+    return self;
+}
+
+- (id)arrangedObjects {
+    NSArray *extraObjects = @[self.extraItem];
+    NSArray *objects = [super arrangedObjects];
+    return [extraObjects arrayByAddingObjectsFromArray:objects];
+}
+
 @end

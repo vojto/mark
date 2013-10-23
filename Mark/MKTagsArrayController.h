@@ -10,4 +10,6 @@
 
 @interface MKTagsArrayController : NSArrayController
 
+@property (strong) NSDictionary *extraItem;
+
 @end

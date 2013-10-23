@@ -774,7 +774,7 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <arrayController mode="entity" entityName="Tag" automaticallyPreparesContent="YES" id="0Ld-Hz-XgA">
+        <arrayController mode="entity" entityName="Tag" automaticallyPreparesContent="YES" id="0Ld-Hz-XgA" customClass="MKTagsArrayController">
             <connections>
                 <binding destination="494" name="managedObjectContext" keyPath="self.managedContext" id="zeo-Jh-cr5"/>
             </connections>
