@@ -7,8 +7,8 @@ super simple stuff
 ✓ show list of tags
 ✓ create new tag
 ✓ add the "all notes" tag
-☐ show list of notes for the selected tag
-☐ create new note
+✓ show list of notes for the selected tag
+● create new note
 
 advanced stuff
 ==============
