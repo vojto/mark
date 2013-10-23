@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MKTag.h"
 
 @interface MKNotesController : NSObject
 
 @property (assign) IBOutlet NSTableView *notesTable;
 @property (assign) IBOutlet NSArrayController *notesArrayController;
+
+- (void)filterNotesByTag:(MKTag *)tag;
 
 @end

@@ -24,8 +24,17 @@
 
 - (void)didChangeSelection {
     NSLog(@"Selection changed");
-    MKTag *selectedTag = [[self.tagsArrayController selectedObjects] lastObject];
+    id selectedObject = [[self.tagsArrayController selectedObjectsExceptExtraItems] lastObject];
+    
+    if (![selectedObject isKindOfClass:[MKTag class]]) {
+        [self trigger:@"selectTag" data:[NSNull null]];
+        return;
+    }
+    
+    MKTag *selectedTag = (MKTag *)selectedObject;
     NSLog(@"Selected tag: %@", selectedTag);
+    
+    [self trigger:@"selectTag" data:selectedTag];
 }
 
 

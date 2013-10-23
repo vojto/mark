@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MKTagsArrayController.h"
 
 @interface MKTagsController : NSObject
 
 @property (assign) IBOutlet NSTableView *tagsTableView;
-@property (assign) IBOutlet NSArrayController *tagsArrayController;
+@property (assign) IBOutlet MKTagsArrayController *tagsArrayController;
 
 @end

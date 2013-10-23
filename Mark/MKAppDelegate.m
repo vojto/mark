@@ -17,28 +17,34 @@
     
     self.managedContext = [NSManagedObjectContext defaultContext];
     
-    [self buildDefaultTags];
-    [self buildDefaultNotes];
+    [self buildDefaultTagsAndNotes];
+    
+    [self setupFilteringByTag];
 }
 
 #pragma mark - Building default tags
 
-- (void)buildDefaultTags {
-    if ([MKTag countOfEntities] == 0) {
+- (void)buildDefaultTagsAndNotes {
+    if ([MKTag countOfEntities] == 0 && [MKNote countOfEntities] == 0) {
         MKTag *tag = [MKTag createEntity];
         tag.name = @"work";
+        
+        MKNote *note = [MKNote createEntity];
+        note.title = @"journal - 23.10.2013";
+        note.content = @"working on Mark today";
+        note.tags = [NSSet setWithObjects:tag, nil];
         
         [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
     }
 }
 
-- (void)buildDefaultNotes {
-    if ([MKNote countOfEntities] == 0) {
-        MKNote *note = [MKNote createEntity];
-        note.title = @"journal - 23.10.2013";
-        note.content = @"working on Mark today";
-        [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
-    }
+#pragma mark - Filtering by tag
+
+- (void)setupFilteringByTag {
+    [self.tagsController on:@"selectTag" block:^(id data) {
+        MKTag *tag = (MKTag *)data;
+        [self.notesController filterNotesByTag:tag];
+    }];
 }
 
 #pragma mark - Adding tags

@@ -14,4 +14,14 @@
     NSLog(@"Array controller: %@", self.notesArrayController);
 }
 
+- (void)filterNotesByTag:(MKTag *)tag {
+    if ((id)tag == [NSNull null]) {
+        self.notesArrayController.filterPredicate = nil;
+    } else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY(tags.name) == %@", tag.name];
+        NSLog(@"Predicate: %@", predicate);
+        self.notesArrayController.filterPredicate = predicate;
+    }
+}
+
 @end

@@ -23,4 +23,14 @@
     return [extraObjects arrayByAddingObjectsFromArray:objects];
 }
 
+- (NSArray *)selectedObjectsExceptExtraItems {
+    NSMutableArray *objects = [NSMutableArray array];
+    
+    [self.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [objects addObject:[self.arrangedObjects objectAtIndex:idx]];
+    }];
+    
+    return objects;
+}
+
 @end

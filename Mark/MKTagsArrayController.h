@@ -12,4 +12,6 @@
 
 @property (strong) NSDictionary *extraItem;
 
+- (NSArray *)selectedObjectsExceptExtraItems;
+
 @end
