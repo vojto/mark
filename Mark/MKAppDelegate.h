@@ -7,10 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MKNewTagViewController.h"
 
 @interface MKAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) NSManagedObjectContext *managedContext;
+
+// New tag
+@property (strong) NSPopover *createTagPopover;
+@property (strong) MKNewTagViewController *createTagViewController;
+
+- (IBAction)newTagAction:(id)sender;
+
 
 @end

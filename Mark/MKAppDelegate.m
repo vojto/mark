@@ -25,4 +25,28 @@
 
 }
 
+- (IBAction)newTagAction:(id)sender {
+    // Ensure we have the controller
+    if (!self.createTagViewController) {
+        self.createTagViewController = [[MKNewTagViewController alloc] initWithNibName:@"MKNewTagViewController" bundle:nil];
+        self.createTagViewController.context = self.managedContext;
+    }
+    if (!self.createTagPopover) {
+        self.createTagPopover = [[NSPopover alloc] init];
+        self.createTagPopover.contentViewController = self.createTagViewController;
+        self.createTagPopover.behavior = NSPopoverBehaviorTransient;
+        self.createTagViewController.popover = self.createTagPopover;
+    }
+    
+    if ([self.createTagPopover isShown]) {
+        return;
+    }
+    
+    NSView *view = self.window.contentView;
+    [self.createTagPopover showRelativeToRect:view.frame ofView:self.window.contentView preferredEdge:NSMaxYEdge];
+    
+    NSLog(@"Showing: %@", self.createTagPopover);
+}
+
+
 @end
