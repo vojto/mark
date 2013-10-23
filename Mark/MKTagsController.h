@@ -8,7 +8,7 @@
 
 #import "MKTagsArrayController.h"
 
-@interface MKTagsController : NSObject
+@interface MKTagsController : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (assign) IBOutlet NSTableView *tagsTableView;
 @property (assign) IBOutlet MKTagsArrayController *tagsArrayController;

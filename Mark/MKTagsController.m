@@ -13,18 +13,22 @@
 
 
 - (void)awakeFromNib {
-    [self.tagsArrayController addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == self.tagsArrayController && [keyPath isEqualToString:@"selection"]) {
-        [self didChangeSelection];
-    }
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
+    [self didChangeSelection];
 }
+
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
+    return YES;
+}
+
 
 - (void)didChangeSelection {
-    NSLog(@"Selection changed");
-    id selectedObject = [[self.tagsArrayController selectedObjectsExceptExtraItems] lastObject];
+    NSIndexSet *selection = [self.tagsTableView selectedRowIndexes];
+    NSInteger index = [selection firstIndex];
+    
+    id selectedObject = [self.tagsArrayController arrangedObjects][index];
     
     if (![selectedObject isKindOfClass:[MKTag class]]) {
         [self trigger:@"selectTag" data:[NSNull null]];

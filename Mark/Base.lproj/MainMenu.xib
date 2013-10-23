@@ -721,7 +721,8 @@
                                                     </tableColumns>
                                                     <connections>
                                                         <binding destination="0Ld-Hz-XgA" name="content" keyPath="arrangedObjects" id="kKM-vJ-SO8"/>
-                                                        <binding destination="0Ld-Hz-XgA" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="kKM-vJ-SO8" id="KGn-V5-KsC"/>
+                                                        <outlet property="dataSource" destination="eoH-yA-S9h" id="aL4-sL-xca"/>
+                                                        <outlet property="delegate" destination="eoH-yA-S9h" id="RsI-bU-YDp"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -748,14 +749,14 @@
                                 <rect key="frame" x="125" y="0.0" width="146" height="574"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkA-Wl-TMQ">
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkA-Wl-TMQ">
                                         <rect key="frame" x="0.0" y="0.0" width="146" height="574"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="y91-Ql-ikS">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="574"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" rowSizeStyle="automatic" viewBased="YES" id="Eyu-t4-r7J">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="Eyu-t4-r7J">
                                                     <rect key="frame" x="0.0" y="0.0" width="146" height="574"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
