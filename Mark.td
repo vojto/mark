@@ -14,3 +14,8 @@ advanced stuff
 ==============
 
 ☐ style the tag list
+
+photoshop stuff
+---------------
+
+☐ UI for adding new tag, adding new note
