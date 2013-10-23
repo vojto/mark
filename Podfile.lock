@@ -1,10 +1,17 @@
 PODS:
   - MagicalRecord (2.2)
+  - RNEvents (0.0.1)
 
 DEPENDENCIES:
   - MagicalRecord
+  - RNEvents (from `/Users/vojto/Code/rnevents`)
+
+EXTERNAL SOURCES:
+  RNEvents:
+    :path: /Users/vojto/Code/rnevents
 
 SPEC CHECKSUMS:
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
+  RNEvents: 86ecdd5aaf10208eecb2d152dd6675b3c5d0e1ca
 
 COCOAPODS: 0.25.0
