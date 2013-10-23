@@ -660,7 +660,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="841" height="574"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZV-wD-ulz">
+                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZV-wD-ulz" customClass="DMSplitView">
                         <rect key="frame" x="0.0" y="0.0" width="841" height="574"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
@@ -897,6 +897,7 @@
         <customObject id="494" customClass="MKAppDelegate">
             <connections>
                 <outlet property="notesController" destination="t7L-iJ-K9t" id="rCv-wH-UcS"/>
+                <outlet property="splitView" destination="HZV-wD-ulz" id="ss2-9h-EVV"/>
                 <outlet property="tagArraycontroller" destination="0Ld-Hz-XgA" id="YCm-UX-YhU"/>
                 <outlet property="tagsController" destination="eoH-yA-S9h" id="x9g-dE-NWv"/>
                 <outlet property="window" destination="371" id="532"/>

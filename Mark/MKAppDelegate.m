@@ -9,6 +9,7 @@
 #import "MKAppDelegate.h"
 #import "MKTag.h"
 #import "MKNote.h"
+#import "DMSplitView.h"
 
 @implementation MKAppDelegate
 
@@ -20,6 +21,12 @@
     [self buildDefaultTagsAndNotes];
     
     [self setupFilteringByTag];
+    
+//    - (void) setPriority:(NSInteger) priorityIndex ofSubviewAtIndex:(NSInteger) subviewIndex;
+//
+    [self.splitView setPriority:1 ofSubviewAtIndex:0];
+    [self.splitView setPriority:2 ofSubviewAtIndex:1];
+    [self.splitView setPriority:3 ofSubviewAtIndex:2];
 }
 
 #pragma mark - Building default tags

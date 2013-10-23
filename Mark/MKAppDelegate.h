@@ -11,11 +11,14 @@
 #import "MKTagsArrayController.h"
 #import "MKNotesController.h"
 #import "MKTagsController.h"
+#import "DMSplitView.h"
 
 @interface MKAppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) NSManagedObjectContext *managedContext;
+
+@property (assign) IBOutlet DMSplitView *splitView;
 
 
 // New tag
