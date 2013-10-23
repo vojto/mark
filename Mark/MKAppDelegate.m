@@ -19,8 +19,6 @@
     
     [self buildDefaultTags];
     [self buildDefaultNotes];
-    
-    
 }
 
 #pragma mark - Building default tags

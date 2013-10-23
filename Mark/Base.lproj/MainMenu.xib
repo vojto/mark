@@ -721,6 +721,7 @@
                                                     </tableColumns>
                                                     <connections>
                                                         <binding destination="0Ld-Hz-XgA" name="content" keyPath="arrangedObjects" id="kKM-vJ-SO8"/>
+                                                        <binding destination="0Ld-Hz-XgA" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="kKM-vJ-SO8" id="KGn-V5-KsC"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -812,6 +813,7 @@
                                                     </tableColumns>
                                                     <connections>
                                                         <binding destination="Ib1-NY-Zgg" name="content" keyPath="arrangedObjects" id="gQx-1W-AOg"/>
+                                                        <binding destination="Ib1-NY-Zgg" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="gQx-1W-AOg" id="CxI-88-h2i"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -856,7 +858,9 @@
         </window>
         <customObject id="494" customClass="MKAppDelegate">
             <connections>
+                <outlet property="notesController" destination="t7L-iJ-K9t" id="rCv-wH-UcS"/>
                 <outlet property="tagArraycontroller" destination="0Ld-Hz-XgA" id="YCm-UX-YhU"/>
+                <outlet property="tagsController" destination="eoH-yA-S9h" id="x9g-dE-NWv"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
@@ -871,5 +875,17 @@
                 <binding destination="494" name="managedObjectContext" keyPath="self.managedContext" id="8ow-eg-SOw"/>
             </connections>
         </arrayController>
+        <customObject id="t7L-iJ-K9t" customClass="MKNotesController">
+            <connections>
+                <outlet property="notesArrayController" destination="Ib1-NY-Zgg" id="R2l-aT-UFf"/>
+                <outlet property="notesTable" destination="Eyu-t4-r7J" id="sW9-IW-hXa"/>
+            </connections>
+        </customObject>
+        <customObject id="eoH-yA-S9h" customClass="MKTagsController">
+            <connections>
+                <outlet property="tagsArrayController" destination="0Ld-Hz-XgA" id="ram-GG-wEY"/>
+                <outlet property="tagsTableView" destination="p30-oW-T0Y" id="GjE-Px-cZB"/>
+            </connections>
+        </customObject>
     </objects>
 </document>
