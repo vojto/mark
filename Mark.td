@@ -6,7 +6,7 @@ super simple stuff
 ✓ add some starting data
 ✓ show list of tags
 ✓ create new tag
-☐ add the "all notes" tag
+✓ add the "all notes" tag
 ☐ show list of notes for the selected tag
 ☐ create new note
 

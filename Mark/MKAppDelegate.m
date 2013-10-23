@@ -8,6 +8,7 @@
 
 #import "MKAppDelegate.h"
 #import "MKTag.h"
+#import "MKNote.h"
 
 @implementation MKAppDelegate
 
@@ -17,6 +18,7 @@
     self.managedContext = [NSManagedObjectContext defaultContext];
     
     [self buildDefaultTags];
+    [self buildDefaultNotes];
     
     
 }
@@ -28,6 +30,15 @@
         MKTag *tag = [MKTag createEntity];
         tag.name = @"work";
         
+        [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
+    }
+}
+
+- (void)buildDefaultNotes {
+    if ([MKNote countOfEntities] == 0) {
+        MKNote *note = [MKNote createEntity];
+        note.title = @"journal - 23.10.2013";
+        note.content = @"working on Mark today";
         [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
     }
 }
