@@ -16,14 +16,23 @@
     
     self.managedContext = [NSManagedObjectContext defaultContext];
     
+    [self buildDefaultTags];
+    
+    
+}
+
+#pragma mark - Building default tags
+
+- (void)buildDefaultTags {
     if ([MKTag countOfEntities] == 0) {
         MKTag *tag = [MKTag createEntity];
         tag.name = @"work";
         
         [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
     }
-
 }
+
+#pragma mark - Adding tags
 
 - (IBAction)newTagAction:(id)sender {
     // Ensure we have the controller

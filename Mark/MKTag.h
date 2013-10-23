@@ -24,4 +24,6 @@
 - (void)addNotes:(NSSet *)values;
 - (void)removeNotes:(NSSet *)values;
 
+- (NSArray *)children;
+
 @end

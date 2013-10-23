@@ -9,10 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import "MKNewTagViewController.h"
 
-@interface MKAppDelegate : NSObject <NSApplicationDelegate>
+@interface MKAppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) NSManagedObjectContext *managedContext;
+
+// Siebar
+@property (strong) IBOutlet NSArrayController *tagArraycontroller;
 
 // New tag
 @property (strong) NSPopover *createTagPopover;

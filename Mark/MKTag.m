@@ -19,4 +19,8 @@
     return @"Tag";
 }
 
+- (NSArray *)children {
+    return @[];
+}
+
 @end

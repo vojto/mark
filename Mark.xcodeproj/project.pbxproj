@@ -14,6 +14,7 @@
 		991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C791817F01B00B6C024 /* MKNote.m */; };
 		991A2C7E1817F88700B6C024 /* MKNewTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */; };
 		991A2C7F1817F88700B6C024 /* MKNewTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */; };
+		991A2C8A1818089900B6C024 /* MKTagsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C891818089900B6C024 /* MKTagsArrayController.m */; };
 		99A485FD1816DB5F00D7AE33 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A485FC1816DB5F00D7AE33 /* Cocoa.framework */; };
 		99A486071816DB5F00D7AE33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99A486051816DB5F00D7AE33 /* InfoPlist.strings */; };
 		99A486091816DB5F00D7AE33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A486081816DB5F00D7AE33 /* main.m */; };
@@ -48,6 +49,8 @@
 		991A2C7B1817F88700B6C024 /* MKNewTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNewTagViewController.h; sourceTree = "<group>"; };
 		991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNewTagViewController.m; sourceTree = "<group>"; };
 		991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKNewTagViewController.xib; sourceTree = "<group>"; };
+		991A2C881818089900B6C024 /* MKTagsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTagsArrayController.h; sourceTree = "<group>"; };
+		991A2C891818089900B6C024 /* MKTagsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTagsArrayController.m; sourceTree = "<group>"; };
 		99A485F91816DB5F00D7AE33 /* Mark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99A485FC1816DB5F00D7AE33 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		99A485FF1816DB5F00D7AE33 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -92,6 +95,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		991A2C801817FEFA00B6C024 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */,
+				991A2C781817F01B00B6C024 /* MKNote.h */,
+				991A2C791817F01B00B6C024 /* MKNote.m */,
+				991A2C751817F01B00B6C024 /* MKTag.h */,
+				991A2C761817F01B00B6C024 /* MKTag.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		991A2C811817FF0000B6C024 /* New Tag */ = {
+			isa = PBXGroup;
+			children = (
+				991A2C7B1817F88700B6C024 /* MKNewTagViewController.h */,
+				991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */,
+				991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */,
+			);
+			name = "New Tag";
+			sourceTree = "<group>";
+		};
+		991A2C821817FF0600B6C024 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				991A2C831817FF0B00B6C024 /* Main */,
+				991A2C811817FF0000B6C024 /* New Tag */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		991A2C831817FF0B00B6C024 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				99A4860E1816DB5F00D7AE33 /* MKAppDelegate.h */,
+				99A4860F1816DB5F00D7AE33 /* MKAppDelegate.m */,
+				991A2C881818089900B6C024 /* MKTagsArrayController.h */,
+				991A2C891818089900B6C024 /* MKTagsArrayController.m */,
+				99A486111816DB5F00D7AE33 /* MainMenu.xib */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
 		99A485F01816DB5F00D7AE33 = {
 			isa = PBXGroup;
 			children = (
@@ -136,19 +182,10 @@
 		99A486021816DB5F00D7AE33 /* Mark */ = {
 			isa = PBXGroup;
 			children = (
-				99A4860E1816DB5F00D7AE33 /* MKAppDelegate.h */,
-				99A4860F1816DB5F00D7AE33 /* MKAppDelegate.m */,
-				99A486111816DB5F00D7AE33 /* MainMenu.xib */,
 				99A486141816DB5F00D7AE33 /* Images.xcassets */,
 				99A486031816DB5F00D7AE33 /* Supporting Files */,
-				991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */,
-				991A2C781817F01B00B6C024 /* MKNote.h */,
-				991A2C791817F01B00B6C024 /* MKNote.m */,
-				991A2C751817F01B00B6C024 /* MKTag.h */,
-				991A2C761817F01B00B6C024 /* MKTag.m */,
-				991A2C7B1817F88700B6C024 /* MKNewTagViewController.h */,
-				991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */,
-				991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */,
+				991A2C801817FEFA00B6C024 /* Models */,
+				991A2C821817FF0600B6C024 /* Components */,
 			);
 			path = Mark;
 			sourceTree = "<group>";
@@ -318,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				991A2C8A1818089900B6C024 /* MKTagsArrayController.m in Sources */,
 				991A2C7E1817F88700B6C024 /* MKNewTagViewController.m in Sources */,
 				991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */,
 				99A486101816DB5F00D7AE33 /* MKAppDelegate.m in Sources */,
