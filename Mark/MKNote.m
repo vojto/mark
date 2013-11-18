@@ -20,4 +20,12 @@
     return @"Note";
 }
 
+- (NSString *)tagsString {
+    NSArray *tagNames = [self.tags.allObjects map:^id(MKTag *tag) {
+        return tag.name;
+    }];
+    
+    return [tagNames componentsJoinedByString:@", "];
+}
+
 @end

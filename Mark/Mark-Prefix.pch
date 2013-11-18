@@ -9,4 +9,5 @@
     #define MR_SHORTHAND
     #import <CoreData+MagicalRecord.h>
     #import <RNEvents/NSObject+RNEvents.h>
+    #import <BlocksKit/BlocksKit.h>
 #endif

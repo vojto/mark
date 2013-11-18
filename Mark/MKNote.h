@@ -16,6 +16,9 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSSet *tags;
+
+- (NSString *)tagsString;
+
 @end
 
 @interface MKNote (CoreDataGeneratedAccessors)

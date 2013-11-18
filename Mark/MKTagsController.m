@@ -11,8 +11,15 @@
 
 @implementation MKTagsController
 
+- (id)init {
+    if ((self = [super init])) {
+        NSLog(@"initializing tags controller");
+    }
+    return self;
+}
 
 - (void)awakeFromNib {
+    NSLog(@"Here's the tag table view: %@", self.tagsTableView);
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
