@@ -869,6 +869,9 @@
                                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="569" height="574"/>
                                                     <size key="maxSize" width="569" height="10000000"/>
+                                                    <connections>
+                                                        <binding destination="Ib1-NY-Zgg" name="attributedString" keyPath="selection.content" id="NS1-xY-I5N"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
