@@ -858,11 +858,11 @@ CA
                                     <constraint firstAttribute="bottom" secondItem="ZkA-Wl-TMQ" secondAttribute="bottom" id="wMZ-vK-mcb"/>
                                 </constraints>
                             </customView>
-                            <customView fixedFrame="YES" id="AbC-1r-zWO">
+                            <customView id="AbC-1r-zWO">
                                 <rect key="frame" x="272" y="0.0" width="569" height="574"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-ty-3JX">
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-ty-3JX">
                                         <rect key="frame" x="20" y="532" width="529" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Note Title" drawsBackground="YES" id="UoP-XX-8HH">
@@ -874,14 +874,14 @@ CA
                                             <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.title" id="K79-X3-nrx"/>
                                         </connections>
                                     </textField>
-                                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhy-lF-uNR">
+                                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhy-lF-uNR">
                                         <rect key="frame" x="20" y="20" width="529" height="472"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="Okf-UP-dYj">
+                                        <clipView key="contentView" id="Okf-UP-dYj">
                                             <rect key="frame" x="1" y="1" width="527" height="470"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView ambiguous="YES" importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="hef-1G-cXA" customClass="RKSyntaxView">
+                                                <textView importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="hef-1G-cXA" customClass="RKSyntaxView">
                                                     <rect key="frame" x="0.0" y="0.0" width="527" height="470"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -910,7 +910,7 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <tokenField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvA-T0-7OH">
+                                    <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gvA-T0-7OH">
                                         <rect key="frame" x="20" y="502" width="529" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="j8M-6C-pk9">
@@ -923,6 +923,20 @@ CA
                                         </connections>
                                     </tokenField>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mhy-lF-uNR" secondAttribute="trailing" constant="20" id="4Rk-zy-X6Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="mhy-lF-uNR" secondAttribute="bottom" constant="20" id="7FS-IU-o4K"/>
+                                    <constraint firstItem="YuN-ty-3JX" firstAttribute="leading" secondItem="AbC-1r-zWO" secondAttribute="leading" constant="20" id="7te-0B-G55"/>
+                                    <constraint firstItem="mhy-lF-uNR" firstAttribute="top" secondItem="gvA-T0-7OH" secondAttribute="bottom" constant="10" id="AxY-p2-d6m"/>
+                                    <constraint firstItem="YuN-ty-3JX" firstAttribute="top" secondItem="AbC-1r-zWO" secondAttribute="top" constant="20" id="Bqs-eH-bi6"/>
+                                    <constraint firstItem="gvA-T0-7OH" firstAttribute="leading" secondItem="AbC-1r-zWO" secondAttribute="leading" constant="20" id="EaY-aA-6nq"/>
+                                    <constraint firstItem="mhy-lF-uNR" firstAttribute="top" secondItem="gvA-T0-7OH" secondAttribute="bottom" constant="10" id="GVT-Lf-N9M"/>
+                                    <constraint firstAttribute="trailing" secondItem="gvA-T0-7OH" secondAttribute="trailing" constant="20" id="KD9-gX-H8x"/>
+                                    <constraint firstItem="gvA-T0-7OH" firstAttribute="top" secondItem="YuN-ty-3JX" secondAttribute="bottom" constant="8" id="bb5-MJ-IwE"/>
+                                    <constraint firstAttribute="trailing" secondItem="YuN-ty-3JX" secondAttribute="trailing" constant="20" id="k1F-yl-Gzy"/>
+                                    <constraint firstItem="mhy-lF-uNR" firstAttribute="leading" secondItem="AbC-1r-zWO" secondAttribute="leading" constant="20" id="lJE-db-NBj"/>
+                                    <constraint firstItem="gvA-T0-7OH" firstAttribute="top" secondItem="YuN-ty-3JX" secondAttribute="bottom" constant="8" id="qDa-rF-Siy"/>
+                                </constraints>
                             </customView>
                         </subviews>
                         <holdingPriorities>

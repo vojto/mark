@@ -7,7 +7,7 @@
 		<key>color</key>
 		<string>zone</string>
 		<key>pattern</key>
-		<string>^●\s*.*$</string>
+		<string>^\s*((\*|\-)\s*\[(o|O)\])\s*.*$</string>
 	</dict>
 	<key>todo-checked</key>
 	<dict>
