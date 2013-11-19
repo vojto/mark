@@ -29,6 +29,10 @@
     [self.splitView setPriority:3 ofSubviewAtIndex:2];
 }
 
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
 #pragma mark - Building default tags
 
 - (void)buildDefaultTagsAndNotes {
