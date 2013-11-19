@@ -891,7 +891,7 @@ CA
                                                     <size key="minSize" width="527" height="470"/>
                                                     <size key="maxSize" width="536" height="10000000"/>
                                                     <connections>
-                                                        <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.content" id="ysf-ZM-VdJ">
+                                                        <binding destination="t7L-iJ-K9t" name="value" keyPath="self.notesArrayController.selection.content" id="PAQ-cB-CHc">
                                                             <dictionary key="options">
                                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                             </dictionary>

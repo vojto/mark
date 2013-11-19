@@ -14,7 +14,7 @@
 		<key>color</key>
 		<string>checked</string>
 		<key>pattern</key>
-		<string>^((\*|\-)\s*\[(x|X)\])\s*.*$</string>
+		<string>^\s*((\*|\-)\s*\[(x|X)\])\s*.*$</string>
 	</dict>
 	<key>todo-unchecked</key>
 	<dict>
@@ -23,16 +23,16 @@
 		<key>patternGroup</key>
 		<integer>1</integer>
 		<key>pattern</key>
-		<string>^((\*|\-)\s*\[ \])\s*.*$</string>
+		<string>^\s*((\*|\-)\s*\[ \])\s*.*$</string>
 	</dict>
 	<key>markdown-header-1</key>
 	<dict>
 		<key>size</key>
-		<integer>14</integer>
+		<integer>13</integer>
 		<key>isBold</key>
 		<true/>
 		<key>color</key>
-		<string>title</string>
+		<string>red</string>
 		<key>pattern</key>
 		<string>^(# )(.*?)($| #+$)</string>
 	</dict>
