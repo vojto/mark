@@ -2,20 +2,25 @@ PODS:
   - BlocksKit (1.8.3):
     - libffi
   - MagicalRecord (2.2)
+  - RKSyntaxView (0.0.1)
   - RNEvents (0.0.1)
 
 DEPENDENCIES:
   - BlocksKit
   - MagicalRecord
+  - RKSyntaxView (from `/Users/vojto/Code/RKSyntaxView`)
   - RNEvents (from `/Users/vojto/Code/rnevents`)
 
 EXTERNAL SOURCES:
+  RKSyntaxView:
+    :path: /Users/vojto/Code/RKSyntaxView
   RNEvents:
     :path: /Users/vojto/Code/rnevents
 
 SPEC CHECKSUMS:
   BlocksKit: 27257f9cbbec0ea98c80ba83cc2ea7111ae62eb2
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
+  RKSyntaxView: aeb8f06ff0e23562b7d3332789945fabd0cc591d
   RNEvents: 86ecdd5aaf10208eecb2d152dd6675b3c5d0e1ca
 
 COCOAPODS: 0.25.0
