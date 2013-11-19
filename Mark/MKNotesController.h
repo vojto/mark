@@ -14,6 +14,8 @@
 @property (assign) IBOutlet NSTableView *notesTable;
 @property (assign) IBOutlet NSArrayController *notesArrayController;
 
+@property (strong) MKTag *currentTag;
+
 - (void)filterNotesByTag:(MKTag *)tag;
 
 - (IBAction)newNoteAction:(id)sender;

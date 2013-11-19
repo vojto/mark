@@ -45,10 +45,11 @@
 - (void)filterNotesByTag:(MKTag *)tag {
     if ((id)tag == [NSNull null]) {
         self.notesArrayController.filterPredicate = nil;
+        self.currentTag = nil;
     } else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY(tags.name) == %@", tag.name];
-        NSLog(@"Predicate: %@", predicate);
         self.notesArrayController.filterPredicate = predicate;
+        self.currentTag = tag;
     }
 }
 
@@ -82,6 +83,10 @@
     MKNote *note = [MKNote createEntity];
     note.title = @"New note...";
     note.updatedAt = [NSDate date];
+    
+    if (self.currentTag) {
+        [note addTagsObject:self.currentTag];
+    }
     
     // Select the newly added note
     [self.notesArrayController insertObject:note atArrangedObjectIndex:0];

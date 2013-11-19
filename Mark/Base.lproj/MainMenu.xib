@@ -942,7 +942,7 @@
                 <binding destination="494" name="managedObjectContext" keyPath="self.managedContext" id="zeo-Jh-cr5"/>
             </connections>
         </arrayController>
-        <arrayController mode="entity" entityName="Note" automaticallyPreparesContent="YES" id="Ib1-NY-Zgg" userLabel="Notes Array Controller">
+        <arrayController mode="entity" entityName="Note" automaticallyPreparesContent="YES" clearsFilterPredicateOnInsertion="NO" id="Ib1-NY-Zgg" userLabel="Notes Array Controller">
             <connections>
                 <binding destination="494" name="managedObjectContext" keyPath="self.managedContext" id="8ow-eg-SOw"/>
             </connections>
