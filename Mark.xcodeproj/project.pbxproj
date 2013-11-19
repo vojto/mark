@@ -30,6 +30,8 @@
 		99A4861D1816DB6000D7AE33 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A485FC1816DB5F00D7AE33 /* Cocoa.framework */; };
 		99A486251816DB6000D7AE33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99A486231816DB6000D7AE33 /* InfoPlist.strings */; };
 		99A486271816DB6000D7AE33 /* MarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A486261816DB6000D7AE33 /* MarkTests.m */; };
+		99AFB12F183BC2A90002DBB4 /* PageScheme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12D183BC2A90002DBB4 /* PageScheme.plist */; };
+		99AFB130183BC2A90002DBB4 /* PageSyntax.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		99A486221816DB6000D7AE33 /* MarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MarkTests-Info.plist"; sourceTree = "<group>"; };
 		99A486241816DB6000D7AE33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99A486261816DB6000D7AE33 /* MarkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkTests.m; sourceTree = "<group>"; };
+		99AFB12D183BC2A90002DBB4 /* PageScheme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageScheme.plist; sourceTree = "<group>"; };
+		99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSyntax.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,8 @@
 				99A486201816DB6000D7AE33 /* MarkTests */,
 				99A485FB1816DB5F00D7AE33 /* Frameworks */,
 				99A485FA1816DB5F00D7AE33 /* Products */,
+				99AFB12D183BC2A90002DBB4 /* PageScheme.plist */,
+				99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */,
 				36A7761578334B52A6B46CAB /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -331,6 +337,8 @@
 				99A486151816DB5F00D7AE33 /* Images.xcassets in Resources */,
 				99A4860D1816DB5F00D7AE33 /* Credits.rtf in Resources */,
 				99A486131816DB5F00D7AE33 /* MainMenu.xib in Resources */,
+				99AFB130183BC2A90002DBB4 /* PageSyntax.plist in Resources */,
+				99AFB12F183BC2A90002DBB4 /* PageScheme.plist in Resources */,
 				991A2C7F1817F88700B6C024 /* MKNewTagViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

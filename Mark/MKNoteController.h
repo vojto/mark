@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RKSyntaxView/RKSyntaxView.h>
 
 @interface MKNoteController : NSObject
 
 @property (weak) IBOutlet NSTextField *titleField;
 @property (weak) IBOutlet NSScrollView *contentField;
 
+@property (unsafe_unretained) IBOutlet RKSyntaxView *sourceView;
 
 @end

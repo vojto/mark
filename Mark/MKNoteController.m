@@ -8,13 +8,18 @@
 
 #import "MKNoteController.h"
 
+
 @implementation MKNoteController
 
 - (void)awakeFromNib {
-    NSLog(@"Waiting for notifications on: %@", APP_DELEGATE);
     [APP_DELEGATE on:@"newNote" block:^(id data) {
         [self.titleField becomeFirstResponder];
     }];
+    
+    [self.sourceView loadScheme:@"PageScheme"];
+    [self.sourceView loadSyntax:@"PageSyntax"];
+
+    [self.sourceView highlight];
 }
 
 @end

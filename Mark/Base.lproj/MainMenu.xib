@@ -880,7 +880,7 @@ CA
                                             <rect key="frame" x="1" y="1" width="527" height="470"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView ambiguous="YES" importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="hef-1G-cXA">
+                                                <textView ambiguous="YES" importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="hef-1G-cXA" customClass="RKSyntaxView">
                                                     <rect key="frame" x="0.0" y="0.0" width="527" height="470"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -970,6 +970,7 @@ CA
         <customObject id="n3h-S0-dtY" customClass="MKNoteController">
             <connections>
                 <outlet property="contentField" destination="mhy-lF-uNR" id="267-kW-k0i"/>
+                <outlet property="sourceView" destination="hef-1G-cXA" id="x0j-Yn-eiM"/>
                 <outlet property="titleField" destination="YuN-ty-3JX" id="eN0-JN-6MH"/>
             </connections>
         </customObject>
