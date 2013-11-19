@@ -14,21 +14,16 @@
 		<key>color</key>
 		<string>checked</string>
 		<key>pattern</key>
-		<string>^✓\s*.*$</string>
+		<string>^((\*|\-)\s*\[(x|X)\])\s*.*$</string>
 	</dict>
 	<key>todo-unchecked</key>
 	<dict>
 		<key>color</key>
-		<string>default</string>
+		<string>red</string>
+		<key>patternGroup</key>
+		<integer>1</integer>
 		<key>pattern</key>
-		<string>^☐\s*.*$</string>
-	</dict>
-	<key>list-item</key>
-	<dict>
-		<key>color</key>
-		<string>default</string>
-		<key>pattern</key>
-		<string>^\*\s+.*$</string>
+		<string>^((\*|\-)\s*\[ \])\s*.*$</string>
 	</dict>
 	<key>markdown-header-1</key>
 	<dict>
@@ -87,6 +82,15 @@
 		<string>code</string>
 		<key>pattern</key>
 		<string>^ {4}(.*?)$</string>
+	</dict>
+	<key>markdown-code-inline</key>
+	<dict>
+		<key>color</key>
+		<string>code</string>
+		<key>patternGroup</key>
+		<integer>0</integer>
+		<key>pattern</key>
+		<string>`(.*?)`</string>
 	</dict>
 </dict>
 </plist>

@@ -11,7 +11,7 @@
 		<key>strong</key>
 		<string>48595f</string>
 		<key>code</key>
-		<string>2AA198</string>
+		<string>718c00</string>
 		<key>codeBackground</key>
 		<string>FFFFFF</string>
 		<key>highlight</key>
@@ -28,6 +28,8 @@
 		<string>DC322F</string>
 		<key>zone</key>
 		<string>f21bea</string>
+		<key>red</key>
+		<string>c82829</string>
 	</dict>
 	<key>font</key>
 	<string>Menlo</string>
