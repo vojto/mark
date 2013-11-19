@@ -12,6 +12,7 @@
 #import "MKNotesController.h"
 #import "MKTagsController.h"
 #import "DMSplitView.h"
+#import "MKAutoSaveService.h"
 
 NSString * const kMKAppDidFinishLaunchingNotification;
 
@@ -19,6 +20,7 @@ NSString * const kMKAppDidFinishLaunchingNotification;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) NSManagedObjectContext *managedContext;
+@property (strong) MKAutoSaveService *autoSaveService;
 
 @property (assign) IBOutlet DMSplitView *splitView;
 

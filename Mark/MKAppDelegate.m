@@ -29,6 +29,7 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     [MagicalRecord setupAutoMigratingCoreDataStack];
     self.managedContext = [NSManagedObjectContext defaultContext];
+    self.autoSaveService = [[MKAutoSaveService alloc] initWithContext:self.managedContext];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

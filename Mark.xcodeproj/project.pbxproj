@@ -32,6 +32,7 @@
 		99A486271816DB6000D7AE33 /* MarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A486261816DB6000D7AE33 /* MarkTests.m */; };
 		99AFB12F183BC2A90002DBB4 /* PageScheme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12D183BC2A90002DBB4 /* PageScheme.plist */; };
 		99AFB130183BC2A90002DBB4 /* PageSyntax.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */; };
+		99AFB134183BCCF50002DBB4 /* MKAutoSaveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		99A486261816DB6000D7AE33 /* MarkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkTests.m; sourceTree = "<group>"; };
 		99AFB12D183BC2A90002DBB4 /* PageScheme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageScheme.plist; sourceTree = "<group>"; };
 		99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSyntax.plist; sourceTree = "<group>"; };
+		99AFB132183BCCF50002DBB4 /* MKAutoSaveService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKAutoSaveService.h; sourceTree = "<group>"; };
+		99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKAutoSaveService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +222,7 @@
 				99A486141816DB5F00D7AE33 /* Images.xcassets */,
 				99A486031816DB5F00D7AE33 /* Supporting Files */,
 				991A2C801817FEFA00B6C024 /* Models */,
+				99AFB131183BCCE20002DBB4 /* Services */,
 				991A2C821817FF0600B6C024 /* Components */,
 			);
 			path = Mark;
@@ -252,6 +256,15 @@
 				99A486231816DB6000D7AE33 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		99AFB131183BCCE20002DBB4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				99AFB132183BCCF50002DBB4 /* MKAutoSaveService.h */,
+				99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +415,7 @@
 				99A486091816DB5F00D7AE33 /* main.m in Sources */,
 				991A2C9018180CCD00B6C024 /* MKTagsController.m in Sources */,
 				99009864183BB33A007EAB2A /* MKNoteController.m in Sources */,
+				99AFB134183BCCF50002DBB4 /* MKAutoSaveService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

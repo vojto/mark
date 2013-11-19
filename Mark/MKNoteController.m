@@ -20,6 +20,7 @@
     [self.sourceView loadSyntax:@"PageSyntax"];
 
     [self.sourceView highlight];
+
 }
 
 @end

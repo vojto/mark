@@ -19,7 +19,6 @@
 }
 
 - (void)awakeFromNib {
-    NSLog(@"Here's the tag table view: %@", self.tagsTableView);
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
