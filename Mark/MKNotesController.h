@@ -19,5 +19,6 @@
 - (void)filterNotesByTag:(MKTag *)tag;
 
 - (IBAction)newNoteAction:(id)sender;
+- (IBAction)deleteNoteAction:(id)sender;
 
 @end

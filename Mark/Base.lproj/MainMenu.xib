@@ -75,6 +75,14 @@
                                     <action selector="newTagAction:" target="494" id="w1T-1z-E77"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Delete note" id="pbk-hE-QNR">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <connections>
+                                    <action selector="deleteNoteAction:" target="t7L-iJ-K9t" id="Vgs-my-yF3"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Open…" keyEquivalent="o" id="72">
                                 <connections>
                                     <action selector="openDocument:" target="-1" id="374"/>

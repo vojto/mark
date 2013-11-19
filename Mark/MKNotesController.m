@@ -95,4 +95,11 @@
     
 }
 
+#pragma mark - Deleting notes
+
+- (void)deleteNoteAction:(id)sender {
+    MKNote *note = [[self.notesArrayController selectedObjects] lastObject];
+    [note deleteEntity];
+}
+
 @end
