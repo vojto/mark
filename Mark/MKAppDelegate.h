@@ -13,6 +13,8 @@
 #import "MKTagsController.h"
 #import "DMSplitView.h"
 
+NSString * const kMKAppDidFinishLaunchingNotification;
+
 @interface MKAppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;

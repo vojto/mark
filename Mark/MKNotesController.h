@@ -10,6 +10,7 @@
 
 @interface MKNotesController : NSObject
 
+@property (assign) BOOL isSetup;
 @property (assign) IBOutlet NSTableView *notesTable;
 @property (assign) IBOutlet NSArrayController *notesArrayController;
 

@@ -8,23 +8,38 @@
 
 #import "MKNotesController.h"
 #import "MKNote.h"
+#import "MKAppDelegate.h"
 
 @implementation MKNotesController
 
 - (id)init {
     if ((self = [super init])) {
-        NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
-        NSLog(@"context: %@", context);
+        self.isSetup = NO;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishLaunching:) name:kMKAppDidFinishLaunchingNotification object:nil];
     }
     return self;
 }
 
+- (void)didFinishLaunching:(NSNotification *)notification {
+    NSLog(@"App did finish launching");
+    
+    // Setup notification for managed object context
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+}
+
 - (void)awakeFromNib {
-    NSLog(@"Array controller: %@", self.notesArrayController);
+    if (self.isSetup) return;
+    
+    
+    // Setup sorting of notes
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO];
     self.notesArrayController.sortDescriptors = @[sort];
+    
+    // Update isSetup flag    
+    self.isSetup = YES;
+
 }
 
 - (void)filterNotesByTag:(MKTag *)tag {

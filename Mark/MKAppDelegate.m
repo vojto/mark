@@ -11,18 +11,28 @@
 #import "MKNote.h"
 #import "DMSplitView.h"
 
+NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLaunching";
+
 @implementation MKAppDelegate
 
 - (id)init {
     if ((self = [super init])) {
-        [MagicalRecord setupAutoMigratingCoreDataStack];
-        self.managedContext = [NSManagedObjectContext defaultContext];
     }
     return self;
 }
 
+- (void)awakeFromNib {
+    // Setup Core Data stack
+}
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    [MagicalRecord setupAutoMigratingCoreDataStack];
+    self.managedContext = [NSManagedObjectContext defaultContext];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kMKAppDidFinishLaunchingNotification object:nil]];
+
     [self buildDefaultTagsAndNotes];
     
     [self setupFilteringByTag];
