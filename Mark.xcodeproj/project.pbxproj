@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30F63E9164EE423AAD53EE0A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA64B0997D2402389BEC0E1 /* libPods.a */; };
+		99009864183BB33A007EAB2A /* MKNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99009863183BB33A007EAB2A /* MKNoteController.m */; };
 		991A2C711817EEFA00B6C024 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A486001816DB5F00D7AE33 /* CoreData.framework */; };
 		991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */; };
 		991A2C771817F01B00B6C024 /* MKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C761817F01B00B6C024 /* MKTag.m */; };
@@ -44,6 +45,8 @@
 /* Begin PBXFileReference section */
 		1AA64B0997D2402389BEC0E1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		36A7761578334B52A6B46CAB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		99009862183BB33A007EAB2A /* MKNoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNoteController.h; sourceTree = "<group>"; };
+		99009863183BB33A007EAB2A /* MKNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNoteController.m; sourceTree = "<group>"; };
 		991A2C731817EF8400B6C024 /* Mark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mark.xcdatamodel; sourceTree = "<group>"; };
 		991A2C751817F01B00B6C024 /* MKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTag.h; sourceTree = "<group>"; };
 		991A2C761817F01B00B6C024 /* MKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTag.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				991A2C8F18180CCD00B6C024 /* MKTagsController.m */,
 				991A2C9118181A5000B6C024 /* DMSplitView.h */,
 				991A2C9218181A5000B6C024 /* DMSplitView.m */,
+				99009862183BB33A007EAB2A /* MKNoteController.h */,
+				99009863183BB33A007EAB2A /* MKNoteController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 				991A2C771817F01B00B6C024 /* MKTag.m in Sources */,
 				99A486091816DB5F00D7AE33 /* main.m in Sources */,
 				991A2C9018180CCD00B6C024 /* MKTagsController.m in Sources */,
+				99009864183BB33A007EAB2A /* MKNoteController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,4 +10,7 @@
     #import <CoreData+MagicalRecord.h>
     #import <RNEvents/NSObject+RNEvents.h>
     #import <BlocksKit/BlocksKit.h>
+    #import "MKAppDelegate.h"
 #endif
+
+#define APP_DELEGATE (MKAppDelegate *)[[NSApplication sharedApplication] delegate]

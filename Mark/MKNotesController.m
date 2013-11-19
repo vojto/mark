@@ -84,10 +84,10 @@
     note.updatedAt = [NSDate date];
     
     // Select the newly added note
-    [self performBlock:^(id sender) {
-            [self.notesArrayController setSelectionIndex:0];
-    } afterDelay:0.1];
-
+    [self.notesArrayController insertObject:note atArrangedObjectIndex:0];
+    
+    [APP_DELEGATE trigger:@"newNote"];
+    
 }
 
 @end

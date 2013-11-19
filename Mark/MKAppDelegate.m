@@ -23,6 +23,7 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
 
 - (void)awakeFromNib {
     // Setup Core Data stack
+
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {

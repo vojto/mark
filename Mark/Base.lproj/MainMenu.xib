@@ -959,5 +959,11 @@
                 <outlet property="tagsTableView" destination="p30-oW-T0Y" id="GjE-Px-cZB"/>
             </connections>
         </customObject>
+        <customObject id="n3h-S0-dtY" customClass="MKNoteController">
+            <connections>
+                <outlet property="contentField" destination="mhy-lF-uNR" id="267-kW-k0i"/>
+                <outlet property="titleField" destination="YuN-ty-3JX" id="eN0-JN-6MH"/>
+            </connections>
+        </customObject>
     </objects>
 </document>
