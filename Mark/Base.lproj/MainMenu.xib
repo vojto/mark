@@ -873,18 +873,6 @@ CA
                                             <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.title" id="K79-X3-nrx"/>
                                         </connections>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dv8-qx-zI0">
-                                        <rect key="frame" x="20" y="500" width="529" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Tags" drawsBackground="YES" id="haw-1s-RLN">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.tagsString" id="v4j-ZU-9Dd"/>
-                                        </connections>
-                                    </textField>
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhy-lF-uNR">
                                         <rect key="frame" x="20" y="20" width="529" height="472"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -917,6 +905,18 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
+                                    <tokenField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvA-T0-7OH">
+                                        <rect key="frame" x="20" y="502" width="529" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="j8M-6C-pk9">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </tokenFieldCell>
+                                        <connections>
+                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.tagNames" id="lOU-Az-y53"/>
+                                        </connections>
+                                    </tokenField>
                                 </subviews>
                             </customView>
                         </subviews>

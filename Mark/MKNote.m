@@ -22,11 +22,31 @@
 }
 
 - (NSString *)tagsString {
-    NSArray *tagNames = [self.tags.allObjects map:^id(MKTag *tag) {
+    return [self.tagNames componentsJoinedByString:@", "];
+}
+
+- (NSArray *)tagNames {
+    return [self.tags.allObjects map:^id(MKTag *tag) {
         return tag.name;
     }];
+}
+
+- (void)setTagNames:(NSArray *)tagNames {
+    NSMutableSet *tagsToRemove = [self.tags mutableCopy];
     
-    return [tagNames componentsJoinedByString:@", "];
+    for (NSString *tagName in tagNames) {
+        MKTag *tag = [MKTag MR_findFirstByAttribute:@"name" withValue:tagName];
+        if (!tag) {
+            tag = [MKTag createEntity];
+            tag.name = tagName;
+        }
+        [tagsToRemove removeObject:tag];
+        [self addTagsObject:tag];
+    }
+    
+    for (MKTag *tag in tagsToRemove) {
+        [self removeTagsObject:tag];
+    }
 }
 
 @end

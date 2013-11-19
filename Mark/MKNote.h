@@ -19,6 +19,8 @@
 @property (nonatomic, retain) NSSet *tags;
 
 - (NSString *)tagsString;
+- (NSArray *)tagNames;
+- (void)setTagNames:(NSArray *)tagNames;
 
 @end
 
