@@ -13,10 +13,15 @@
 
 @implementation MKAppDelegate
 
+- (id)init {
+    if ((self = [super init])) {
+        [MagicalRecord setupAutoMigratingCoreDataStack];
+        self.managedContext = [NSManagedObjectContext defaultContext];
+    }
+    return self;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [MagicalRecord setupAutoMigratingCoreDataStack];
-    
-    self.managedContext = [NSManagedObjectContext defaultContext];
     
     [self buildDefaultTagsAndNotes];
     

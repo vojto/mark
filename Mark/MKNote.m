@@ -15,6 +15,7 @@
 @dynamic title;
 @dynamic content;
 @dynamic tags;
+@dynamic updatedAt;
 
 + (NSString *)MR_entityName {
     return @"Note";

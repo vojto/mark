@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * content;
+@property (nonatomic, retain) NSDate *updatedAt;
 @property (nonatomic, retain) NSSet *tags;
 
 - (NSString *)tagsString;
