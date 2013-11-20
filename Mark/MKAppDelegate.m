@@ -32,6 +32,8 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
     self.autoSaveService = [[MKAutoSaveService alloc] initWithContext:self.managedContext];
     self.fileSystemSyncService = [[MKFileSystemSyncService alloc] initWithContext:self.managedContext];
     self.uuidService = [[MKUUIDService alloc] initWithContext:self.managedContext];
+    
+    [self.fileSystemSyncService restoreFromFileSystem];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -106,5 +108,10 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
     NSLog(@"Showing: %@", self.createTagPopover);
 }
 
+#pragma mark - Restoring from filesystem
+
+- (void)restoreFromFilesystemAction:(id)sender {
+    [self.fileSystemSyncService restoreFromFileSystem];
+}
 
 @end

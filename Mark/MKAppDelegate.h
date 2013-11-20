@@ -42,5 +42,8 @@ NSString * const kMKAppDidFinishLaunchingNotification;
 
 - (IBAction)newTagAction:(id)sender;
 
+// Temporary action
+- (IBAction)restoreFromFilesystemAction:(id)sender;
+
 
 @end

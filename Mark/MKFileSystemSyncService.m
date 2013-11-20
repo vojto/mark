@@ -11,6 +11,12 @@
 #import "MKAppDelegate.h"
 #import <DTFoundation/DTExtendedFileAttributes.h>
 
+NSString * const kMKBasePath = @"/Users/vojto/Desktop/MARK_NOTES";
+NSString * const kMKFileExtension = @"md";
+NSString * const kMKNoteUUIDExtendedAttribute = @"net.rinik.Mark:noteUUID";
+NSString * const kMKNoteTagsExtendedAttribute = @"net.rinik.Mark:noteTags";
+NSString * const kMKNoteTagsSeparator = @",";
+
 @implementation MKFileSystemSyncService
 
 - (id)initWithContext:(NSManagedObjectContext *)context {
@@ -52,7 +58,7 @@
     
     
     noteFilename = [self retrieveOrCreateNoteFilename:note];
-    notePath = [self notePathForFilename:noteFilename];
+    notePath = [self notePathForTitle:noteFilename];
     
     NSString *content = note.content;
     NSLog(@"content: %@", content);
@@ -80,9 +86,9 @@
 - (void)setExtendedAttributesForNote:(MKNote *)note path:(NSString *)notePath {
     // Set UUID
     DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:notePath];
-    [attrs setValue:note.uuid forAttribute:@"net.rinik.Mark:noteUUID"];
-    NSString *tagsString = [note.tagNames componentsJoinedByString:@","];
-    [attrs setValue:tagsString forAttribute:@"net.rinik.Mark:noteTags"];
+    [attrs setValue:note.uuid forAttribute:kMKNoteUUIDExtendedAttribute];
+    NSString *tagsString = [note.tagNames componentsJoinedByString:kMKNoteTagsSeparator];
+    [attrs setValue:tagsString forAttribute:kMKNoteTagsExtendedAttribute];
 }
 
 #pragma mark - Tags
@@ -107,9 +113,9 @@
             // If the title has changed and the filename is not up to date, then rename
             // the file to the new filename.
             
-            NSString *currentPath = [self notePathForFilename:note.fs_filename];
+            NSString *currentPath = [self notePathForTitle:note.fs_filename];
             NSString *newFilename = [self filenameFromTitle:note.title];
-            NSString *newPath = [self notePathForFilename:newFilename];
+            NSString *newPath = [self notePathForTitle:newFilename];
             
             NSLog(@"Renaming note file because the note title has changed: %@ -> %@", currentPath, newPath);
             
@@ -132,15 +138,49 @@
     return [title stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString *)notePathForFilename:(NSString *)filename {
+- (NSString *)notePathForTitle:(NSString *)filename {
     NSString *basePath, *notePath;
     
-    basePath = @"/Users/vojto/Desktop/MARK_NOTES";
+    basePath = kMKBasePath;
     
     notePath = [basePath stringByAppendingPathComponent:filename];
-    notePath = [notePath stringByAppendingPathExtension:@"md"];
+    notePath = [notePath stringByAppendingPathExtension:kMKFileExtension];
     
     return notePath;
+}
+
+#pragma mark - Restoring from filesystem
+
+- (void)restoreFromFileSystem {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:kMKBasePath];
+    NSString *fileName;
+    while (fileName = [enumerator nextObject]) {
+        BOOL isDirectory = NO;
+        NSString *path = [kMKBasePath stringByAppendingPathComponent:fileName];
+        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+
+        // Skip directories
+        if (isDirectory) {
+            continue;
+        }
+        
+        // Skip files with the wrong extension
+        if (![fileName hasSuffix:[NSString stringWithFormat:@".%@", kMKFileExtension]]) {
+            continue;
+        }
+        
+        NSString *title = [fileName stringByDeletingPathExtension];
+        
+        // Read metadata
+        NSLog(@"Path: %@", path);
+        DTExtendedFileAttributes *attributes = [[DTExtendedFileAttributes alloc] initWithPath:path];
+        NSString *uuid = [attributes valueForAttribute:kMKNoteUUIDExtendedAttribute];
+        NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
+        NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
+        
+        NSLog(@"Read note:\ntitle = %@\nuuid = %@\ntags = %@", title, uuid, tags);
+    }
 }
 
 @end

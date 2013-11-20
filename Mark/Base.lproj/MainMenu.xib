@@ -104,9 +104,14 @@ CA
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Close" keyEquivalent="w" id="73">
+                            <menuItem title="Restore from filesystem" keyEquivalent="r" id="73">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="193"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Close" keyEquivalent="w" id="oc5-fW-MHo">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="rvv-PS-cTP"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Save…" keyEquivalent="s" id="75">

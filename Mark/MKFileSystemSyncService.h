@@ -14,4 +14,6 @@
 
 - (id)initWithContext:(NSManagedObjectContext *)context;
 
+- (void)restoreFromFileSystem;
+
 @end
