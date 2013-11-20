@@ -38,12 +38,15 @@
     NSTextCheckingResult *match;
     
     // First, check if line is already a TODO
-    expression = @"^\\s*((\\*|\\-)\\s*\\[ \\])\\s*.*$";
+    expression = @"^\\s*((\\*|\\-)\\s*\\[[ xo]\\])\\s*.*$";
     regex = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:nil];
     match = [regex firstMatchInString:line options:0 range:NSMakeRange(0, [line length])];
     
     if (match) {
         // TODO: Progress
+        NSString *replacement = [line stringByReplacingOccurrencesOfString:@"[ ]" withString:@"[x]"];
+        [storage replaceCharactersInRange:lineRange withString:replacement];
+        [self.sourceView highlightRange:lineRange];
     } else {
         // Turn line (with possible bullet) into a TODO
         expression = @"^(\\s*)(\\*|\\-)?\\s*(.*)$";
