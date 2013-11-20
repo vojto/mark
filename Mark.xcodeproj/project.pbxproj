@@ -92,6 +92,7 @@
 		99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKAutoSaveService.m; sourceTree = "<group>"; };
 		99D9DABD183CC37500710F89 /* MKFileSystemSyncService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKFileSystemSyncService.h; sourceTree = "<group>"; };
 		99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKFileSystemSyncService.m; sourceTree = "<group>"; };
+		99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -655,9 +656,10 @@
 		991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */,
 				991A2C731817EF8400B6C024 /* Mark.xcdatamodel */,
 			);
-			currentVersion = 991A2C731817EF8400B6C024 /* Mark.xcdatamodel */;
+			currentVersion = 99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */;
 			path = Mark.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
