@@ -23,6 +23,7 @@ typedef void(^MKBlock)(id sender);
 
 - (id)initWithContext:(NSManagedObjectContext *)context {
     if ((self = [super init])) {
+        self.basePath = kMKBasePath;
         self.context = context;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSave:) name:NSManagedObjectContextDidSaveNotification object:self.context];
         
@@ -156,30 +157,37 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Restoring from filesystem
 
 - (void)restoreFromFileSystem {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:kMKBasePath];
-    
+    NSLog(@"Restoring from file system");
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        NSString *fileName;
-        
-        while (fileName = [enumerator nextObject]) {
-            BOOL isDirectory = NO;
-            NSString *path = [kMKBasePath stringByAppendingPathComponent:fileName];
-            [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
-            
-            // Skip directories
-            if (isDirectory) {
-                continue;
-            }
-            
-            // Skip files with the wrong extension
-            if (![fileName hasSuffix:[NSString stringWithFormat:@".%@", kMKFileExtension]]) {
-                continue;
-            }
-            
+        for (NSString *path in [self noteFilesInDirectory:self.basePath]) {
             [self updateNoteFromFileSystemAtPath:path context:localContext];
         }
     }];
+}
+
+- (NSArray *)noteFilesInDirectory:(NSString *)directoryPath {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:self.basePath];
+    NSString *fileName;
+    NSMutableArray *noteFiles = [NSMutableArray array];
+    
+    while (fileName = [enumerator nextObject]) {
+        BOOL isDirectory = NO;
+        NSString *path = [kMKBasePath stringByAppendingPathComponent:fileName];
+        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+        
+        if (isDirectory) {
+            continue;
+        }
+        
+        if (![fileName hasSuffix:[NSString stringWithFormat:@".%@", kMKFileExtension]]) {
+            continue;
+        }
+        
+        [noteFiles addObject:[self.basePath stringByAppendingPathComponent:fileName]];
+    }
+    
+    return noteFiles;
 }
 
 - (void)updateNoteFromFileSystemAtPath:(NSString *)path context:(NSManagedObjectContext *)context {
@@ -237,8 +245,13 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Directory watching
 
 - (void)setupDirectoryWatching {
-
+    NSURL *url = [NSURL URLWithString:self.basePath];
+    self.events = [[CDEvents alloc] initWithURLs:@[url] block:^(CDEvents *watcher, CDEvent *event) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+        [self performSelector:@selector(restoreFromFileSystem) withObject:nil afterDelay:1];
+    }];
 }
+
 
 
 @end

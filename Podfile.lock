@@ -1,6 +1,7 @@
 PODS:
   - BlocksKit (1.8.3):
     - libffi
+  - CDEvents (1.2.0)
   - DTFoundation (1.6.0):
     - DTFoundation/AppKit
     - DTFoundation/Core
@@ -29,6 +30,7 @@ PODS:
 
 DEPENDENCIES:
   - BlocksKit
+  - CDEvents
   - DTFoundation
   - MagicalRecord
   - RKSyntaxView (from `/Users/vojto/Code/RKSyntaxView`)
@@ -42,6 +44,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BlocksKit: 27257f9cbbec0ea98c80ba83cc2ea7111ae62eb2
+  CDEvents: 079cd7b12501bafe6c7ec204f87cecdadce121cc
   DTFoundation: 5bfec187ed495cea33c47dc64e8ee623e8beb353
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
   RKSyntaxView: aeb8f06ff0e23562b7d3332789945fabd0cc591d
