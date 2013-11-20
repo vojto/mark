@@ -149,6 +149,16 @@ DQ
                                     <action selector="createTaskAction:" target="n3h-S0-dtY" id="jga-ll-zFw"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Indent right" keyEquivalent="]" id="1fc-fY-sK0">
+                                <connections>
+                                    <action selector="indentRightAction:" target="n3h-S0-dtY" id="Qv8-r0-oED"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Indent left" keyEquivalent="[" id="t1j-qV-K1k">
+                                <connections>
+                                    <action selector="indentLeftAction:" target="n3h-S0-dtY" id="e3v-lS-XfB"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="206">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>

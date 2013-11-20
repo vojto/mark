@@ -75,22 +75,61 @@
     }
 }
 
-- (void)replaceInRange:(NSRange)range with:(NSString *)replacement {
-    NSTextStorage *storage = self.sourceView.textStorage;
-    [storage replaceCharactersInRange:range withString:replacement];
-    [self highlightRange:range withLength:replacement.length];
+#pragma mark - Indentation
+
+- (void)indentRightAction:(id)sender {
+    [self indentSelectionRight:YES];
 }
 
-- (void)highlightRange:(NSRange)range withLength:(NSInteger)newLength {
+- (void)indentLeftAction:(id)sender {
+    [self indentSelectionRight:NO];
+}
+
+- (void)indentSelectionRight:(BOOL)right {
+    NSRange selection, lineRange;
+    NSString *block, *replacement;
+    NSArray *lines, *updatedLines;
+    
+    NSString *indentString = @"  ";
+    NSInteger indentSize = indentString.length;
+    
+    selection = [self.sourceView selectedRange];
+    NSTextStorage *storage = self.sourceView.textStorage;
+    
+    block = [self lineAtRange:selection lineRange:&lineRange in:storage.string];
+    lines = [block componentsSeparatedByString:@"\n"];
+    updatedLines = [lines map:^id(NSString *line) {
+        if (right) {
+            return [NSString stringWithFormat:@"%@%@", indentString, line];
+        } else {
+            NSRange indentRange = NSMakeRange(0, indentSize);
+            NSString *left = [line substringWithRange:indentRange];
+            if ([left isEqualToString:indentString]) {
+                return [line stringByReplacingCharactersInRange:indentRange withString:@""];
+            } else {
+                return line;
+            }
+        }
+    }];
+    replacement = [updatedLines componentsJoinedByString:@"\n"];
+    
+    NSRange newRange = [self replaceInRange:lineRange with:replacement];
+    [self.sourceView setSelectedRange:newRange];
+}
+
+#pragma mark - Text tools
+
+- (NSRange)replaceInRange:(NSRange)range with:(NSString *)replacement {
+    NSTextStorage *storage = self.sourceView.textStorage;
+    [storage replaceCharactersInRange:range withString:replacement];
     NSRange newRange = range;
-    newRange.length = newLength;
+    newRange.length = replacement.length;
     [self.sourceView highlightRange:newRange];
+    return newRange;
 }
 
 - (NSString *)lineAtRange:(NSRange)range lineRange:(NSRange *)lineRange in:(NSString *)contents {
-    // TODO: Use lineRangeForRange
-    NSUInteger lineStart;
-    NSUInteger lineEnd;
+    NSUInteger lineStart, lineEnd;
     NSString *line;
     [contents getLineStart:&lineStart end:NULL contentsEnd:&lineEnd forRange:range];
     lineRange->location = lineStart;
