@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
@@ -139,9 +140,21 @@ CA
                 <menuItem title="Edit" id="217">
                     <menu key="submenu" title="Edit" id="205">
                         <items>
-                            <menuItem title="Undo" keyEquivalent="z" id="207">
+                            <menuItem title="Create task" id="207">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                 <connections>
-                                    <action selector="undo:" target="-1" id="223"/>
+                                    <action selector="createTaskAction:" target="n3h-S0-dtY" id="jga-ll-zFw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="206">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Undo" keyEquivalent="z" id="7WM-cn-xNC">
+                                <connections>
+                                    <action selector="undo:" target="-1" id="eq6-Og-1Fs"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Redo" keyEquivalent="Z" id="215">
@@ -150,7 +163,7 @@ CA
                                     <action selector="redo:" target="-1" id="231"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="206">
+                            <menuItem isSeparatorItem="YES" id="1Gb-2V-Blf">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Cut" keyEquivalent="x" id="199">
@@ -871,7 +884,7 @@ CA
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.title" id="K79-X3-nrx"/>
+                                            <binding destination="t7L-iJ-K9t" name="value" keyPath="self.notesArrayController.selection.title" id="fZn-vM-J72"/>
                                         </connections>
                                     </textField>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhy-lF-uNR">

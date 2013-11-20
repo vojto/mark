@@ -16,4 +16,6 @@
 
 @property (unsafe_unretained) IBOutlet RKSyntaxView *sourceView;
 
+- (IBAction)createTaskAction:(id)sender;
+
 @end
