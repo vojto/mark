@@ -9,6 +9,7 @@
 #import "MKFileSystemSyncService.h"
 #import "MKNote.h"
 #import "MKAppDelegate.h"
+#import <DTFoundation/DTExtendedFileAttributes.h>
 
 @implementation MKFileSystemSyncService
 
@@ -67,16 +68,35 @@
     // Saving to file succeeded, store the title.
     note.fs_filename = noteFilename;
 
-    // Set tags
+    // Set extended attributes
+    [self setExtendedAttributesForNote:note path:notePath];
+    
+    // Set tags (10.9)
+    [self setTagsForNote:note path:notePath];
+}
+
+#pragma mark - Extended attributes
+
+- (void)setExtendedAttributesForNote:(MKNote *)note path:(NSString *)notePath {
+    // Set UUID
+    DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:notePath];
+    [attrs setValue:note.uuid forAttribute:@"net.rinik.Mark:noteUUID"];
+    NSString *tagsString = [note.tagNames componentsJoinedByString:@","];
+    [attrs setValue:tagsString forAttribute:@"net.rinik.Mark:noteTags"];
+}
+
+#pragma mark - Tags
+
+- (void)setTagsForNote:(MKNote *)note path:(NSString *)notePath {
     NSURL *url = [NSURL fileURLWithPath:notePath];
-    result = [url setResourceValue:[note tagNames] forKey:NSURLTagNamesKey error:&error];
-//    NSLog(@"Reasult: %d", result);
+    NSError *error;
+    [url setResourceValue:[note tagNames] forKey:NSURLTagNamesKey error:&error];
     if (error) {
         NSLog(@"Failed setting tags: %@", error);
     }
-    
-    NSLog(@"Path: %@", notePath);
 }
+
+#pragma mark - Getting filenames
 
 - (NSString *)retrieveOrCreateNoteFilename:(MKNote *)note {
     NSFileManager *manager = [NSFileManager defaultManager];
