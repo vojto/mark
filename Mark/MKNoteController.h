@@ -17,6 +17,7 @@
 @property (unsafe_unretained) IBOutlet RKSyntaxView *sourceView;
 
 - (IBAction)createTaskAction:(id)sender;
+- (IBAction)zoneInTaskAction:(id)sender;
 - (IBAction)indentRightAction:(id)sender;
 - (IBAction)indentLeftAction:(id)sender;
 

@@ -145,13 +145,21 @@ CA
                 <menuItem title="Edit" id="217">
                     <menu key="submenu" title="Edit" id="205">
                         <items>
-                            <menuItem title="Create task" id="207">
+                            <menuItem title="Check task" id="207">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
                                 <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                 <connections>
                                     <action selector="createTaskAction:" target="n3h-S0-dtY" id="jga-ll-zFw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zone in task" id="pDT-4u-ABV">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                <connections>
+                                    <action selector="zoneInTaskAction:" target="n3h-S0-dtY" id="5Ep-mT-6bh"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Indent right" keyEquivalent="]" id="1fc-fY-sK0">

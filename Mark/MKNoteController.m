@@ -26,6 +26,14 @@
 #pragma mark - Creating tasks
 
 - (void)createTaskAction:(id)sender {
+    [self progressTaskUsingMap:@{@"[ ]": @"[x]", @"[x]": @"[ ]", @"[o]": @"[x]"}];
+}
+
+- (void)zoneInTaskAction:(id)sender {
+    [self progressTaskUsingMap:@{@"[ ]": @"[o]", @"[x]": @"[o]", @"[o]": @"[ ]"}];
+}
+
+- (void)progressTaskUsingMap:(NSDictionary *)progressMap {
     NSRange selection = [self.sourceView selectedRange];
     selection.length = 0;
     
@@ -48,7 +56,6 @@
         // Find out the original status
         NSRange range = [match rangeAtIndex:2];
         NSString *symbol = [line substringWithRange:range];
-        NSDictionary *progressMap = @{@"[ ]": @"[x]", @"[x]": @"[ ]"};
         NSString *nextSymbol = progressMap[symbol];
         if (nextSymbol) {
             replacement = [line stringByReplacingOccurrencesOfString:symbol withString:nextSymbol];
@@ -67,7 +74,7 @@
                 bulletChar = [line substringWithRange:matchRange];
             }
         }
-
+        
         template = [NSString stringWithFormat:@"$1%@ [ ] $3", bulletChar];
         replacement = [regex stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:template];
         

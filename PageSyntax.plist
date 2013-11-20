@@ -6,6 +6,8 @@
 	<dict>
 		<key>color</key>
 		<string>zone</string>
+		<key>isBold</key>
+		<true/>
 		<key>pattern</key>
 		<string>^\s*((\*|\-)\s*\[(o|O)\])\s*.*$</string>
 	</dict>
