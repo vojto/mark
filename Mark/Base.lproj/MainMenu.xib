@@ -106,7 +106,7 @@ CA
                             </menuItem>
                             <menuItem title="Restore from filesystem" keyEquivalent="r" id="73">
                                 <connections>
-                                    <action selector="performClose:" target="-1" id="193"/>
+                                    <action selector="restoreFromFilesystemAction:" target="494" id="xSg-LJ-aN1"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Close" keyEquivalent="w" id="oc5-fW-MHo">

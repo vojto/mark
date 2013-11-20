@@ -154,38 +154,63 @@ NSString * const kMKNoteTagsSeparator = @",";
 - (void)restoreFromFileSystem {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:kMKBasePath];
-    NSString *fileName;
-    while (fileName = [enumerator nextObject]) {
-        BOOL isDirectory = NO;
-        NSString *path = [kMKBasePath stringByAppendingPathComponent:fileName];
-        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        NSString *fileName;
+        
+        while (fileName = [enumerator nextObject]) {
+            BOOL isDirectory = NO;
+            NSString *path = [kMKBasePath stringByAppendingPathComponent:fileName];
+            [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+            
+            // Skip directories
+            if (isDirectory) {
+                continue;
+            }
+            
+            // Skip files with the wrong extension
+            if (![fileName hasSuffix:[NSString stringWithFormat:@".%@", kMKFileExtension]]) {
+                continue;
+            }
+            
+            NSString *title = [fileName stringByDeletingPathExtension];
+            
+            // Read metadata
+            NSError *error;
+            DTExtendedFileAttributes *attributes = [[DTExtendedFileAttributes alloc] initWithPath:path];
+            NSString *uuid = [attributes valueForAttribute:kMKNoteUUIDExtendedAttribute];
+            NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
+            NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
+            
+            if (!uuid) {
+                NSLog(@"Skipping note file because UUID is missing: %@", path);
+                continue;
+            }
+            
+            NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
+            
+            if (error) {
+                NSLog(@"Failed to read file for note: %@", path);
+                continue;
+            }
+            
+            
+//            NSLog(@"Read note:\ntitle = %@\nuuid = %@\ntags = %@\ncontent = %@", title, uuid, tags, content);
+            
+            // Try to find the note
+            MKNote *note = [MKNote findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
+            NSLog(@"Found note: %@", note);
+            if (!note) {
+                note = [MKNote createEntity];
+                note.uuid = uuid;
+            }
+            
+            note.title = title;
+            note.content = content;
+            [note setTagNames:tags];
+        }
+    }];
 
-        // Skip directories
-        if (isDirectory) {
-            continue;
-        }
-        
-        // Skip files with the wrong extension
-        if (![fileName hasSuffix:[NSString stringWithFormat:@".%@", kMKFileExtension]]) {
-            continue;
-        }
-        
-        NSString *title = [fileName stringByDeletingPathExtension];
-        
-        // Read metadata
-        NSLog(@"Path: %@", path);
-        DTExtendedFileAttributes *attributes = [[DTExtendedFileAttributes alloc] initWithPath:path];
-        NSString *uuid = [attributes valueForAttribute:kMKNoteUUIDExtendedAttribute];
-        NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
-        NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
-        
-        if (!uuid) {
-            NSLog(@"Skipping note file because UUID is missing: %@", path);
-            continue;
-        }
-        
-        NSLog(@"Read note:\ntitle = %@\nuuid = %@\ntags = %@", title, uuid, tags);
-    }
 }
 
 @end
