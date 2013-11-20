@@ -187,15 +187,27 @@ NSString * const kMKNoteTagsSeparator = @",";
                 continue;
             }
             
+            // Try to read Mavericks tags, if available
+            NSURL *url = [NSURL fileURLWithPath:path];
+            error = nil;
+            NSArray *mavericksTags;
+            [url getResourceValue:&mavericksTags forKey:NSURLTagNamesKey error:&error];
+            if (error) {
+                NSLog(@"Failed reading Mavericks tags: %@", error);
+            }
+            if (mavericksTags) {
+                if (mavericksTags.count != tags.count) {
+                    NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
+                }
+                tags = mavericksTags;
+            }
+            
             NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
             
             if (error) {
                 NSLog(@"Failed to read file for note: %@", path);
                 continue;
             }
-            
-            
-//            NSLog(@"Read note:\ntitle = %@\nuuid = %@\ntags = %@\ncontent = %@", title, uuid, tags, content);
             
             // Try to find the note
             MKNote *note = [MKNote findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
@@ -207,6 +219,7 @@ NSString * const kMKNoteTagsSeparator = @",";
             
             note.title = title;
             note.content = content;
+            NSLog(@"Setting tag names to: %@", tags);
             [note setTagNames:tags];
         }
     }];

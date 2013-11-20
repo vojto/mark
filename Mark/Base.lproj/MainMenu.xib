@@ -959,7 +959,11 @@ DQ
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </tokenFieldCell>
                                         <connections>
-                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.tagNames" id="lOU-Az-y53"/>
+                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.tagNames" id="yby-EJ-RTA">
+                                                <dictionary key="options">
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </tokenField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wpr-ZP-cUn">

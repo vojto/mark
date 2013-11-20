@@ -37,9 +37,9 @@
     NSMutableSet *tagsToRemove = [self.tags mutableCopy];
     
     for (NSString *tagName in tagNames) {
-        MKTag *tag = [MKTag MR_findFirstByAttribute:@"name" withValue:tagName];
+        MKTag *tag = [MKTag MR_findFirstByAttribute:@"name" withValue:tagName inContext:self.managedObjectContext];
         if (!tag) {
-            tag = [MKTag createEntity];
+            tag = [MKTag MR_createInContext:self.managedObjectContext];
             tag.name = tagName;
         }
         [tagsToRemove removeObject:tag];
