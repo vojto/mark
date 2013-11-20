@@ -179,6 +179,11 @@ NSString * const kMKNoteTagsSeparator = @",";
         NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
         NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
         
+        if (!uuid) {
+            NSLog(@"Skipping note file because UUID is missing: %@", path);
+            continue;
+        }
+        
         NSLog(@"Read note:\ntitle = %@\nuuid = %@\ntags = %@", title, uuid, tags);
     }
 }
