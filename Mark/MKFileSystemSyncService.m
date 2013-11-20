@@ -45,14 +45,13 @@
 }
 
 - (void)syncNote:(MKNote *)note {
-    NSString *title = note.title;
+    NSString *noteFilename, *notePath;
     NSError *error;
     BOOL result;
     
-    NSString *basePath = @"/Users/vojto/Desktop/MARK_NOTES";
-    NSString *noteFilename = title;
-    NSString *notePath = [basePath stringByAppendingPathComponent:noteFilename];
-    notePath = [notePath stringByAppendingPathExtension:@"md"];
+    
+    noteFilename = [self retrieveOrCreateNoteFilename:note];
+    notePath = [self notePathForFilename:noteFilename];
     
     result = [note.content writeToFile:notePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (!result) {
@@ -74,5 +73,49 @@
     NSLog(@"Path: %@", notePath);
 }
 
+- (NSString *)retrieveOrCreateNoteFilename:(MKNote *)note {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    if (note.fs_filename) {
+        // Make sure the filename is up to date
+        if (![note.fs_filename isEqualToString:[self filenameFromTitle:note.title]]) {
+            // If the title has changed and the filename is not up to date, then rename
+            // the file to the new filename.
+            
+            NSString *currentPath = [self notePathForFilename:note.fs_filename];
+            NSString *newFilename = [self filenameFromTitle:note.title];
+            NSString *newPath = [self notePathForFilename:newFilename];
+            
+            NSLog(@"Renaming note file because the note title has changed: %@ -> %@", currentPath, newPath);
+            
+            NSError *error;
+            if (![manager moveItemAtPath:currentPath toPath:newPath error:&error]) {
+                NSLog(@"Failed renaming file: %@", error);
+                return newFilename;
+            }
+            
+            return newFilename;
+        } else {
+            return note.fs_filename;
+        }
+    } else {
+        return [self filenameFromTitle:note.title];
+    }
+}
+
+- (NSString *)filenameFromTitle:(NSString *)title {
+    return [title stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+}
+
+- (NSString *)notePathForFilename:(NSString *)filename {
+    NSString *basePath, *notePath;
+    
+    basePath = @"/Users/vojto/Desktop/MARK_NOTES";
+    
+    notePath = [basePath stringByAppendingPathComponent:filename];
+    notePath = [notePath stringByAppendingPathExtension:@"md"];
+    
+    return notePath;
+}
 
 @end

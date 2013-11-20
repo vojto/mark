@@ -6,3 +6,4 @@ pod 'BlocksKit'
 # pod 'NiceKit', :path => "/Users/vojto/Code/nicekit"
 # pod 'INAppStoreWindow'
 pod 'RKSyntaxView', :path => '/Users/vojto/Code/RKSyntaxView'
+pod 'DTFoundation'
