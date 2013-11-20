@@ -33,6 +33,7 @@
 		99AFB12F183BC2A90002DBB4 /* PageScheme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12D183BC2A90002DBB4 /* PageScheme.plist */; };
 		99AFB130183BC2A90002DBB4 /* PageSyntax.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */; };
 		99AFB134183BCCF50002DBB4 /* MKAutoSaveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */; };
+		99D9DABF183CC37500710F89 /* MKFileSystemSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSyntax.plist; sourceTree = "<group>"; };
 		99AFB132183BCCF50002DBB4 /* MKAutoSaveService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKAutoSaveService.h; sourceTree = "<group>"; };
 		99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKAutoSaveService.m; sourceTree = "<group>"; };
+		99D9DABD183CC37500710F89 /* MKFileSystemSyncService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKFileSystemSyncService.h; sourceTree = "<group>"; };
+		99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKFileSystemSyncService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +266,8 @@
 			children = (
 				99AFB132183BCCF50002DBB4 /* MKAutoSaveService.h */,
 				99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */,
+				99D9DABD183CC37500710F89 /* MKFileSystemSyncService.h */,
+				99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 				991A2C7E1817F88700B6C024 /* MKNewTagViewController.m in Sources */,
 				991A2C9318181A5000B6C024 /* DMSplitView.m in Sources */,
 				991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */,
+				99D9DABF183CC37500710F89 /* MKFileSystemSyncService.m in Sources */,
 				991A2C8D18180C2900B6C024 /* MKNotesController.m in Sources */,
 				99A486101816DB5F00D7AE33 /* MKAppDelegate.m in Sources */,
 				991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */,

@@ -30,6 +30,7 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
     [MagicalRecord setupAutoMigratingCoreDataStack];
     self.managedContext = [NSManagedObjectContext defaultContext];
     self.autoSaveService = [[MKAutoSaveService alloc] initWithContext:self.managedContext];
+    self.fileSystemSyncService = [[MKFileSystemSyncService alloc] initWithContext:self.managedContext];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -48,6 +49,10 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+- (void)saveDocument:(id)sender {
+    [self.managedContext MR_saveToPersistentStoreAndWait];
 }
 
 #pragma mark - Building default tags
