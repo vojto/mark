@@ -90,7 +90,7 @@
     NSString *block, *replacement;
     NSArray *lines, *updatedLines;
     
-    NSString *indentString = @"  ";
+    NSString *indentString = @"\t";
     NSInteger indentSize = indentString.length;
     
     selection = [self.sourceView selectedRange];
@@ -114,7 +114,9 @@
     replacement = [updatedLines componentsJoinedByString:@"\n"];
     
     NSRange newRange = [self replaceInRange:lineRange with:replacement];
-    [self.sourceView setSelectedRange:newRange];
+    if (updatedLines.count > 1) {
+        [self.sourceView setSelectedRange:newRange];
+    }
 }
 
 #pragma mark - Text tools
