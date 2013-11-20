@@ -34,22 +34,29 @@
     NSString *line = [self lineAtRange:selection lineRange:&lineRange in:storage.string];
     
     NSRegularExpression *regex;
-    NSString *expression;
+    NSString *expression, *bulletSymbols, *template, *replacement;
     NSTextCheckingResult *match;
     
     // First, check if line is already a TODO
-    expression = @"^\\s*((\\*|\\-)\\s*\\[[ xo]\\])\\s*.*$";
+    bulletSymbols = @"\\*|\\-";
+    expression = [NSString stringWithFormat:@"^\\s*(%@)\\s*(\\[[ xo]\\])\\s*.*$", bulletSymbols];
     regex = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:nil];
     match = [regex firstMatchInString:line options:0 range:NSMakeRange(0, [line length])];
     
     if (match) {
-        // TODO: Progress
-        NSString *replacement = [line stringByReplacingOccurrencesOfString:@"[ ]" withString:@"[x]"];
-        [storage replaceCharactersInRange:lineRange withString:replacement];
-        [self.sourceView highlightRange:lineRange];
+        // Progress todo
+        // Find out the original status
+        NSRange range = [match rangeAtIndex:2];
+        NSString *symbol = [line substringWithRange:range];
+        NSDictionary *progressMap = @{@"[ ]": @"[x]", @"[x]": @"[ ]"};
+        NSString *nextSymbol = progressMap[symbol];
+        if (nextSymbol) {
+            replacement = [line stringByReplacingOccurrencesOfString:symbol withString:nextSymbol];
+            [self replaceInRange:lineRange with:replacement];
+        }
     } else {
         // Turn line (with possible bullet) into a TODO
-        expression = @"^(\\s*)(\\*|\\-)?\\s*(.*)$";
+        expression = [NSString stringWithFormat:@"^(\\s*)(%@)?\\s*(.*)$", bulletSymbols];
         regex = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:nil];
         // Decide which bullet character we should use
         NSString *bulletChar = @"*";
@@ -61,15 +68,23 @@
             }
         }
 
-        NSString *template = [NSString stringWithFormat:@"$1%@ [ ] $3", bulletChar];
-        NSString *replacement = [regex stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:template];
+        template = [NSString stringWithFormat:@"$1%@ [ ] $3", bulletChar];
+        replacement = [regex stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:template];
         
-        [storage replaceCharactersInRange:lineRange withString:replacement];
-        NSRange highlightRange = lineRange;
-        highlightRange.length = replacement.length;
-        [self.sourceView highlightRange:highlightRange];
+        [self replaceInRange:lineRange with:replacement];
     }
+}
 
+- (void)replaceInRange:(NSRange)range with:(NSString *)replacement {
+    NSTextStorage *storage = self.sourceView.textStorage;
+    [storage replaceCharactersInRange:range withString:replacement];
+    [self highlightRange:range withLength:replacement.length];
+}
+
+- (void)highlightRange:(NSRange)range withLength:(NSInteger)newLength {
+    NSRange newRange = range;
+    newRange.length = newLength;
+    [self.sourceView highlightRange:newRange];
 }
 
 - (NSString *)lineAtRange:(NSRange)range lineRange:(NSRange *)lineRange in:(NSString *)contents {
