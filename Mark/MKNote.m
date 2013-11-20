@@ -17,6 +17,7 @@
 @dynamic tags;
 @dynamic updatedAt;
 @dynamic fs_filename;
+@dynamic uuid;
 
 + (NSString *)MR_entityName {
     return @"Note";

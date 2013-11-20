@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSDate *updatedAt;
 @property (nonatomic, retain) NSSet *tags;
 @property (nonatomic, retain) NSString *fs_filename;
+@property (nonatomic, retain) NSString *uuid;
 
 - (NSString *)tagsString;
 - (NSArray *)tagNames;

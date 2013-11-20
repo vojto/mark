@@ -7,6 +7,7 @@
 //
 
 #import "MKUUIDService.h"
+#import "MKNote.h"
 
 @implementation MKUUIDService
 
@@ -20,8 +21,14 @@
 }
 
 - (void)willSave:(NSNotification *)notification {
-    NSLog(@"Will save: %@", notification.userInfo);
-    NSLog(@"Inserted: %@", self.context.insertedObjects);
+    for (NSManagedObject *object in self.context.insertedObjects) {
+        if ([object isKindOfClass:[MKNote class]]) {
+            MKNote *note = (MKNote *)object;
+            if (!note.uuid) {
+                note.uuid = [[NSString UUIDString] lowercaseString];
+            }
+        }
+    }
 }
 
 @end

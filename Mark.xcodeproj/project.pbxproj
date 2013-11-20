@@ -99,6 +99,7 @@
 		99D9DAC3183CF1DC00710F89 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		99D9DAC5183CF28C00710F89 /* MKUUIDService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUUIDService.h; sourceTree = "<group>"; };
 		99D9DAC6183CF28C00710F89 /* MKUUIDService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUUIDService.m; sourceTree = "<group>"; };
+		99D9DAC8183CF49A00710F89 /* Mark 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark 3.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -668,10 +669,11 @@
 		991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				99D9DAC8183CF49A00710F89 /* Mark 3.xcdatamodel */,
 				99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */,
 				991A2C731817EF8400B6C024 /* Mark.xcdatamodel */,
 			);
-			currentVersion = 99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */;
+			currentVersion = 99D9DAC8183CF49A00710F89 /* Mark 3.xcdatamodel */;
 			path = Mark.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
