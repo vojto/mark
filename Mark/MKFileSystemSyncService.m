@@ -17,12 +17,16 @@ NSString * const kMKNoteUUIDExtendedAttribute = @"net.rinik.Mark:noteUUID";
 NSString * const kMKNoteTagsExtendedAttribute = @"net.rinik.Mark:noteTags";
 NSString * const kMKNoteTagsSeparator = @",";
 
+typedef void(^MKBlock)(id sender);
+
 @implementation MKFileSystemSyncService
 
 - (id)initWithContext:(NSManagedObjectContext *)context {
     if ((self = [super init])) {
         self.context = context;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSave:) name:NSManagedObjectContextDidSaveNotification object:self.context];
+        
+        [self setupDirectoryWatching];
     }
     
     return self;
@@ -173,57 +177,68 @@ NSString * const kMKNoteTagsSeparator = @",";
                 continue;
             }
             
-            NSString *title = [fileName stringByDeletingPathExtension];
-            
-            // Read metadata
-            NSError *error;
-            DTExtendedFileAttributes *attributes = [[DTExtendedFileAttributes alloc] initWithPath:path];
-            NSString *uuid = [attributes valueForAttribute:kMKNoteUUIDExtendedAttribute];
-            NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
-            NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
-            
-            if (!uuid) {
-                NSLog(@"Skipping note file because UUID is missing: %@", path);
-                continue;
-            }
-            
-            // Try to read Mavericks tags, if available
-            NSURL *url = [NSURL fileURLWithPath:path];
-            error = nil;
-            NSArray *mavericksTags;
-            [url getResourceValue:&mavericksTags forKey:NSURLTagNamesKey error:&error];
-            if (error) {
-                NSLog(@"Failed reading Mavericks tags: %@", error);
-            }
-            if (mavericksTags) {
-                if (mavericksTags.count != tags.count) {
-                    NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
-                }
-                tags = mavericksTags;
-            }
-            
-            NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
-            
-            if (error) {
-                NSLog(@"Failed to read file for note: %@", path);
-                continue;
-            }
-            
-            // Try to find the note
-            MKNote *note = [MKNote findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
-            NSLog(@"Found note: %@", note);
-            if (!note) {
-                note = [MKNote createEntity];
-                note.uuid = uuid;
-            }
-            
-            note.title = title;
-            note.content = content;
-            NSLog(@"Setting tag names to: %@", tags);
-            [note setTagNames:tags];
+            [self updateNoteFromFileSystemAtPath:path context:localContext];
         }
     }];
+}
+
+- (void)updateNoteFromFileSystemAtPath:(NSString *)path context:(NSManagedObjectContext *)context {
+    NSString *fileName = [path lastPathComponent];
+    NSString *title = [fileName stringByDeletingPathExtension];
+    
+    // Read metadata
+    NSError *error;
+    DTExtendedFileAttributes *attributes = [[DTExtendedFileAttributes alloc] initWithPath:path];
+    NSString *uuid = [attributes valueForAttribute:kMKNoteUUIDExtendedAttribute];
+    NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
+    NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
+    
+    if (!uuid) {
+        NSLog(@"Skipping note file because UUID is missing: %@", path);
+        return;
+    }
+    
+    // Try to read Mavericks tags, if available
+    NSURL *url = [NSURL fileURLWithPath:path];
+    error = nil;
+    NSArray *mavericksTags;
+    [url getResourceValue:&mavericksTags forKey:NSURLTagNamesKey error:&error];
+    if (error) {
+        NSLog(@"Failed reading Mavericks tags: %@", error);
+    }
+    if (mavericksTags) {
+        if (mavericksTags.count != tags.count) {
+            NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
+        }
+        tags = mavericksTags;
+    }
+    
+    NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error) {
+        NSLog(@"Failed to read file for note: %@", path);
+        return;
+    }
+    
+    // Try to find the note
+    MKNote *note = [MKNote findFirstByAttribute:@"uuid" withValue:uuid inContext:context];
+    NSLog(@"Found note: %@", note);
+    if (!note) {
+        note = [MKNote createEntity];
+        note.uuid = uuid;
+    }
+    
+    note.title = title;
+    note.content = content;
+    NSLog(@"Setting tag names to: %@", tags);
+    [note setTagNames:tags];
+}
+
+#pragma mark - Directory watching
+
+- (void)setupDirectoryWatching {
 
 }
+
 
 @end

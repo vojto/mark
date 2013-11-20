@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface MKFileSystemSyncService : NSObject
 
 @property (strong) NSManagedObjectContext *context;
