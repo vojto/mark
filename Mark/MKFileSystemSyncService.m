@@ -53,7 +53,12 @@
     noteFilename = [self retrieveOrCreateNoteFilename:note];
     notePath = [self notePathForFilename:noteFilename];
     
-    result = [note.content writeToFile:notePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    NSString *content = note.content;
+    NSLog(@"content: %@", content);
+    if (!content) {
+        content = @"";
+    }
+    result = [content writeToFile:notePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (!result) {
         [NSException raise:@"Failed saving note to a file" format:@"%@", error];
         return;

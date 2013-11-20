@@ -14,6 +14,7 @@
 #import "DMSplitView.h"
 #import "MKAutoSaveService.h"
 #import "MKFileSystemSyncService.h"
+#import "MKUUIDService.h"
 
 NSString * const kMKAppDidFinishLaunchingNotification;
 
@@ -23,6 +24,7 @@ NSString * const kMKAppDidFinishLaunchingNotification;
 @property (assign) NSManagedObjectContext *managedContext;
 @property (strong) MKAutoSaveService *autoSaveService;
 @property (strong) MKFileSystemSyncService *fileSystemSyncService;
+@property (strong) MKUUIDService *uuidService;
 
 @property (assign) IBOutlet DMSplitView *splitView;
 

@@ -11,6 +11,7 @@
     #import <RNEvents/NSObject+RNEvents.h>
     #import <BlocksKit/BlocksKit.h>
     #import "MKAppDelegate.h"
+    #import "NSString+UUID.h"
 #endif
 
 #define APP_DELEGATE (MKAppDelegate *)[[NSApplication sharedApplication] delegate]

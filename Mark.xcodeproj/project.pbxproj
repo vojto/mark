@@ -34,6 +34,8 @@
 		99AFB130183BC2A90002DBB4 /* PageSyntax.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99AFB12E183BC2A90002DBB4 /* PageSyntax.plist */; };
 		99AFB134183BCCF50002DBB4 /* MKAutoSaveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */; };
 		99D9DABF183CC37500710F89 /* MKFileSystemSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */; };
+		99D9DAC4183CF1DC00710F89 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DAC3183CF1DC00710F89 /* NSString+UUID.m */; };
+		99D9DAC7183CF28C00710F89 /* MKUUIDService.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DAC6183CF28C00710F89 /* MKUUIDService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +94,11 @@
 		99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKAutoSaveService.m; sourceTree = "<group>"; };
 		99D9DABD183CC37500710F89 /* MKFileSystemSyncService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKFileSystemSyncService.h; sourceTree = "<group>"; };
 		99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKFileSystemSyncService.m; sourceTree = "<group>"; };
-		99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mark 2.xcdatamodel"; sourceTree = "<group>"; };
+		99D9DAC1183CDE5D00710F89 /* Mark 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Mark 2.xcdatamodel"; sourceTree = "<group>"; };
+		99D9DAC2183CF1DC00710F89 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
+		99D9DAC3183CF1DC00710F89 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
+		99D9DAC5183CF28C00710F89 /* MKUUIDService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUUIDService.h; sourceTree = "<group>"; };
+		99D9DAC6183CF28C00710F89 /* MKUUIDService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUUIDService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,8 @@
 		99009866183BBC1A007EAB2A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				99D9DAC2183CF1DC00710F89 /* NSString+UUID.h */,
+				99D9DAC3183CF1DC00710F89 /* NSString+UUID.m */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -269,6 +277,8 @@
 				99AFB133183BCCF50002DBB4 /* MKAutoSaveService.m */,
 				99D9DABD183CC37500710F89 /* MKFileSystemSyncService.h */,
 				99D9DABE183CC37500710F89 /* MKFileSystemSyncService.m */,
+				99D9DAC5183CF28C00710F89 /* MKUUIDService.h */,
+				99D9DAC6183CF28C00710F89 /* MKUUIDService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -411,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				991A2C8A1818089900B6C024 /* MKTagsArrayController.m in Sources */,
+				99D9DAC7183CF28C00710F89 /* MKUUIDService.m in Sources */,
 				991A2C7E1817F88700B6C024 /* MKNewTagViewController.m in Sources */,
 				991A2C9318181A5000B6C024 /* DMSplitView.m in Sources */,
 				991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */,
@@ -418,6 +429,7 @@
 				991A2C8D18180C2900B6C024 /* MKNotesController.m in Sources */,
 				99A486101816DB5F00D7AE33 /* MKAppDelegate.m in Sources */,
 				991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */,
+				99D9DAC4183CF1DC00710F89 /* NSString+UUID.m in Sources */,
 				991A2C771817F01B00B6C024 /* MKTag.m in Sources */,
 				99A486091816DB5F00D7AE33 /* main.m in Sources */,
 				991A2C9018180CCD00B6C024 /* MKTagsController.m in Sources */,

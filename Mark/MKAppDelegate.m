@@ -31,6 +31,7 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
     self.managedContext = [NSManagedObjectContext defaultContext];
     self.autoSaveService = [[MKAutoSaveService alloc] initWithContext:self.managedContext];
     self.fileSystemSyncService = [[MKFileSystemSyncService alloc] initWithContext:self.managedContext];
+    self.uuidService = [[MKUUIDService alloc] initWithContext:self.managedContext];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
