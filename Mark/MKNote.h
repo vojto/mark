@@ -13,10 +13,11 @@
 
 @interface MKNote : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * content;
+@property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSString *content;
 @property (nonatomic, retain) NSDate *updatedAt;
 @property (nonatomic, retain) NSSet *tags;
+@property (nonatomic, retain) NSString *fs_filename;
 
 - (NSString *)tagsString;
 - (NSArray *)tagNames;

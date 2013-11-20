@@ -16,6 +16,7 @@
 @dynamic content;
 @dynamic tags;
 @dynamic updatedAt;
+@dynamic fs_filename;
 
 + (NSString *)MR_entityName {
     return @"Note";

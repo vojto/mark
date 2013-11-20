@@ -885,8 +885,8 @@ DQ
                                 <rect key="frame" x="272" y="0.0" width="569" height="574"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-ty-3JX">
-                                        <rect key="frame" x="20" y="532" width="529" height="22"/>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-ty-3JX">
+                                        <rect key="frame" x="20" y="532" width="328" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Note Title" drawsBackground="YES" id="UoP-XX-8HH">
                                             <font key="font" metaFont="system"/>
@@ -894,7 +894,11 @@ DQ
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="t7L-iJ-K9t" name="value" keyPath="self.notesArrayController.selection.title" id="fZn-vM-J72"/>
+                                            <binding destination="t7L-iJ-K9t" name="value" keyPath="self.notesArrayController.selection.title" id="Ue1-RS-f1v">
+                                                <dictionary key="options">
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhy-lF-uNR">
@@ -945,6 +949,18 @@ DQ
                                             <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.tagNames" id="lOU-Az-y53"/>
                                         </connections>
                                     </tokenField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wpr-ZP-cUn">
+                                        <rect key="frame" x="356" y="535" width="195" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="35Q-Xj-p1Z">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.fs_filename" id="u0v-x2-j1T"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="mhy-lF-uNR" secondAttribute="trailing" constant="20" id="4Rk-zy-X6Q"/>
@@ -955,8 +971,9 @@ DQ
                                     <constraint firstItem="gvA-T0-7OH" firstAttribute="leading" secondItem="AbC-1r-zWO" secondAttribute="leading" constant="20" id="EaY-aA-6nq"/>
                                     <constraint firstItem="mhy-lF-uNR" firstAttribute="top" secondItem="gvA-T0-7OH" secondAttribute="bottom" constant="10" id="GVT-Lf-N9M"/>
                                     <constraint firstAttribute="trailing" secondItem="gvA-T0-7OH" secondAttribute="trailing" constant="20" id="KD9-gX-H8x"/>
+                                    <constraint firstAttribute="trailing" secondItem="wpr-ZP-cUn" secondAttribute="trailing" constant="20" id="aQR-ts-CZI"/>
                                     <constraint firstItem="gvA-T0-7OH" firstAttribute="top" secondItem="YuN-ty-3JX" secondAttribute="bottom" constant="8" id="bb5-MJ-IwE"/>
-                                    <constraint firstAttribute="trailing" secondItem="YuN-ty-3JX" secondAttribute="trailing" constant="20" id="k1F-yl-Gzy"/>
+                                    <constraint firstItem="wpr-ZP-cUn" firstAttribute="leading" secondItem="YuN-ty-3JX" secondAttribute="trailing" constant="10" id="kQa-6W-xTW"/>
                                     <constraint firstItem="mhy-lF-uNR" firstAttribute="leading" secondItem="AbC-1r-zWO" secondAttribute="leading" constant="20" id="lJE-db-NBj"/>
                                     <constraint firstItem="gvA-T0-7OH" firstAttribute="top" secondItem="YuN-ty-3JX" secondAttribute="bottom" constant="8" id="qDa-rF-Siy"/>
                                 </constraints>
