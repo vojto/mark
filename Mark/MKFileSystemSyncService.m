@@ -384,12 +384,22 @@ typedef void(^MKBlock)(id sender);
         return;
     }
 
+    
+    /* TODO: This part needs to be reworked in its entirity.
+     
+        0. Use VDKQueue
+        1. CHANGES: Watch for notifications for every file in the folder that may have changed.
+        2. DELETIONS: Watch for notification about deleting files in the folder. (Existing files though.)
+        3. INSERTIONS: Somehow watch for notifications of new files being created. (What if we create a new note on another computer.)
+     
 
     NSURL *url = [NSURL URLWithString:self.basePath];
     self.events = [[CDEvents alloc] initWithURLs:@[url] block:^(CDEvents *watcher, CDEvent *event) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         [self performSelector:@selector(restoreFromFileSystem) withObject:nil afterDelay:1];
     }];
+     
+     */
 }
 
 
