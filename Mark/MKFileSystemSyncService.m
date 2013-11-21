@@ -16,6 +16,7 @@ NSString * const kMKNoteExtendedAttribute = @"com.apple.metadata:kMDItemFinderCo
 NSString * const kMKNoteTagsSeparator = @",";
 NSString * const kMKNoteExtendedSectionSeparator = @"|";
 NSString * const kMKFileSystemPathDefaultsKey = @"filesystemPath";
+NSString * const kMKMetadataHeader = @"Mark: ";
 
 typedef void(^MKBlock)(id sender);
 
@@ -96,6 +97,7 @@ typedef void(^MKBlock)(id sender);
     if (!content) {
         content = @"";
     }
+    content = [self appendMetadataToContent:content forNote:note];
     result = [content writeToFile:notePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (!result) {
         [NSException raise:@"Failed saving note to a file" format:@"%@", error];
@@ -104,23 +106,21 @@ typedef void(^MKBlock)(id sender);
     
     // Saving to file succeeded, store the title.
     note.fs_filename = noteFilename;
-
-    // Set extended attributes
-    [self setExtendedAttributesForNote:note path:notePath];
     
     // Set tags (10.9)
     [self setTagsForNote:note path:notePath];
 }
 
-#pragma mark - Extended attributes
+#pragma mark - Metadata
 
-- (void)setExtendedAttributesForNote:(MKNote *)note path:(NSString *)notePath {
+- (NSString *)appendMetadataToContent:(NSString *)content forNote:(MKNote *)note {
     NSString *tagsString = [note.tagNames componentsJoinedByString:kMKNoteTagsSeparator];
-    NSString *content = [NSString stringWithFormat:@"%@%@%@", note.uuid, kMKNoteExtendedSectionSeparator, tagsString];
-
-    DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:notePath];
-    [attrs setValue:content forAttribute:kMKNoteExtendedAttribute];
+    NSString *metadataString = [NSString stringWithFormat:@"%@%@%@", note.uuid, kMKNoteExtendedSectionSeparator, tagsString];
+    NSString *wrappedMetadata = [NSString stringWithFormat:@"\n\n<!-- %@%@ -->", kMKMetadataHeader, metadataString];
+    
+    return [content stringByAppendingString:wrappedMetadata];
 }
+
 
 - (NSDictionary *)restoreExtendedAttributesFromFile:(NSString *)path {
     DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:path];
