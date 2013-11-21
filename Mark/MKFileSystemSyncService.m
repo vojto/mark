@@ -142,7 +142,7 @@ typedef void(^MKBlock)(id sender);
 }
 
 - (NSString *)filenameFromTitle:(NSString *)title {
-    return [title stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    return title;
 }
 
 - (NSString *)notePathForTitle:(NSString *)filename {
