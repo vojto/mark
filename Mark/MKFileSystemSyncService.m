@@ -99,14 +99,14 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Tags
 
 - (void)setTagsForNote:(MKNote *)note path:(NSString *)notePath {
-#ifdef NSURLTagNamesKey
-    NSURL *url = [NSURL fileURLWithPath:notePath];
-    NSError *error;
-    [url setResourceValue:[note tagNames] forKey:NSURLTagNamesKey error:&error];
-    if (error) {
-        NSLog(@"Failed setting tags: %@", error);
+    if (&NSURLTagNamesKey != NULL) {
+        NSURL *url = [NSURL fileURLWithPath:notePath];
+        NSError *error;
+        [url setResourceValue:[note tagNames] forKey:NSURLTagNamesKey error:&error];
+        if (error) {
+            NSLog(@"Failed setting tags: %@", error);
+        }
     }
-#endif
 }
 
 #pragma mark - Getting filenames
@@ -208,22 +208,22 @@ typedef void(^MKBlock)(id sender);
         return;
     }
 
-#ifdef NSURLTagNamesKey
     // Try to read Mavericks tags, if available
     NSURL *url = [NSURL fileURLWithPath:path];
     error = nil;
-    NSArray *mavericksTags;
-    [url getResourceValue:&mavericksTags forKey:NSURLTagNamesKey error:&error];
-    if (error) {
-        NSLog(@"Failed reading Mavericks tags: %@", error);
-    }
-    if (mavericksTags) {
-        if (mavericksTags.count != tags.count) {
-            NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
+    if (&NSURLTagNamesKey != NULL) {
+        NSArray *mavericksTags;
+        [url getResourceValue:&mavericksTags forKey:NSURLTagNamesKey error:&error];
+        if (error) {
+            NSLog(@"Failed reading Mavericks tags: %@", error);
         }
-        tags = mavericksTags;
+        if (mavericksTags) {
+            if (mavericksTags.count != tags.count) {
+                NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
+            }
+            tags = mavericksTags;
+        }
     }
-#endif
     
     NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
     
