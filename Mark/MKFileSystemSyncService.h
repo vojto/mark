@@ -16,6 +16,9 @@ NSString * const kMKFileSystemPathDefaultsKey;
 @property (strong) NSManagedObjectContext *context;
 @property (strong) CDEvents *events;
 
+@property (strong) NSMutableSet *changedUUIDs;
+@property (strong) NSMutableSet *deletedNotePaths; // Store referenced files, since note objects aren't available anymore
+
 - (id)initWithContext:(NSManagedObjectContext *)context;
 
 - (void)restoreFromFileSystem;

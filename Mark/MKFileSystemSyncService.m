@@ -25,7 +25,11 @@ typedef void(^MKBlock)(id sender);
     if ((self = [super init])) {
         self.basePath = nil;
         self.context = context;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSave:) name:NSManagedObjectContextDidSaveNotification object:self.context];
+        self.changedUUIDs = [NSMutableSet set];
+        self.deletedNotePaths = [NSMutableSet set];
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(didSave:) name:NSManagedObjectContextDidSaveNotification object:self.context];
+        [center addObserver:self selector:@selector(didChangeObject:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.context];
 
         [self setupDefaultsWatching];
         [self setupDirectoryWatching];
@@ -54,7 +58,7 @@ typedef void(^MKBlock)(id sender);
     NSString *path = [defaults objectForKey:kMKFileSystemPathDefaultsKey];
     if (!self.basePath || ![self.basePath isEqualToString:path]) {
         self.basePath = path;
-        [self storeToFileSystem];
+        [self storeAllObjectsToFileSystem];
         [self setupDirectoryWatching];
     }
 }
@@ -62,14 +66,55 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Storing to filesystem
 
 - (void)didSave:(NSNotification *)notification {
-    [self performSaveCallback];
+    [self storeChangedObjectsToFilesystem];
 }
 
-- (void)performSaveCallback {
-    [self storeToFileSystem];
+
+- (void)didChangeObject:(NSNotification *)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    
+    [self addUUIDsFromObjects:userInfo[NSInsertedObjectsKey] toSet:self.changedUUIDs];
+    [self addUUIDsFromObjects:userInfo[NSUpdatedObjectsKey] toSet:self.changedUUIDs];
+    
+    for (NSManagedObject *object in userInfo[NSDeletedObjectsKey]) {
+        if ([object isKindOfClass:[MKNote class]]) {
+            MKNote *note = (MKNote *)object;
+            [self.deletedNotePaths addObject:[self pathForNote:note]];
+        }
+    }
 }
 
-- (void)storeToFileSystem {
+- (void)addUUIDsFromObjects:(NSArray *)objects toSet:(NSMutableSet *)set {
+    for (NSManagedObject *object in objects) {
+        if ([object isKindOfClass:[MKNote class]]) {
+            MKNote *note = (MKNote *)object;
+            [set addObject:note.uuid];
+        }
+    }
+}
+
+- (void)storeChangedObjectsToFilesystem {
+    if (!self.basePath) {
+        NSLog(@"Cancelling storing to filesystem - missing base path");
+        return;
+    }
+    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        // Sync changed
+        NSArray *uuids = [self.changedUUIDs allObjects];
+        for (NSString *uuid in uuids) {
+            MKNote *note = [MKNote findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
+            [self syncNote:note];
+        }
+        
+        // TODO: Delete deleted
+        for (NSString *notePath in self.deletedNotePaths) {
+            [self deleteNotePath:notePath];
+        }
+    }];
+}
+
+- (void)storeAllObjectsToFileSystem {
     if (!self.basePath) {
         NSLog(@"Cancelling storing to filesystem - missing base path");
         return;
@@ -110,6 +155,19 @@ typedef void(^MKBlock)(id sender);
     [self setTagsForNote:note path:notePath];
 }
 
+- (void)deleteNotePath:(NSString *)notePath {
+    NSError *error;
+    
+    NSLog(@"Pth: %@", notePath);
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtPath:notePath error:&error];
+    
+    if (error) {
+        NSLog(@"Failed removing note file from the fileysstem: %@", error);
+    }
+}
+
 #pragma mark - Metadata
 
 - (NSString *)appendMetadataToContent:(NSString *)content forNote:(MKNote *)note {
@@ -120,9 +178,7 @@ typedef void(^MKBlock)(id sender);
 }
 
 - (NSDictionary *)readMetadataAndStripFromContent:(NSString **)content {
-    NSLog(@"Getting metadata from content: %@", *content);
 
-    
     NSString *pattern = [NSString stringWithFormat:@"\\n\\n<!-- %@(.*) -->", kMKMetadataHeader];
     NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
     
@@ -136,7 +192,6 @@ typedef void(^MKBlock)(id sender);
     NSRange metadataRange = [result rangeAtIndex:1];
     NSRange wrappedRange = [result rangeAtIndex:0];
     NSString *metadata = [*content substringWithRange:metadataRange];
-    NSLog(@"Metadata: %@", metadata);
     
     *content = [*content stringByReplacingCharactersInRange:wrappedRange withString:@""];
     
@@ -224,6 +279,10 @@ typedef void(^MKBlock)(id sender);
     return notePath;
 }
 
+- (NSString *)pathForNote:(MKNote *)note {
+    return [self notePathForTitle:[self filenameFromTitle:note.title]];
+}
+
 #pragma mark - Restoring from filesystem
 
 - (void)restoreFromFileSystem {
@@ -306,15 +365,14 @@ typedef void(^MKBlock)(id sender);
     
     // Try to find the note
     MKNote *note = [MKNote findFirstByAttribute:@"uuid" withValue:uuid inContext:context];
-    NSLog(@"Found note: %@", note);
     if (!note) {
-        note = [MKNote createEntity];
+        note = [MKNote createInContext:context];
         note.uuid = uuid;
     }
+
     
     note.title = title;
     note.content = content;
-    NSLog(@"Setting tag names to: %@", tags);
     [note setTagNames:tags];
 }
 
