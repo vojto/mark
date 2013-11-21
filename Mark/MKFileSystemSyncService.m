@@ -99,12 +99,14 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Tags
 
 - (void)setTagsForNote:(MKNote *)note path:(NSString *)notePath {
+#ifdef NSURLTagNamesKey
     NSURL *url = [NSURL fileURLWithPath:notePath];
     NSError *error;
     [url setResourceValue:[note tagNames] forKey:NSURLTagNamesKey error:&error];
     if (error) {
         NSLog(@"Failed setting tags: %@", error);
     }
+#endif
 }
 
 #pragma mark - Getting filenames
@@ -205,7 +207,8 @@ typedef void(^MKBlock)(id sender);
         NSLog(@"Skipping note file because UUID is missing: %@", path);
         return;
     }
-    
+
+#ifdef NSURLTagNamesKey
     // Try to read Mavericks tags, if available
     NSURL *url = [NSURL fileURLWithPath:path];
     error = nil;
@@ -220,6 +223,7 @@ typedef void(^MKBlock)(id sender);
         }
         tags = mavericksTags;
     }
+#endif
     
     NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
     
