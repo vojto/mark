@@ -12,7 +12,6 @@
 #import <DTFoundation/DTExtendedFileAttributes.h>
 
 NSString * const kMKFileExtension = @"md";
-NSString * const kMKNoteExtendedAttribute = @"com.apple.metadata:kMDItemFinderComment";
 NSString * const kMKNoteTagsSeparator = @",";
 NSString * const kMKNoteExtendedSectionSeparator = @"|";
 NSString * const kMKFileSystemPathDefaultsKey = @"filesystemPath";
@@ -114,24 +113,51 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Metadata
 
 - (NSString *)appendMetadataToContent:(NSString *)content forNote:(MKNote *)note {
-    NSString *tagsString = [note.tagNames componentsJoinedByString:kMKNoteTagsSeparator];
-    NSString *metadataString = [NSString stringWithFormat:@"%@%@%@", note.uuid, kMKNoteExtendedSectionSeparator, tagsString];
+    NSString *metadataString = [self encodeNoteMetadata:note];
     NSString *wrappedMetadata = [NSString stringWithFormat:@"\n\n<!-- %@%@ -->", kMKMetadataHeader, metadataString];
     
     return [content stringByAppendingString:wrappedMetadata];
 }
 
+- (NSDictionary *)readMetadataAndStripFromContent:(NSString **)content {
+    NSLog(@"Getting metadata from content: %@", *content);
 
-- (NSDictionary *)restoreExtendedAttributesFromFile:(NSString *)path {
-    DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:path];
-    NSString *content = [attrs valueForAttribute:kMKNoteExtendedAttribute];
-    NSArray *components = [content componentsSeparatedByString:kMKNoteExtendedSectionSeparator];
-
-    if (components.count != 2) {
-        NSLog(@"Unexpected count of components in extended attribute.");
+    
+    NSString *pattern = [NSString stringWithFormat:@"\\n\\n<!-- %@(.*) -->", kMKMetadataHeader];
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    NSArray *results = [expression matchesInString:*content options:0 range:NSMakeRange(0, (*content).length)];
+    NSTextCheckingResult *result = [results lastObject];
+    
+    if (!result) {
         return nil;
     }
+    
+    NSRange metadataRange = [result rangeAtIndex:1];
+    NSRange wrappedRange = [result rangeAtIndex:0];
+    NSString *metadata = [*content substringWithRange:metadataRange];
+    NSLog(@"Metadata: %@", metadata);
+    
+    *content = [*content stringByReplacingCharactersInRange:wrappedRange withString:@""];
+    
+    return [self decodeNoteMetadata:metadata];
+    
+}
 
+- (NSString *)encodeNoteMetadata:(MKNote *)note {
+    NSString *tagsString = [note.tagNames componentsJoinedByString:kMKNoteTagsSeparator];
+    NSString *metadataString = [NSString stringWithFormat:@"%@%@%@", note.uuid, kMKNoteExtendedSectionSeparator, tagsString];
+    return metadataString;
+}
+
+- (NSDictionary *)decodeNoteMetadata:(NSString *)metadata {
+    NSArray *components = [metadata componentsSeparatedByString:kMKNoteExtendedSectionSeparator];
+    
+    if (components.count != 2) {
+        NSLog(@"Unexpected count of components in metadata.");
+        return nil;
+    }
+    
     NSString *uuid = components[0];
     NSString *tagsString = components[1];
     NSArray *tagNames = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
@@ -243,11 +269,13 @@ typedef void(^MKBlock)(id sender);
     NSString *fileName = [path lastPathComponent];
     NSString *title = [fileName stringByDeletingPathExtension];
     
-    // Read metadata
     NSError *error;
-    NSDictionary *attributes = [self restoreExtendedAttributesFromFile:path];
-    NSString *uuid = attributes[@"uuid"];
-    NSArray *tags = attributes[@"tagNames"];
+    NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
+    NSDictionary *metadata = [self readMetadataAndStripFromContent:&content];
+    
+    // Read metadata
+    NSString *uuid = metadata[@"uuid"];
+    NSArray *tags = metadata[@"tagNames"];
     
     if (!uuid) {
         NSLog(@"Skipping note file because UUID is missing: %@", path);
@@ -270,8 +298,6 @@ typedef void(^MKBlock)(id sender);
             tags = mavericksTags;
         }
     }
-    
-    NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:&error];
     
     if (error) {
         NSLog(@"Failed to read file for note: %@", path);
