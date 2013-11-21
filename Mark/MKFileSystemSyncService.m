@@ -11,11 +11,11 @@
 #import "MKAppDelegate.h"
 #import <DTFoundation/DTExtendedFileAttributes.h>
 
-NSString * const kMKBasePath = @"/Users/vojto/Desktop/MARK_NOTES";
 NSString * const kMKFileExtension = @"md";
 NSString * const kMKNoteUUIDExtendedAttribute = @"net.rinik.Mark:noteUUID";
 NSString * const kMKNoteTagsExtendedAttribute = @"net.rinik.Mark:noteTags";
 NSString * const kMKNoteTagsSeparator = @",";
+NSString * const kMKFileSystemPathDefaultsKey = @"filesystemPath";
 
 typedef void(^MKBlock)(id sender);
 
@@ -23,15 +23,41 @@ typedef void(^MKBlock)(id sender);
 
 - (id)initWithContext:(NSManagedObjectContext *)context {
     if ((self = [super init])) {
-        self.basePath = kMKBasePath;
+        self.basePath = nil;
         self.context = context;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSave:) name:NSManagedObjectContextDidSaveNotification object:self.context];
-        
+
+        [self setupDefaultsWatching];
         [self setupDirectoryWatching];
     }
     
     return self;
 }
+
+#pragma mark - Watching defaults
+
+- (void)setupDefaultsWatching {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults addObserver:self forKeyPath:kMKFileSystemPathDefaultsKey options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:kMKFileSystemPathDefaultsKey]) {
+        [self updateBasePathFromDefaults];
+    }
+}
+
+- (void)updateBasePathFromDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *path = [defaults objectForKey:kMKFileSystemPathDefaultsKey];
+    if (!self.basePath || ![self.basePath isEqualToString:path]) {
+        self.basePath = path;
+        [self storeToFileSystem];
+        [self setupDirectoryWatching];
+    }
+}
+
+#pragma mark - Storing to filesystem
 
 - (void)didSave:(NSNotification *)notification {
     NSLog(@"Did save - syncing");
@@ -44,10 +70,15 @@ typedef void(^MKBlock)(id sender);
 }
 
 - (void)performSaveCallback {
-    [self performInitialSync];
+    [self storeToFileSystem];
 }
 
-- (void)performInitialSync {
+- (void)storeToFileSystem {
+    if (!self.basePath) {
+        NSLog(@"Cancelling storing to filesystem - missing base path");
+        return;
+    }
+
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
         NSArray *notes = [MKNote findAllInContext:localContext];
         for (MKNote *note in notes) {
@@ -148,7 +179,7 @@ typedef void(^MKBlock)(id sender);
 - (NSString *)notePathForTitle:(NSString *)filename {
     NSString *basePath, *notePath;
     
-    basePath = kMKBasePath;
+    basePath = self.basePath;
     
     notePath = [basePath stringByAppendingPathComponent:filename];
     notePath = [notePath stringByAppendingPathExtension:kMKFileExtension];
@@ -159,6 +190,11 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Restoring from filesystem
 
 - (void)restoreFromFileSystem {
+    if (!self.basePath) {
+        NSLog(@"Cancelling restore - missing base path");
+        return;
+    }
+
     NSLog(@"Restoring from file system");
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
         for (NSString *path in [self noteFilesInDirectory:self.basePath]) {
@@ -175,7 +211,7 @@ typedef void(^MKBlock)(id sender);
     
     while (fileName = [enumerator nextObject]) {
         BOOL isDirectory = NO;
-        NSString *path = [kMKBasePath stringByAppendingPathComponent:fileName];
+        NSString *path = [self.basePath stringByAppendingPathComponent:fileName];
         [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
         
         if (isDirectory) {
@@ -249,6 +285,12 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Directory watching
 
 - (void)setupDirectoryWatching {
+    if (!self.basePath) {
+        NSLog(@"Cancelling directory watching - missing base path");
+        return;
+    }
+
+
     NSURL *url = [NSURL URLWithString:self.basePath];
     self.events = [[CDEvents alloc] initWithURLs:@[url] block:^(CDEvents *watcher, CDEvent *event) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];

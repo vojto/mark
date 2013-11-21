@@ -8,6 +8,8 @@
 
 #import <CDEvents/CDEvents.h>
 
+NSString * const kMKFileSystemPathDefaultsKey;
+
 @interface MKFileSystemSyncService : NSObject
 
 @property (strong) NSString *basePath;

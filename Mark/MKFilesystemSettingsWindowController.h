@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "MKFileSystemSyncService.h"
 
-@interface MKFilesystemSettingsWindowController : NSWindowController
+@interface MKFilesystemSettingsWindowController : NSWindowController <NSOpenSavePanelDelegate>
+
+- (IBAction)choosePathAction:(id)sender;
 
 @end

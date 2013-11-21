@@ -14,20 +14,20 @@
 
 @implementation MKFilesystemSettingsWindowController
 
-- (id)initWithWindow:(NSWindow *)window
-{
-    self = [super initWithWindow:window];
-    if (self) {
-        // Initialization code here.
-    }
-    return self;
+- (IBAction)choosePathAction:(id)sender {
+	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+	[openPanel setCanChooseFiles:NO];
+	[openPanel setCanChooseDirectories:YES];
+	[openPanel setCanCreateDirectories:YES];
+	[openPanel setPrompt:@"Choose Path"];
+	[openPanel setDelegate:self];
+	[openPanel runModal];
 }
 
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+- (void)panel:(id)sender didChangeToDirectoryURL:(NSURL *)url {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [url path];
+	[defaults setObject:path forKey:kMKFileSystemPathDefaultsKey];
 }
 
 @end

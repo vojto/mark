@@ -85,7 +85,7 @@ CA
                                     <action selector="deleteNoteAction:" target="t7L-iJ-K9t" id="Vgs-my-yF3"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Change notes folder" id="G7G-q3-oUB">
+                            <menuItem title="Change notes folder..." id="G7G-q3-oUB">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="changeNotesFolderAction:" target="494" id="ZCO-Az-dNc"/>
