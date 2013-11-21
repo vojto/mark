@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
@@ -690,7 +690,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="841" height="574"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="841" height="574"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -908,17 +908,17 @@ DQ
                                         <rect key="frame" x="20" y="20" width="529" height="472"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" id="Okf-UP-dYj">
-                                            <rect key="frame" x="1" y="1" width="512" height="470"/>
+                                            <rect key="frame" x="1" y="1" width="527" height="470"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="hef-1G-cXA" customClass="RKSyntaxView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="512" height="470"/>
+                                                <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="hef-1G-cXA" customClass="RKSyntaxView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="527" height="470"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="512" height="470"/>
+                                                    <size key="minSize" width="527" height="470"/>
                                                     <size key="maxSize" width="536" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="512" height="470"/>
+                                                    <size key="minSize" width="527" height="470"/>
                                                     <size key="maxSize" width="536" height="10000000"/>
                                                     <connections>
                                                         <binding destination="t7L-iJ-K9t" name="value" keyPath="self.notesArrayController.selection.content" id="PAQ-cB-CHc">
@@ -936,7 +936,7 @@ DQ
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="7bZ-at-tmu">
-                                            <rect key="frame" x="513" y="1" width="15" height="470"/>
+                                            <rect key="frame" x="512" y="1" width="16" height="470"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>

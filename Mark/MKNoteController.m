@@ -20,6 +20,8 @@
     [self.sourceView loadSyntax:@"PageSyntax"];
 
     [self.sourceView highlight];
+    
+    [self.sourceView setAutomaticDashSubstitutionEnabled:NO];
 
 }
 
