@@ -15,6 +15,7 @@
 #import "MKAutoSaveService.h"
 #import "MKFileSystemSyncService.h"
 #import "MKUUIDService.h"
+#import "MKFilesystemSettingsWindowController.h"
 
 NSString * const kMKAppDidFinishLaunchingNotification;
 
@@ -25,6 +26,9 @@ NSString * const kMKAppDidFinishLaunchingNotification;
 @property (strong) MKAutoSaveService *autoSaveService;
 @property (strong) MKFileSystemSyncService *fileSystemSyncService;
 @property (strong) MKUUIDService *uuidService;
+
+// Window controllers
+@property (strong) MKFilesystemSettingsWindowController *filesystemSettingsWindowController;
 
 @property (assign) IBOutlet DMSplitView *splitView;
 
@@ -41,6 +45,7 @@ NSString * const kMKAppDidFinishLaunchingNotification;
 @property (strong) IBOutlet MKNotesController *notesController;
 
 - (IBAction)newTagAction:(id)sender;
+- (IBAction)changeNotesFolderAction:(id)sender;
 
 // Temporary action
 - (IBAction)restoreFromFilesystemAction:(id)sender;

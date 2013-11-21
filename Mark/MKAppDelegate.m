@@ -114,4 +114,13 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
     [self.fileSystemSyncService restoreFromFileSystem];
 }
 
+#pragma mark - Changing notes folder
+
+- (void)changeNotesFolderAction:(id)sender {
+    if (!self.filesystemSettingsWindowController) {
+        self.filesystemSettingsWindowController = [[MKFilesystemSettingsWindowController alloc] initWithWindowNibName:@"MKFilesystemSettingsWindowController"];
+    }
+    [self.filesystemSettingsWindowController showWindow:self];
+}
+
 @end
