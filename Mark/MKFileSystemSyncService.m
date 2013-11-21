@@ -12,9 +12,9 @@
 #import <DTFoundation/DTExtendedFileAttributes.h>
 
 NSString * const kMKFileExtension = @"md";
-NSString * const kMKNoteUUIDExtendedAttribute = @"net.rinik.Mark:noteUUID";
-NSString * const kMKNoteTagsExtendedAttribute = @"net.rinik.Mark:noteTags";
+NSString * const kMKNoteExtendedAttribute = @"com.apple.metadata:kMDItemFinderComment";
 NSString * const kMKNoteTagsSeparator = @",";
+NSString * const kMKNoteExtendedSectionSeparator = @"|";
 NSString * const kMKFileSystemPathDefaultsKey = @"filesystemPath";
 
 typedef void(^MKBlock)(id sender);
@@ -29,6 +29,8 @@ typedef void(^MKBlock)(id sender);
 
         [self setupDefaultsWatching];
         [self setupDirectoryWatching];
+
+        [self updateBasePathFromDefaults];
     }
     
     return self;
@@ -60,12 +62,6 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Storing to filesystem
 
 - (void)didSave:(NSNotification *)notification {
-    NSLog(@"Did save - syncing");
-    NSBeep();
-    NSLog(@"inserted: %@", self.context.insertedObjects);
-    NSLog(@"updated: %@", self.context.updatedObjects);
-//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performSaveCallback) object:nil];
-//    [self performSelector:@selector(performSaveCallback) withObject:nil afterDelay:1];
     [self performSaveCallback];
 }
 
@@ -97,7 +93,6 @@ typedef void(^MKBlock)(id sender);
     notePath = [self notePathForTitle:noteFilename];
     
     NSString *content = note.content;
-    NSLog(@"content: %@", content);
     if (!content) {
         content = @"";
     }
@@ -120,11 +115,27 @@ typedef void(^MKBlock)(id sender);
 #pragma mark - Extended attributes
 
 - (void)setExtendedAttributesForNote:(MKNote *)note path:(NSString *)notePath {
-    // Set UUID
-    DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:notePath];
-    [attrs setValue:note.uuid forAttribute:kMKNoteUUIDExtendedAttribute];
     NSString *tagsString = [note.tagNames componentsJoinedByString:kMKNoteTagsSeparator];
-    [attrs setValue:tagsString forAttribute:kMKNoteTagsExtendedAttribute];
+    NSString *content = [NSString stringWithFormat:@"%@%@%@", note.uuid, kMKNoteExtendedSectionSeparator, tagsString];
+
+    DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:notePath];
+    [attrs setValue:content forAttribute:kMKNoteExtendedAttribute];
+}
+
+- (NSDictionary *)restoreExtendedAttributesFromFile:(NSString *)path {
+    DTExtendedFileAttributes *attrs = [[DTExtendedFileAttributes alloc] initWithPath:path];
+    NSString *content = [attrs valueForAttribute:kMKNoteExtendedAttribute];
+    NSArray *components = [content componentsSeparatedByString:kMKNoteExtendedSectionSeparator];
+
+    if (components.count != 2) {
+        NSLog(@"Unexpected count of components in extended attribute.");
+        return nil;
+    }
+
+    NSString *uuid = components[0];
+    NSString *tagsString = components[1];
+    NSArray *tagNames = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
+    return @{@"uuid": uuid, @"tagNames": tagNames};
 }
 
 #pragma mark - Tags
@@ -234,10 +245,9 @@ typedef void(^MKBlock)(id sender);
     
     // Read metadata
     NSError *error;
-    DTExtendedFileAttributes *attributes = [[DTExtendedFileAttributes alloc] initWithPath:path];
-    NSString *uuid = [attributes valueForAttribute:kMKNoteUUIDExtendedAttribute];
-    NSString *tagsString = [attributes valueForAttribute:kMKNoteTagsExtendedAttribute];
-    NSArray *tags = [tagsString componentsSeparatedByString:kMKNoteTagsSeparator];
+    NSDictionary *attributes = [self restoreExtendedAttributesFromFile:path];
+    NSString *uuid = attributes[@"uuid"];
+    NSArray *tags = attributes[@"tagNames"];
     
     if (!uuid) {
         NSLog(@"Skipping note file because UUID is missing: %@", path);
