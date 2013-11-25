@@ -8,3 +8,8 @@ pod 'BlocksKit'
 pod 'RKSyntaxView', :path => '/Users/vojto/Code/RKSyntaxView'
 pod 'DTFoundation'
 pod 'CDEvents'
+
+target :MarkTests do
+  pod 'Specta'
+  pod 'Expecta'
+end

@@ -1,34 +1,14 @@
-//
-//  MarkTests.m
-//  MarkTests
-//
-//  Created by Vojtech Rinik on 22/10/13.
-//  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
-//
+#define EXP_SHORTHAND
+#import <Specta/Specta.h>
+#import <Expecta/Expecta.h>
 
-#import <XCTest/XCTest.h>
+SpecBegin(Thing)
 
-@interface MarkTests : XCTestCase
+describe(@"Thing", ^{
+    it(@"does stuff", ^{
+        NSLog(@"Doing stuff lol");
+        expect(5).to.equal(5);
+    });
+});
 
-@end
-
-@implementation MarkTests
-
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
-
-@end
+SpecEnd

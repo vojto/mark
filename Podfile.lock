@@ -24,17 +24,21 @@ PODS:
     - DTFoundation/Core
   - DTFoundation/DTReachability (1.6.0)
   - DTFoundation/DTSQLite (1.6.0)
+  - Expecta (0.2.3)
   - MagicalRecord (2.2)
   - RKSyntaxView (0.0.1)
   - RNEvents (0.0.1)
+  - Specta (0.2.1)
 
 DEPENDENCIES:
   - BlocksKit
   - CDEvents
   - DTFoundation
+  - Expecta
   - MagicalRecord
   - RKSyntaxView (from `/Users/vojto/Code/RKSyntaxView`)
   - RNEvents (from `/Users/vojto/Code/rnevents`)
+  - Specta
 
 EXTERNAL SOURCES:
   RKSyntaxView:
@@ -46,8 +50,10 @@ SPEC CHECKSUMS:
   BlocksKit: 27257f9cbbec0ea98c80ba83cc2ea7111ae62eb2
   CDEvents: 079cd7b12501bafe6c7ec204f87cecdadce121cc
   DTFoundation: 5bfec187ed495cea33c47dc64e8ee623e8beb353
+  Expecta: dbc4a27fabb853bdd2e907e33f11ee43a9a47d0c
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
   RKSyntaxView: aeb8f06ff0e23562b7d3332789945fabd0cc591d
   RNEvents: 86ecdd5aaf10208eecb2d152dd6675b3c5d0e1ca
+  Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
 
 COCOAPODS: 0.28.0
