@@ -10,6 +10,8 @@
 
 @implementation MKTagsArrayController
 
+/*
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
         self.extraItem = @{@"name": @"All tags"};
@@ -32,5 +34,7 @@
     
     return objects;
 }
+ 
+ */
 
 @end

@@ -756,6 +756,7 @@ DQ
                                                     </tableColumns>
                                                     <connections>
                                                         <binding destination="0Ld-Hz-XgA" name="content" keyPath="arrangedObjects" id="kKM-vJ-SO8"/>
+                                                        <binding destination="0Ld-Hz-XgA" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="kKM-vJ-SO8" id="Kf8-r1-Bha"/>
                                                         <outlet property="dataSource" destination="eoH-yA-S9h" id="aL4-sL-xca"/>
                                                         <outlet property="delegate" destination="eoH-yA-S9h" id="RsI-bU-YDp"/>
                                                     </connections>

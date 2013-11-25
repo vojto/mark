@@ -26,7 +26,7 @@
     
     // Setup notification for managed object context
     NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
 }
 
 - (void)awakeFromNib {
@@ -43,6 +43,8 @@
 }
 
 - (void)filterNotesByTag:(MKTag *)tag {
+    NSLog(@"Filtering notes...");
+    NSLog(@"Current tag: %@, New tag: %@", self.currentTag.name, tag.name);
     if ((id)tag == [NSNull null]) {
         self.notesArrayController.filterPredicate = nil;
         self.currentTag = nil;
