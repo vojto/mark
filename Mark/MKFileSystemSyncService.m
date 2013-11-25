@@ -407,6 +407,8 @@ typedef void(^MKBlock)(id sender);
 
 - (void)dealloc {
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kMKFileSystemPathDefaultsKey];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
 }
 
 @end

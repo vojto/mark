@@ -12,6 +12,7 @@ describe(@"MKFileSystemSyncService", ^{
     __block NSManagedObjectContext *context;
     __block NSUserDefaults *defaults;
     __block NSFileManager *manager;
+    __block NSString *basePath;
     
     beforeAll(^{
         [MagicalRecord setDefaultModelFromClass:[self class]];
@@ -36,25 +37,28 @@ describe(@"MKFileSystemSyncService", ^{
     });
     
     describe(@"syncing with the file system", ^{
-        fit(@"creates file for the note", ^{
-            NSString *basePath = @"/tmp/MARK_NOTES_TEST";
-            [defaults setObject:basePath forKey:@"filesystemPath"];
-            service = [[MKFileSystemSyncService alloc] initWithContext:context];
-            
-            // Set up test path
+        beforeAll(^{
+            basePath = @"/tmp/MARK_NOTES_TEST";
             [manager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:NULL];
             
+            service = [[MKFileSystemSyncService alloc] initWithContext:context];
+            [defaults setObject:basePath forKey:@"filesystemPath"];
+        });
+        
+        it(@"creates file for the note", ^{
             // Create a test note
             MKNote *note = [MKNote createEntity];
             note.title = @"foo";
             note.content = @"foo bar";
+            NSLog(@"Context: %@", context);
             [context save:NULL];
             
             NSString *path = [basePath stringByAppendingPathComponent:@"foo.md"];
             expect([manager fileExistsAtPath:path]).to.beTruthy();
-
-            
-            
+        });
+        
+        afterAll(^{
+            service = nil;
         });
     });
 });
