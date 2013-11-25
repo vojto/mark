@@ -40,7 +40,6 @@
     selection.length = 0;
     
     NSRange lineRange;
-    NSTextStorage *storage = self.sourceView.textStorage;
     NSString *line = [self.sourceView lineAtRange:selection lineRange:&lineRange];
     
     NSRegularExpression *regex;
@@ -103,7 +102,6 @@
     NSInteger indentSize = indentString.length;
     
     selection = [self.sourceView selectedRange];
-    NSTextStorage *storage = self.sourceView.textStorage;
     
     block = [self.sourceView lineAtRange:selection lineRange:&lineRange];
 
@@ -133,9 +131,19 @@
 
 - (NSRange)replaceInRange:(NSRange)range with:(NSString *)replacement {
     NSTextStorage *storage = self.sourceView.textStorage;
-    [storage replaceCharactersInRange:range withString:replacement];
+    
+    if ([self.sourceView shouldChangeTextInRange:range replacementString:replacement]) {
+        [storage beginEditing];
+        [storage replaceCharactersInRange:range withString:replacement];
+        [storage endEditing];
+        [self.sourceView didChangeText];
+    }
+    
+    
     NSRange newRange = range;
     newRange.length = replacement.length;
+    
+    
     [self.sourceView highlightRange:newRange];
     return newRange;
 }

@@ -43,8 +43,6 @@
 }
 
 - (void)filterNotesByTag:(MKTag *)tag {
-    NSLog(@"Filtering notes...");
-    NSLog(@"Current tag: %@, New tag: %@", self.currentTag.name, tag.name);
     if ((id)tag == [NSNull null]) {
         self.notesArrayController.filterPredicate = nil;
         self.currentTag = nil;
