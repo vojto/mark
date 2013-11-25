@@ -41,7 +41,7 @@
     
     NSRange lineRange;
     NSTextStorage *storage = self.sourceView.textStorage;
-    NSString *line = [self lineAtRange:selection lineRange:&lineRange in:storage.string];
+    NSString *line = [self.sourceView lineAtRange:selection lineRange:&lineRange];
     
     NSRegularExpression *regex;
     NSString *expression, *bulletSymbols, *template, *replacement;
@@ -105,7 +105,8 @@
     selection = [self.sourceView selectedRange];
     NSTextStorage *storage = self.sourceView.textStorage;
     
-    block = [self lineAtRange:selection lineRange:&lineRange in:storage.string];
+    block = [self.sourceView lineAtRange:selection lineRange:&lineRange];
+
     lines = [block componentsSeparatedByString:@"\n"];
     updatedLines = [lines map:^id(NSString *line) {
         if (right) {
@@ -137,16 +138,6 @@
     newRange.length = replacement.length;
     [self.sourceView highlightRange:newRange];
     return newRange;
-}
-
-- (NSString *)lineAtRange:(NSRange)range lineRange:(NSRange *)lineRange in:(NSString *)contents {
-    NSUInteger lineStart, lineEnd;
-    NSString *line;
-    [contents getLineStart:&lineStart end:NULL contentsEnd:&lineEnd forRange:range];
-    lineRange->location = lineStart;
-    lineRange->length = lineEnd - lineStart;
-    line = [contents substringWithRange:*lineRange];
-    return line;
 }
 
 @end

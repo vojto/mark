@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <RKSyntaxView/RKSyntaxView.h>
+#import "MKSyntaxView.h"
 
 @interface MKNoteController : NSObject
 
 @property (weak) IBOutlet NSTextField *titleField;
 @property (weak) IBOutlet NSScrollView *contentField;
 
-@property (unsafe_unretained) IBOutlet RKSyntaxView *sourceView;
+@property (unsafe_unretained) IBOutlet MKSyntaxView *sourceView;
 
 - (IBAction)createTaskAction:(id)sender;
 - (IBAction)zoneInTaskAction:(id)sender;

@@ -19,6 +19,7 @@
 		991A2C8D18180C2900B6C024 /* MKNotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C8C18180C2900B6C024 /* MKNotesController.m */; };
 		991A2C9018180CCD00B6C024 /* MKTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C8F18180CCD00B6C024 /* MKTagsController.m */; };
 		991A2C9318181A5000B6C024 /* DMSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C9218181A5000B6C024 /* DMSplitView.m */; };
+		996674081843759600679084 /* MKSyntaxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 996674071843759600679084 /* MKSyntaxView.m */; };
 		99A485FD1816DB5F00D7AE33 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A485FC1816DB5F00D7AE33 /* Cocoa.framework */; };
 		99A486071816DB5F00D7AE33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99A486051816DB5F00D7AE33 /* InfoPlist.strings */; };
 		99A486091816DB5F00D7AE33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A486081816DB5F00D7AE33 /* main.m */; };
@@ -71,6 +72,8 @@
 		991A2C8F18180CCD00B6C024 /* MKTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTagsController.m; sourceTree = "<group>"; };
 		991A2C9118181A5000B6C024 /* DMSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMSplitView.h; sourceTree = "<group>"; };
 		991A2C9218181A5000B6C024 /* DMSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMSplitView.m; sourceTree = "<group>"; };
+		996674061843759600679084 /* MKSyntaxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSyntaxView.h; sourceTree = "<group>"; };
+		996674071843759600679084 /* MKSyntaxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSyntaxView.m; sourceTree = "<group>"; };
 		99A485F91816DB5F00D7AE33 /* Mark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99A485FC1816DB5F00D7AE33 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		99A485FF1816DB5F00D7AE33 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -191,6 +194,15 @@
 			name = Main;
 			sourceTree = "<group>";
 		};
+		996674051843757100679084 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				996674061843759600679084 /* MKSyntaxView.h */,
+				996674071843759600679084 /* MKSyntaxView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		99A485F01816DB5F00D7AE33 = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +254,7 @@
 				99A486031816DB5F00D7AE33 /* Supporting Files */,
 				991A2C801817FEFA00B6C024 /* Models */,
 				99AFB131183BCCE20002DBB4 /* Services */,
+				996674051843757100679084 /* Views */,
 				991A2C821817FF0600B6C024 /* Components */,
 			);
 			path = Mark;
@@ -450,6 +463,7 @@
 				99D9DAC4183CF1DC00710F89 /* NSString+UUID.m in Sources */,
 				991A2C771817F01B00B6C024 /* MKTag.m in Sources */,
 				99E81613183DFD2A00602A94 /* MKFilesystemSettingsWindowController.m in Sources */,
+				996674081843759600679084 /* MKSyntaxView.m in Sources */,
 				99A486091816DB5F00D7AE33 /* main.m in Sources */,
 				991A2C9018180CCD00B6C024 /* MKTagsController.m in Sources */,
 				99009864183BB33A007EAB2A /* MKNoteController.m in Sources */,
