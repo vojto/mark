@@ -14,6 +14,7 @@
 		9902108918439382000FD6B1 /* MKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C791817F01B00B6C024 /* MKNote.m */; };
 		9902108A184393A4000FD6B1 /* MKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C761817F01B00B6C024 /* MKTag.m */; };
 		9902108B18439541000FD6B1 /* Mark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */; };
+		9902108C18439DA1000FD6B1 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DAC3183CF1DC00710F89 /* NSString+UUID.m */; };
 		991A2C711817EEFA00B6C024 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A486001816DB5F00D7AE33 /* CoreData.framework */; };
 		991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */; };
 		991A2C771817F01B00B6C024 /* MKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C761817F01B00B6C024 /* MKTag.m */; };
@@ -521,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99A486271816DB6000D7AE33 /* MarkTests.m in Sources */,
+				9902108C18439DA1000FD6B1 /* NSString+UUID.m in Sources */,
 				9902108918439382000FD6B1 /* MKNote.m in Sources */,
 				9902108818439365000FD6B1 /* MKFileSystemSyncService.m in Sources */,
 				9902108718438FBD000FD6B1 /* Test_MKFileSystemSyncService.m in Sources */,
