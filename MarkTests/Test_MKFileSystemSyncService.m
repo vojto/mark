@@ -76,7 +76,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        fit(@"removes file that was removed from disk", ^{
+        it(@"removes file that was removed from disk", ^{
             // First, create 2 notes and sync them to the disk
             MKNote *note1 = [MKNote createEntity];
             note1.title = @"note1";
@@ -101,6 +101,22 @@ describe(@"MKFileSystemSyncService", ^{
             // Assert that it was removed from Core Data storage
             NSArray *notes = [MKNote findAll];
             expect(notes.count).to.equal(1);
+        });
+        
+        describe(@"live updating", ^{
+            it(@"creates note when file is created", ^{
+                NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
+                [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+                usleep(500*1000);
+                NSArray *notes = [MKNote findAll];
+                expect(notes.count).to.equal(1);
+            });
+            
+            it(@"updates file when file is changed", ^{
+                
+            });
+            
+            
         });
         
         afterAll(^{

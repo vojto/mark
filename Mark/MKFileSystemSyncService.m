@@ -380,6 +380,7 @@ typedef void(^MKBlock)(id sender);
                 NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
             }
             tags = mavericksTags;
+            NSLog(@"Setting mavericks tags: %@", tags);
         }
     }
     
