@@ -58,7 +58,10 @@ typedef void(^MKBlock)(id sender);
     NSString *path = [defaults objectForKey:kMKFileSystemPathDefaultsKey];
     if (!self.basePath || ![self.basePath isEqualToString:path]) {
         self.basePath = path;
-        [self storeAllObjectsToFileSystem];
+//        [self storeAllObjectsToFileSystem];
+        // TODO: Store objects at SOME point after changing the path
+        // but doing it at the launch time collides with the restoring
+        // routine.
         [self setupDirectoryWatching];
     }
 }
@@ -133,6 +136,10 @@ typedef void(^MKBlock)(id sender);
     NSString *noteFilename, *notePath;
     NSError *error;
     BOOL result;
+    
+    if (note.isDeleted) {
+        return;
+    }
     
     
     noteFilename = [self retrieveOrCreateNoteFilename:note];
