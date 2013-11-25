@@ -23,6 +23,10 @@
     return @"Note";
 }
 
++ (NSString *)entityName {
+    return @"Note";
+}
+
 - (NSString *)tagsString {
     return [self.tagNames componentsJoinedByString:@", "];
 }

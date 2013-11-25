@@ -403,6 +403,10 @@ typedef void(^MKBlock)(id sender);
      */
 }
 
+#pragma mark - Lifecycle
 
+- (void)dealloc {
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kMKFileSystemPathDefaultsKey];
+}
 
 @end
