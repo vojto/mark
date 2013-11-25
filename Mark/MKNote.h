@@ -23,6 +23,7 @@
 - (NSString *)tagsString;
 - (NSArray *)tagNames;
 - (void)setTagNames:(NSArray *)tagNames;
+- (void)ensureUUID;
 
 @end
 

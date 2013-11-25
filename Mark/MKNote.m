@@ -51,4 +51,10 @@
     }
 }
 
+- (void)ensureUUID {
+    if (!self.uuid) {
+        self.uuid = [[NSString UUIDString] lowercaseString];
+    }
+}
+
 @end

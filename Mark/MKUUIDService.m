@@ -24,9 +24,7 @@
     for (NSManagedObject *object in self.context.insertedObjects) {
         if ([object isKindOfClass:[MKNote class]]) {
             MKNote *note = (MKNote *)object;
-            if (!note.uuid) {
-                note.uuid = [[NSString UUIDString] lowercaseString];
-            }
+            [note ensureUUID];
         }
     }
 }

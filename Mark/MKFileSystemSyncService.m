@@ -88,6 +88,7 @@ typedef void(^MKBlock)(id sender);
     for (NSManagedObject *object in objects) {
         if ([object isKindOfClass:[MKNote class]]) {
             MKNote *note = (MKNote *)object;
+            [note ensureUUID];
             [set addObject:note.uuid];
         }
     }
