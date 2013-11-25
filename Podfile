@@ -8,6 +8,7 @@ pod 'BlocksKit'
 pod 'RKSyntaxView', :path => '/Users/vojto/Code/RKSyntaxView'
 pod 'DTFoundation'
 pod 'CDEvents'
+pod 'VDKQueue', :path => '/Users/vojto/Code/VDKQueue'
 
 target :MarkTests do
   pod 'Specta'

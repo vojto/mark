@@ -38,10 +38,10 @@ describe(@"MKFileSystemSyncService", ^{
     
     describe(@"syncing with the file system", ^{
         beforeAll(^{
-            basePath = @"/tmp/MARK_NOTES_TEST";
+            basePath = @"/Users/vojto/Desktop/MARK_NOTES_TEST";
             [manager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:NULL];
-            service = [[MKFileSystemSyncService alloc] initWithContext:context];
             [defaults setObject:basePath forKey:@"filesystemPath"];
+            service = [[MKFileSystemSyncService alloc] initWithContext:context];
         });
         
         beforeEach(^{
@@ -101,22 +101,6 @@ describe(@"MKFileSystemSyncService", ^{
             // Assert that it was removed from Core Data storage
             NSArray *notes = [MKNote findAll];
             expect(notes.count).to.equal(1);
-        });
-        
-        describe(@"live updating", ^{
-            it(@"creates note when file is created", ^{
-                NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
-                [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-                usleep(500*1000);
-                NSArray *notes = [MKNote findAll];
-                expect(notes.count).to.equal(1);
-            });
-            
-            it(@"updates file when file is changed", ^{
-                
-            });
-            
-            
         });
         
         afterAll(^{

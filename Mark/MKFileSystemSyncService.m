@@ -32,9 +32,9 @@ typedef void(^MKBlock)(id sender);
         [center addObserver:self selector:@selector(didChangeObject:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.context];
 
         [self setupDefaultsWatching];
-        [self setupDirectoryWatching];
 
         [self updateBasePathFromDefaults];
+        [self setupDirectoryWatching];
     }
     
     return self;
@@ -411,6 +411,19 @@ typedef void(^MKBlock)(id sender);
         NSLog(@"Cancelling directory watching - missing base path");
         return;
     }
+    
+    self.queue = [[VDKQueue alloc] init];
+    self.queue.delegate = self;
+
+    // Watch whole directory
+    NSLog(@"Watching: %@", self.basePath);
+    [self.queue addPath:self.basePath notifyingAbout:VDKQueueNotifyAboutWrite];
+    
+    NSArray *paths = [self noteFilesInDirectory:self.basePath];
+    for (NSString *path in paths) {
+        NSLog(@"Watching: %@", path);
+        [self.queue addPath:path notifyingAbout:VDKQueueNotifyAboutWrite];
+    }
 
     
     /* TODO: This part needs to be reworked in its entirity.
@@ -428,6 +441,11 @@ typedef void(^MKBlock)(id sender);
     }];
      
      */
+}
+
+- (void)VDKQueue:(VDKQueue *)queue receivedNotification:(NSString *)noteName forPath:(NSString *)fpath {
+    NSLog(@"Notification: %@", noteName);
+    NSLog(@"Path: %@", fpath);
 }
 
 #pragma mark - Lifecycle

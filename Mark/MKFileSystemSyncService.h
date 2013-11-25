@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <CDEvents/CDEvents.h>
+#import <VDKQueue/VDKQueue.h>
 
 NSString * const kMKFileSystemPathDefaultsKey;
 
-@interface MKFileSystemSyncService : NSObject
+@interface MKFileSystemSyncService : NSObject <VDKQueueDelegate>
 
 @property (strong) NSString *basePath;
 @property (strong) NSManagedObjectContext *context;
-@property (strong) CDEvents *events;
+@property (strong) VDKQueue *queue;
 
 @property (strong) NSMutableSet *changedUUIDs;
 @property (strong) NSMutableSet *deletedNotePaths; // Store referenced files, since note objects aren't available anymore

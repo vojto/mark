@@ -29,6 +29,7 @@ PODS:
   - RKSyntaxView (0.0.1)
   - RNEvents (0.0.1)
   - Specta (0.2.1)
+  - VDKQueue
 
 DEPENDENCIES:
   - BlocksKit
@@ -39,12 +40,15 @@ DEPENDENCIES:
   - RKSyntaxView (from `/Users/vojto/Code/RKSyntaxView`)
   - RNEvents (from `/Users/vojto/Code/rnevents`)
   - Specta
+  - VDKQueue (from `/Users/vojto/Code/VDKQueue`)
 
 EXTERNAL SOURCES:
   RKSyntaxView:
     :path: /Users/vojto/Code/RKSyntaxView
   RNEvents:
     :path: /Users/vojto/Code/rnevents
+  VDKQueue:
+    :path: /Users/vojto/Code/VDKQueue
 
 SPEC CHECKSUMS:
   BlocksKit: 27257f9cbbec0ea98c80ba83cc2ea7111ae62eb2
@@ -55,5 +59,6 @@ SPEC CHECKSUMS:
   RKSyntaxView: aeb8f06ff0e23562b7d3332789945fabd0cc591d
   RNEvents: 86ecdd5aaf10208eecb2d152dd6675b3c5d0e1ca
   Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
+  VDKQueue: 61c732198211b7e8b8462fc7dd0d4c0074493ae1
 
 COCOAPODS: 0.28.0
