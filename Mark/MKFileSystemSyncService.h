@@ -14,7 +14,10 @@ NSString * const kMKFileSystemPathDefaultsKey;
 
 @property (strong) NSString *basePath;
 @property (strong) NSManagedObjectContext *context;
+
 @property (strong) VDKQueue *queue;
+@property (assign) BOOL isWatching;
+@property (strong) NSDate *lastRestore;
 
 @property (strong) NSMutableSet *changedUUIDs;
 @property (strong) NSMutableSet *deletedNotePaths; // Store referenced files, since note objects aren't available anymore

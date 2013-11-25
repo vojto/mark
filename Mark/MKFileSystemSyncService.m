@@ -27,14 +27,14 @@ typedef void(^MKBlock)(id sender);
         self.context = context;
         self.changedUUIDs = [NSMutableSet set];
         self.deletedNotePaths = [NSMutableSet set];
+        self.isWatching = YES;
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(didSave:) name:NSManagedObjectContextDidSaveNotification object:self.context];
         [center addObserver:self selector:@selector(didChangeObject:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.context];
 
         [self setupDefaultsWatching];
 
-        [self updateBasePathFromDefaults];
-        [self setupDirectoryWatching];
+        [self updateBasePathFromDefaults]; // that will also start watching directory
     }
     
     return self;
@@ -150,7 +150,11 @@ typedef void(^MKBlock)(id sender);
         content = @"";
     }
     content = [self appendMetadataToContent:content forNote:note];
+    self.isWatching = NO;
+    NSLog(@"Disabling watching");
     result = [content writeToFile:notePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    self.isWatching = YES;
+    NSLog(@"Enabling watching");
     if (!result) {
         [NSException raise:@"Failed saving note to a file" format:@"%@", error];
         return;
@@ -293,7 +297,7 @@ typedef void(^MKBlock)(id sender);
 
 #pragma mark - Restoring from filesystem
 
-- (void)restoreFromFileSystem {
+- (void)restoreFromFileSystemIncrementally:(BOOL)isIncremental {
     if (!self.basePath) {
         NSLog(@"Cancelling restore - missing base path");
         return;
@@ -306,6 +310,13 @@ typedef void(^MKBlock)(id sender);
             NSLog(@"No files found in directory.");
             return;
         }
+        
+        // Filter only files recently changed
+        if (isIncremental && self.lastRestore) {
+            files = [self filterFilesToChangedRecently:files];
+            NSLog(@"Recently changed files: %@", files);
+        }
+        
         NSMutableSet *updatedUUIDs = [NSMutableSet set];
         for (NSString *path in files) {
             MKNote *updatedNote = [self updateNoteFromFileSystemAtPath:path context:localContext];
@@ -315,13 +326,38 @@ typedef void(^MKBlock)(id sender);
         }
         // Inspect local notes, and delete those that weren't updated during the restore
         // operation.
-        NSArray *notes = [MKNote findAllInContext:localContext];
-        for (MKNote *note in notes) {
-            if (![updatedUUIDs containsObject:note.uuid]) {
-                [note deleteEntity];
+        if (!isIncremental) {
+            NSArray *notes = [MKNote findAllInContext:localContext];
+            for (MKNote *note in notes) {
+                if (![updatedUUIDs containsObject:note.uuid]) {
+                    [note deleteEntity];
+                }
             }
         }
+        
+        self.lastRestore = [NSDate date];
     }];
+}
+
+- (NSArray *)filterFilesToChangedRecently:(NSArray *)files {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (!self.lastRestore) {
+        return files;
+    }
+    return [files select:^BOOL(NSString *file) {
+        NSDictionary *attributes = [manager attributesOfItemAtPath:file error:NULL];
+        NSDate *date = attributes[NSFileModificationDate];
+        NSLog(@"Modification date: %@", date);
+        if ([date isGreaterThanOrEqualTo:self.lastRestore]) {
+            return YES;
+        } else {
+            return NO;
+        }
+    }];
+}
+
+- (void)restoreFromFileSystem {
+    [self restoreFromFileSystemIncrementally:NO];
 }
 
 - (NSArray *)noteFilesInDirectory:(NSString *)directoryPath {
@@ -417,35 +453,16 @@ typedef void(^MKBlock)(id sender);
 
     // Watch whole directory
     NSLog(@"Watching: %@", self.basePath);
-    [self.queue addPath:self.basePath notifyingAbout:VDKQueueNotifyAboutWrite];
-    
-    NSArray *paths = [self noteFilesInDirectory:self.basePath];
-    for (NSString *path in paths) {
-        NSLog(@"Watching: %@", path);
-        [self.queue addPath:path notifyingAbout:VDKQueueNotifyAboutWrite];
-    }
-
-    
-    /* TODO: This part needs to be reworked in its entirity.
-     
-        0. Use VDKQueue
-        1. CHANGES: Watch for notifications for every file in the folder that may have changed.
-        2. DELETIONS: Watch for notification about deleting files in the folder. (Existing files though.)
-        3. INSERTIONS: Somehow watch for notifications of new files being created. (What if we create a new note on another computer.)
-     
-
-    NSURL *url = [NSURL URLWithString:self.basePath];
-    self.events = [[CDEvents alloc] initWithURLs:@[url] block:^(CDEvents *watcher, CDEvent *event) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        [self performSelector:@selector(restoreFromFileSystem) withObject:nil afterDelay:1];
-    }];
-     
-     */
+    [self.queue addPath:self.basePath notifyingAbout:VDKQueueNotifyDefault];
 }
 
 - (void)VDKQueue:(VDKQueue *)queue receivedNotification:(NSString *)noteName forPath:(NSString *)fpath {
-    NSLog(@"Notification: %@", noteName);
-    NSLog(@"Path: %@", fpath);
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeFiles) object:nil];
+    [self performSelector:@selector(didChangeFiles) withObject:nil afterDelay:1];
+}
+
+- (void)didChangeFiles {
+    [self restoreFromFileSystemIncrementally:YES];
 }
 
 #pragma mark - Lifecycle
