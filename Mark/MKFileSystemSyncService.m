@@ -294,8 +294,25 @@ typedef void(^MKBlock)(id sender);
 
     NSLog(@"Restoring from file system");
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        for (NSString *path in [self noteFilesInDirectory:self.basePath]) {
-            [self updateNoteFromFileSystemAtPath:path context:localContext];
+        NSArray *files = [self noteFilesInDirectory:self.basePath];
+        if (files.count == 0) {
+            NSLog(@"No files found in directory.");
+            return;
+        }
+        NSMutableSet *updatedUUIDs = [NSMutableSet set];
+        for (NSString *path in files) {
+            MKNote *updatedNote = [self updateNoteFromFileSystemAtPath:path context:localContext];
+            if (updatedNote) {
+                [updatedUUIDs addObject:updatedNote.uuid];
+            }
+        }
+        // Inspect local notes, and delete those that weren't updated during the restore
+        // operation.
+        NSArray *notes = [MKNote findAllInContext:localContext];
+        for (MKNote *note in notes) {
+            if (![updatedUUIDs containsObject:note.uuid]) {
+                [note deleteEntity];
+            }
         }
     }];
 }
@@ -325,7 +342,7 @@ typedef void(^MKBlock)(id sender);
     return noteFiles;
 }
 
-- (void)updateNoteFromFileSystemAtPath:(NSString *)path context:(NSManagedObjectContext *)context {
+- (MKNote *)updateNoteFromFileSystemAtPath:(NSString *)path context:(NSManagedObjectContext *)context {
     NSString *fileName = [path lastPathComponent];
     NSString *title = [fileName stringByDeletingPathExtension];
     
@@ -339,7 +356,7 @@ typedef void(^MKBlock)(id sender);
     
     if (!uuid) {
         NSLog(@"Skipping note file because UUID is missing: %@", path);
-        return;
+        return nil;
     }
 
     // Try to read Mavericks tags, if available
@@ -361,7 +378,7 @@ typedef void(^MKBlock)(id sender);
     
     if (error) {
         NSLog(@"Failed to read file for note: %@", path);
-        return;
+        return nil;
     }
     
     // Try to find the note
@@ -375,6 +392,8 @@ typedef void(^MKBlock)(id sender);
     note.title = title;
     note.content = content;
     [note setTagNames:tags];
+    
+    return note;
 }
 
 #pragma mark - Directory watching

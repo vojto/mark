@@ -96,6 +96,7 @@ describe(@"MKFileSystemSyncService", ^{
             
             // Restore from filesystem
             [service restoreFromFileSystem];
+            usleep(300*1000);
             
             // Assert that it was removed from Core Data storage
             NSArray *notes = [MKNote findAll];
