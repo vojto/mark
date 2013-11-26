@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <VDKQueue/VDKQueue.h>
+#import <CDEvents/CDEvents.h>
 
 NSString * const kMKFileSystemPathDefaultsKey;
 
-@interface MKFileSystemSyncService : NSObject <VDKQueueDelegate>
+@interface MKFileSystemSyncService : NSObject
 
 @property (strong) NSString *basePath;
 @property (strong) NSManagedObjectContext *context;
 
-@property (strong) VDKQueue *queue;
+@property (strong) CDEvents *events;
 @property (assign) BOOL isWatching;
 @property (strong) NSDate *lastRestore;
 

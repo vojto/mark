@@ -89,7 +89,10 @@ typedef void(^MKBlock)(id sender);
 
 - (void)addUUIDsFromObjects:(NSArray *)objects toSet:(NSMutableSet *)set {
     for (NSManagedObject *object in objects) {
-        if ([object isKindOfClass:[MKNote class]]) {
+        // This is called after an object has been changed - so it can't
+        // be a fault, unless it has been deleted, in which case we don't
+        // want to add it ot our uuid queue.
+        if (!object.isFault && [object isKindOfClass:[MKNote class]]) {
             MKNote *note = (MKNote *)object;
             [note ensureUUID];
             [set addObject:note.uuid];
@@ -420,7 +423,6 @@ typedef void(^MKBlock)(id sender);
                 NSLog(@"Warning: Mavericks tags differ from xattrs tags, using Mavericks tags.");
             }
             tags = mavericksTags;
-            NSLog(@"Setting mavericks tags: %@", tags);
         }
     }
     
@@ -452,21 +454,34 @@ typedef void(^MKBlock)(id sender);
         return;
     }
     
-    self.queue = [[VDKQueue alloc] init];
-    self.queue.delegate = self;
-
-    // Watch whole directory
-    NSLog(@"Watching: %@", self.basePath);
-    [self.queue addPath:self.basePath notifyingAbout:VDKQueueNotifyDefault];
+    void(^eventBlock)(CDEvents *watcher, CDEvent *event) = ^void(CDEvents *watcher, CDEvent *event) {
+        NSLog(@"Event: %@", event);
+        NSLog(@"Created = %d\nModified = %d\nRemoved = %d\nisFile = %d", event.isCreated, event.isModified, event.isRemoved, event.isFile);
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeFiles) object:nil];
+        [self performSelector:@selector(didChangeFiles) withObject:nil afterDelay:1];
+    };
+    
+    NSURL *url = [NSURL URLWithString:self.basePath];
+    self.events = [[CDEvents alloc] initWithURLs:@[url]
+                                           block:eventBlock
+                                       onRunLoop:[NSRunLoop currentRunLoop]
+                            sinceEventIdentifier:kCDEventsSinceEventNow
+                            notificationLantency:0.0
+                         ignoreEventsFromSubDirs:CD_EVENTS_DEFAULT_IGNORE_EVENT_FROM_SUB_DIRS
+                                     excludeURLs:@[]
+                             streamCreationFlags:kCDEventsDefaultEventStreamFlags];
+    
+    /*
+     
+     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeFiles) object:nil];
+     [self performSelector:@selector(didChangeFiles) withObject:nil afterDelay:1];
+     
+     */
 }
 
-- (void)VDKQueue:(VDKQueue *)queue receivedNotification:(NSString *)noteName forPath:(NSString *)fpath {
-    NSLog(@"Received notification: %@\t\t%@", noteName, fpath);
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeFiles) object:nil];
-    [self performSelector:@selector(didChangeFiles) withObject:nil afterDelay:1];
-}
 
 - (void)didChangeFiles {
+    NSLog(@"didChangeFiles");
     [self restoreFromFileSystemIncrementally:YES];
 }
 

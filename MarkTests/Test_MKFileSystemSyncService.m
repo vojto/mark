@@ -67,7 +67,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect([manager fileExistsAtPath:path]).to.beTruthy();
         });
         
-        it(@"restores note from file", ^{
+        fit(@"restores note from file", ^{
             NSString *content = @"a note\n\n<!-- Mark: xxx1|tag1 -->";
             [content writeToFile:[basePath stringByAppendingPathComponent:@"restore.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
             [service restoreFromFileSystem];
@@ -76,7 +76,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        it(@"removes note that was removed from disk", ^{
+        fit(@"removes note that was removed from disk", ^{
             // First, create 2 notes and sync them to the disk
             MKNote *note1 = [MKNote createEntity];
             note1.title = @"note1";
@@ -103,7 +103,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        it(@"removes file after removing note", ^{
+        fit(@"removes file after removing note", ^{
             MKNote *note = [MKNote createEntity];
             note.title = @"deleteme";
             [context saveToPersistentStoreAndWait];
@@ -126,12 +126,17 @@ describe(@"MKFileSystemSyncService", ^{
         });
         
         describe(@"live updating", ^{
-            it(@"creates note when file is created", ^{
+            fit(@"creates note when file is created", ^AsyncBlock{
+                sleep(1);
                 NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
                 [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-                usleep(500*1000);
-                NSArray *notes = [MKNote findAll];
-                expect(notes.count).to.equal(1);
+                [self performBlock:^(id sender) {
+                    NSLog(@"Seeing if it worked...");
+                    NSArray *notes = [MKNote findAll];
+                    expect(notes.count).to.equal(1);
+                    done();
+                } afterDelay:2.5];
+
             });
         });
         
