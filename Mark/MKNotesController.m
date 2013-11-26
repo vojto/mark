@@ -25,7 +25,6 @@
     NSLog(@"App did finish launching");
     
     // Setup notification for managed object context
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
 }
 
@@ -36,6 +35,9 @@
     // Setup sorting of notes
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO];
     self.notesArrayController.sortDescriptors = @[sort];
+    
+    // Setup selection persisting
+    self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithKey:@"selectedNote" arrayController:self.notesArrayController];
     
     // Update isSetup flag    
     self.isSetup = YES;

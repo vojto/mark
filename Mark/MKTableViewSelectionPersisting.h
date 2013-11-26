@@ -12,7 +12,8 @@
 
 @property (strong) NSIndexSet *selectionToLoad;
 @property (assign) NSArrayController *arrayController;
+@property (strong) NSString *key;
 
-- (id)initWithArrayController:(NSArrayController *)arrayController;
+- (id)initWithKey:(NSString *)key arrayController:(NSArrayController *)arrayController;
 
 @end

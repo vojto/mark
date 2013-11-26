@@ -22,7 +22,7 @@
     if (!self.isSetup) {
         [self.tagsArrayController addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:NULL];
         self.isSetup = YES;
-        self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithArrayController:self.tagsArrayController];
+        self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithKey:@"selectedTag" arrayController:self.tagsArrayController];
     }
 }
 
