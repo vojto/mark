@@ -129,7 +129,6 @@ describe(@"MKFileSystemSyncService", ^{
         
         describe(@"live updating", ^{
             it(@"creates note when file is created", ^AsyncBlock{
-                sleep(1);
                 NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
                 [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
                 [self performBlock:^(id sender) {
@@ -140,7 +139,7 @@ describe(@"MKFileSystemSyncService", ^{
                     }
                     expect(notes.count).to.equal(1);
                     done();
-                } afterDelay:2.5];
+                } afterDelay:1.5];
 
             });
         });
