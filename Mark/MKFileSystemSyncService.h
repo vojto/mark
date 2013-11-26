@@ -26,4 +26,6 @@ NSString * const kMKFileSystemPathDefaultsKey;
 
 - (void)restoreFromFileSystem;
 
+- (void)stopWatching;
+
 @end

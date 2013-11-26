@@ -26,6 +26,7 @@ describe(@"MKFileSystemSyncService", ^{
         [defaults setObject:@"test" forKey:@"filesystemPath"];
         service = [[MKFileSystemSyncService alloc] initWithContext:context];
         expect(service.basePath).to.equal(@"test");
+        [service stopWatching];
         service = nil;
     });
     
@@ -33,6 +34,7 @@ describe(@"MKFileSystemSyncService", ^{
         service = [[MKFileSystemSyncService alloc] initWithContext:context];
         [defaults setObject:@"test2" forKey:@"filesystemPath"];
         expect(service.basePath).to.equal(@"test2");
+        [service stopWatching];
         service = nil;
     });
     
@@ -67,7 +69,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect([manager fileExistsAtPath:path]).to.beTruthy();
         });
         
-        fit(@"restores note from file", ^{
+        it(@"restores note from file", ^{
             NSString *content = @"a note\n\n<!-- Mark: xxx1|tag1 -->";
             [content writeToFile:[basePath stringByAppendingPathComponent:@"restore.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
             [service restoreFromFileSystem];
@@ -76,7 +78,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        fit(@"removes note that was removed from disk", ^{
+        it(@"removes note that was removed from disk", ^{
             // First, create 2 notes and sync them to the disk
             MKNote *note1 = [MKNote createEntity];
             note1.title = @"note1";
@@ -103,7 +105,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        fit(@"removes file after removing note", ^{
+        it(@"removes file after removing note", ^{
             MKNote *note = [MKNote createEntity];
             note.title = @"deleteme";
             [context saveToPersistentStoreAndWait];
@@ -126,13 +128,16 @@ describe(@"MKFileSystemSyncService", ^{
         });
         
         describe(@"live updating", ^{
-            fit(@"creates note when file is created", ^AsyncBlock{
+            it(@"creates note when file is created", ^AsyncBlock{
                 sleep(1);
                 NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
                 [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
                 [self performBlock:^(id sender) {
                     NSLog(@"Seeing if it worked...");
                     NSArray *notes = [MKNote findAll];
+                    for(MKNote *note in notes) {
+                        NSLog(@"Title = %@, uuid = %@", note.title, note.uuid);
+                    }
                     expect(notes.count).to.equal(1);
                     done();
                 } afterDelay:2.5];

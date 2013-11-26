@@ -457,6 +457,7 @@ typedef void(^MKBlock)(id sender);
     void(^eventBlock)(CDEvents *watcher, CDEvent *event) = ^void(CDEvents *watcher, CDEvent *event) {
         NSLog(@"Event: %@", event);
         NSLog(@"Created = %d\nModified = %d\nRemoved = %d\nisFile = %d", event.isCreated, event.isModified, event.isRemoved, event.isFile);
+        NSLog(@"Self = %@", self);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeFiles) object:nil];
         [self performSelector:@selector(didChangeFiles) withObject:nil afterDelay:1];
     };
@@ -479,6 +480,11 @@ typedef void(^MKBlock)(id sender);
      */
 }
 
+- (void)stopWatching {
+    [self.events performSelector:@selector(disposeEventStream) withObject:nil];
+    self.events = nil;
+}
+
 
 - (void)didChangeFiles {
     NSLog(@"didChangeFiles");
@@ -491,6 +497,7 @@ typedef void(^MKBlock)(id sender);
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kMKFileSystemPathDefaultsKey];
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
+    [self stopWatching];
 }
 
 @end
