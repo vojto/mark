@@ -76,7 +76,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        it(@"removes file that was removed from disk", ^{
+        it(@"removes note that was removed from disk", ^{
             // First, create 2 notes and sync them to the disk
             MKNote *note1 = [MKNote createEntity];
             note1.title = @"note1";
@@ -101,6 +101,28 @@ describe(@"MKFileSystemSyncService", ^{
             // Assert that it was removed from Core Data storage
             NSArray *notes = [MKNote findAll];
             expect(notes.count).to.equal(1);
+        });
+        
+        fit(@"removes file after removing note", ^{
+            MKNote *note = [MKNote createEntity];
+            note.title = @"deleteme";
+            [context saveToPersistentStoreAndWait];
+            usleep(300*1000);
+            
+            // Make sure the file exists
+            NSString *path = [basePath stringByAppendingPathComponent:@"deleteme.md"];
+            expect([manager fileExistsAtPath:path]).to.beTruthy();
+            
+            // Delete note
+            [note deleteEntity];
+            [context saveToPersistentStoreAndWait];
+            usleep(300*1000);
+            
+            // Make sure the file was deleted
+            expect([manager fileExistsAtPath:path]).to.beFalsy();
+            
+            // Make sure it won't attempt to delete it again
+            expect(service.deletedNotePaths).to.beEmpty();
         });
         
         afterAll(^{

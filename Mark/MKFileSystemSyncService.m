@@ -113,7 +113,9 @@ typedef void(^MKBlock)(id sender);
         
         // TODO: Delete deleted
         for (NSString *notePath in self.deletedNotePaths) {
+            NSLog(@"Deleting note at path: %@", notePath);
             [self deleteNotePath:notePath];
+            [self.deletedNotePaths removeObject:notePath];
         }
     }];
 }
