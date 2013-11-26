@@ -457,6 +457,7 @@ typedef void(^MKBlock)(id sender);
 }
 
 - (void)VDKQueue:(VDKQueue *)queue receivedNotification:(NSString *)noteName forPath:(NSString *)fpath {
+    NSLog(@"Received notification: %@\t\t%@", noteName, fpath);
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didChangeFiles) object:nil];
     [self performSelector:@selector(didChangeFiles) withObject:nil afterDelay:1];
 }
