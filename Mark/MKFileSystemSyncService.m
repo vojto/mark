@@ -112,9 +112,13 @@ typedef void(^MKBlock)(id sender);
         }
         
         // TODO: Delete deleted
+        NSMutableSet *removedPaths = [NSMutableSet set];
         for (NSString *notePath in self.deletedNotePaths) {
             NSLog(@"Deleting note at path: %@", notePath);
             [self deleteNotePath:notePath];
+            [removedPaths addObject:notePath];
+        }
+        for (NSString *notePath in removedPaths) {
             [self.deletedNotePaths removeObject:notePath];
         }
     }];

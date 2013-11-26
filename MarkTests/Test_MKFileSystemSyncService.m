@@ -103,7 +103,7 @@ describe(@"MKFileSystemSyncService", ^{
             expect(notes.count).to.equal(1);
         });
         
-        fit(@"removes file after removing note", ^{
+        it(@"removes file after removing note", ^{
             MKNote *note = [MKNote createEntity];
             note.title = @"deleteme";
             [context saveToPersistentStoreAndWait];
@@ -123,6 +123,16 @@ describe(@"MKFileSystemSyncService", ^{
             
             // Make sure it won't attempt to delete it again
             expect(service.deletedNotePaths).to.beEmpty();
+        });
+        
+        describe(@"live updating", ^{
+            it(@"creates note when file is created", ^{
+                NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
+                [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+                usleep(500*1000);
+                NSArray *notes = [MKNote findAll];
+                expect(notes.count).to.equal(1);
+            });
         });
         
         afterAll(^{
