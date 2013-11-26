@@ -38,8 +38,6 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kMKAppDidFinishLaunchingNotification object:nil]];
-
-    [self buildDefaultTagsAndNotes];
     
     [self setupFilteringByTag];
     
@@ -56,22 +54,6 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
 
 - (void)saveDocument:(id)sender {
     [self.managedContext MR_saveToPersistentStoreAndWait];
-}
-
-#pragma mark - Building default tags
-
-- (void)buildDefaultTagsAndNotes {
-    if ([MKTag countOfEntities] == 0 && [MKNote countOfEntities] == 0) {
-        MKTag *tag = [MKTag createEntity];
-        tag.name = @"work";
-        
-        MKNote *note = [MKNote createEntity];
-        note.title = @"journal - 23.10.2013";
-        note.content = @"working on Mark today";
-        note.tags = [NSSet setWithObjects:tag, nil];
-        
-        [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
-    }
 }
 
 #pragma mark - Filtering by tag

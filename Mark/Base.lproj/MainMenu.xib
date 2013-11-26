@@ -998,6 +998,9 @@ DQ
                     <constraint firstItem="HZV-wD-ulz" firstAttribute="top" secondItem="372" secondAttribute="top" id="xth-oq-M64"/>
                 </constraints>
             </view>
+            <connections>
+                <outlet property="delegate" destination="494" id="t1N-ye-x1K"/>
+            </connections>
         </window>
         <customObject id="494" customClass="MKAppDelegate">
             <connections>
@@ -1049,5 +1052,6 @@ DQ
                 </menuItem>
             </items>
         </menu>
+        <userDefaultsController representsSharedInstance="YES" id="hXp-JA-n2c"/>
     </objects>
 </document>

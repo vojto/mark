@@ -19,11 +19,16 @@
 }
 
 - (void)awakeFromNib {
-    [self.tagsArrayController addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:NULL];
+    if (!self.isSetup) {
+        [self.tagsArrayController addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:NULL];
+        self.isSetup = YES;
+        self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithArrayController:self.tagsArrayController];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selection"]) {
+        NSLog(@"Observing");
         // Get the selected tag from array controller
         MKTag *selectedTag = [[self.tagsArrayController selectedObjects] lastObject];
         if (!selectedTag) {
@@ -33,37 +38,12 @@
     }
 }
 
-/*
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
-    [self didChangeSelection];
-}
- */
 
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
     return YES;
 }
 
-/*
-
-- (void)didChangeSelection {
-    NSIndexSet *selection = [self.tagsTableView selectedRowIndexes];
-    NSInteger index = [selection firstIndex];
-    
-    id selectedObject = [self.tagsArrayController arrangedObjects][index];
-
-    MKTag *selectedTag;
-    
-    if ([selectedObject isKindOfClass:[MKTag class]]) {
-        selectedTag = (MKTag *)selectedObject;
-    } else {
-        selectedTag = (id)[NSNull null];
-    }
-    
-    [self trigger:@"selectTag" data:selectedTag];
-}
- 
- */
 
 #pragma mark - Deleting tags
 
@@ -96,6 +76,5 @@
 - (void)deleteTag:(MKTag *)tag {
     [tag deleteEntity];
 }
-
 
 @end

@@ -19,7 +19,7 @@
 
 NSString * const kMKAppDidFinishLaunchingNotification;
 
-@interface MKAppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate>
+@interface MKAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) NSManagedObjectContext *managedContext;
