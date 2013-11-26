@@ -25,7 +25,7 @@
     NSLog(@"App did finish launching");
     
     // Setup notification for managed object context
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:[NSManagedObjectContext MR_contextForCurrentThread]];
 }
 
 - (void)awakeFromNib {
@@ -40,20 +40,11 @@
     
     // Setup selection persisting
     self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithKey:@"selectedNote" arrayController:self.notesArrayController];
-    
-    // Set up updating updated at flag
-    [self.notesArrayController addObserver:self forKeyPath:@"selection.content" options:NSKeyValueObservingOptionNew context:NULL];
+
     
     // Update isSetup flag    
     self.isSetup = YES;
 
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"selection.content"]) {
-        MKNote *note = [[self.notesArrayController selectedObjects] lastObject];
-        note.updatedAt = [NSDate date];
-    }
 }
 
 #pragma mark - Filtering
@@ -75,7 +66,16 @@
 - (void)objectsDidChange:(NSNotification *)notification {
     NSDictionary *userInfo = notification.userInfo;
     NSArray *updated = userInfo[NSUpdatedObjectsKey];
-    NSArray *inserted = userInfo[NSInsertedObjectsKey];
+//    NSArray *inserted = userInfo[NSInsertedObjectsKey];
+    for (NSManagedObject *object in updated) {
+        if ([object isKindOfClass:[MKNote class]]) {
+            MKNote *note = (MKNote *)object;
+            if ([note.changedValues.allKeys containsObject:@"content"] &&
+                ![note.changedValues.allKeys containsObject:@"updatedAt"]) {
+                note.updatedAt = [NSDate date];
+            }
+        }
+    }
 //    [self updateTimestamps:updated];
 //    [self updateTimestamps:inserted];
 }
