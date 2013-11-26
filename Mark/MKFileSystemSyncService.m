@@ -170,8 +170,6 @@ typedef void(^MKBlock)(id sender);
 - (void)deleteNotePath:(NSString *)notePath {
     NSError *error;
     
-    NSLog(@"Pth: %@", notePath);
-    
     NSFileManager *manager = [NSFileManager defaultManager];
     [manager removeItemAtPath:notePath error:&error];
     
