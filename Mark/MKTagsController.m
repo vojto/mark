@@ -65,5 +65,37 @@
  
  */
 
+#pragma mark - Deleting tags
+
+- (void)deleteTagAction:(id)sender {
+    MKTag *tag = self.tagsArrayController.arrangedObjects[self.tagsTableView.clickedRow];
+    [self confirmWithUserAndDeleteTag:tag];
+}
+
+- (void)confirmWithUserAndDeleteTag:(MKTag *)tag {
+    NSInteger notesCount = tag.notes.count;
+    if (notesCount > 0) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:[NSString stringWithFormat:@"Delete %@?", tag.name]];
+        [alert setInformativeText:[NSString stringWithFormat:@"Do you want to untag %ld notes tagged with %@?", (long)notesCount, tag.name]];
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert addButtonWithTitle:@"Delete"];
+        [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(deleteWarningDidEnd:returnCode:contextInfo:) contextInfo:(void *)tag];
+    } else {
+        [self deleteTag:tag];
+    }
+}
+
+- (void)deleteWarningDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    MKTag *tag = (__bridge MKTag *)contextInfo;
+    if (returnCode == NSAlertSecondButtonReturn) {
+        [self deleteTag:tag];
+    }
+}
+
+- (void)deleteTag:(MKTag *)tag {
+    [tag deleteEntity];
+}
+
 
 @end

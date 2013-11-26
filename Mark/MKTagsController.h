@@ -15,5 +15,8 @@
 
 @property (assign) IBOutlet NSTableView *tagsTableView;
 @property (assign) IBOutlet MKTagsArrayController *tagsArrayController;
+@property (assign) IBOutlet NSWindow *window;
+
+- (IBAction)deleteTagAction:(id)sender;
 
 @end

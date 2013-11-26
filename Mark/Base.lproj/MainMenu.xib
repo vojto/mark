@@ -759,6 +759,7 @@ DQ
                                                         <binding destination="0Ld-Hz-XgA" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="kKM-vJ-SO8" id="Kf8-r1-Bha"/>
                                                         <outlet property="dataSource" destination="eoH-yA-S9h" id="aL4-sL-xca"/>
                                                         <outlet property="delegate" destination="eoH-yA-S9h" id="RsI-bU-YDp"/>
+                                                        <outlet property="menu" destination="9xT-82-Moj" id="jxk-si-Kuc"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -1028,6 +1029,7 @@ DQ
             <connections>
                 <outlet property="tagsArrayController" destination="0Ld-Hz-XgA" id="ram-GG-wEY"/>
                 <outlet property="tagsTableView" destination="p30-oW-T0Y" id="GjE-Px-cZB"/>
+                <outlet property="window" destination="371" id="0PH-6Q-f7y"/>
             </connections>
         </customObject>
         <customObject id="n3h-S0-dtY" customClass="MKNoteController">
@@ -1037,5 +1039,15 @@ DQ
                 <outlet property="titleField" destination="YuN-ty-3JX" id="eN0-JN-6MH"/>
             </connections>
         </customObject>
+        <menu id="9xT-82-Moj">
+            <items>
+                <menuItem title="Delete tag" id="gYI-M5-cas">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deleteTagAction:" target="eoH-yA-S9h" id="86t-Zz-cfF"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
 </document>
