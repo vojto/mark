@@ -312,7 +312,7 @@ typedef void(^MKBlock)(id sender);
 
     NSLog(@"Restoring from file system");
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        NSArray *files = [self noteFilesInDirectory:self.basePath];
+        NSArray *files = [self notePathsInDirectory:self.basePath];
         if (files.count == 0) {
             NSLog(@"No files found in directory.");
             return;
@@ -331,19 +331,40 @@ typedef void(^MKBlock)(id sender);
                 [updatedUUIDs addObject:updatedNote.uuid];
             }
         }
-        // Inspect local notes, and delete those that weren't updated during the restore
-        // operation.
+
         if (!isIncremental) {
-            NSArray *notes = [MKNote findAllInContext:localContext];
-            for (MKNote *note in notes) {
-                if (![updatedUUIDs containsObject:note.uuid]) {
-                    [note deleteEntity];
-                }
-            }
+            [self deleteNotesMissingTheirFiles:localContext];
         }
         
         self.lastRestore = [NSDate date];
     }];
+}
+
+- (void)deleteNotesMissingTheirFilesAndSave {
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        [self deleteNotesMissingTheirFiles:localContext];
+    }];
+}
+
+- (void)deleteNotesMissingTheirFiles:(NSManagedObjectContext *)context {
+    NSArray *paths = [self notePathsInDirectory:self.basePath];
+    NSMutableSet *uuidsOnDisk = [NSMutableSet set];
+    for (NSString *path in paths) {
+        NSString *content = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:NULL];
+        NSDictionary *metadata = [self readMetadataAndStripFromContent:&content];
+        NSString *uuid = metadata[@"uuid"];
+        if (uuid) {
+            [uuidsOnDisk addObject:uuid];
+        }
+    }
+    if (uuidsOnDisk.count == 0) {
+        return;
+    }
+    for (MKNote *note in [MKNote findAllInContext:context]) {
+        if (![uuidsOnDisk containsObject:note.uuid]) {
+            [note deleteEntity];
+        }
+    }
 }
 
 - (NSArray *)filterFilesToChangedRecently:(NSArray *)files {
@@ -367,7 +388,7 @@ typedef void(^MKBlock)(id sender);
     [self restoreFromFileSystemIncrementally:NO];
 }
 
-- (NSArray *)noteFilesInDirectory:(NSString *)directoryPath {
+- (NSArray *)notePathsInDirectory:(NSString *)directoryPath {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:self.basePath];
     NSString *fileName;
@@ -489,6 +510,7 @@ typedef void(^MKBlock)(id sender);
 - (void)didChangeFiles {
     NSLog(@"didChangeFiles");
     [self restoreFromFileSystemIncrementally:YES];
+    [self deleteNotesMissingTheirFilesAndSave];
 }
 
 #pragma mark - Lifecycle

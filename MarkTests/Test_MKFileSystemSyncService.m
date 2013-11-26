@@ -131,16 +131,40 @@ describe(@"MKFileSystemSyncService", ^{
             it(@"creates note when file is created", ^AsyncBlock{
                 NSString *content = @"a note\n\n<!-- Mark: xxx1| -->";
                 [content writeToFile:[basePath stringByAppendingPathComponent:@"live-create.md"] atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+                // Wait for notification
                 [self performBlock:^(id sender) {
-                    NSLog(@"Seeing if it worked...");
                     NSArray *notes = [MKNote findAll];
-                    for(MKNote *note in notes) {
-                        NSLog(@"Title = %@, uuid = %@", note.title, note.uuid);
-                    }
                     expect(notes.count).to.equal(1);
                     done();
                 } afterDelay:1.5];
-
+            });
+            
+            fit(@"deletes note when file is deleted", ^AsyncBlock{
+                MKNote *note = [MKNote createEntity];
+                note.title = @"deleteme1";
+                note = [MKNote createEntity];
+                note.title = @"deleteme2";
+                [context saveToPersistentStoreAndWait];
+                usleep(300*1000);
+                
+                // Make sure objects exist
+                expect([MKNote findAll].count).to.equal(2);
+                
+                // Make sure the file exists
+                NSString *path = [basePath stringByAppendingPathComponent:@"deleteme1.md"];
+                expect([manager fileExistsAtPath:path]).to.beTruthy();
+                path = [basePath stringByAppendingPathComponent:@"deleteme2.md"];
+                expect([manager fileExistsAtPath:path]).to.beTruthy();
+                
+                // Remove the file
+                [manager removeItemAtPath:path error:NULL];
+                
+                // Wait for notification
+                [self performBlock:^(id sender) {
+                    NSArray *notes = [MKNote findAll];
+                    expect(notes.count).to.equal(1);
+                    done();
+                } afterDelay:1.5];
             });
         });
         
