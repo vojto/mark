@@ -22,8 +22,8 @@
     [self.sourceView highlight];
     
     [self.sourceView setAutomaticDashSubstitutionEnabled:NO];
-
 }
+
 
 #pragma mark - Creating tasks
 

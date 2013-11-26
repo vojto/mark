@@ -36,13 +36,27 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO];
     self.notesArrayController.sortDescriptors = @[sort];
     
+    self.notesTable.sortDescriptors = @[sort];
+    
     // Setup selection persisting
     self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithKey:@"selectedNote" arrayController:self.notesArrayController];
+    
+    // Set up updating updated at flag
+    [self.notesArrayController addObserver:self forKeyPath:@"selection.content" options:NSKeyValueObservingOptionNew context:NULL];
     
     // Update isSetup flag    
     self.isSetup = YES;
 
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"selection.content"]) {
+        MKNote *note = [[self.notesArrayController selectedObjects] lastObject];
+        note.updatedAt = [NSDate date];
+    }
+}
+
+#pragma mark - Filtering
 
 - (void)filterNotesByTag:(MKTag *)tag {
     if ((id)tag == [NSNull null]) {
@@ -53,6 +67,7 @@
         self.notesArrayController.filterPredicate = predicate;
         self.currentTag = tag;
     }
+    [self.notesArrayController rearrangeObjects];
 }
 
 #pragma mark - Catching changes to notes

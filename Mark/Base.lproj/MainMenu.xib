@@ -955,15 +955,28 @@ DQ
                                         </connections>
                                     </tokenField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wpr-ZP-cUn">
-                                        <rect key="frame" x="356" y="535" width="195" height="17"/>
+                                        <rect key="frame" x="356" y="544" width="195" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="35Q-Xj-p1Z">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="10" name="LucidaGrande"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
                                             <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.fs_filename" id="u0v-x2-j1T"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AX5-AE-0cY">
+                                        <rect key="frame" x="356" y="527" width="195" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="oh2-X1-3Af">
+                                            <dateFormatter key="formatter" timeStyle="medium" id="TnY-j5-yfq"/>
+                                            <font key="font" size="10" name="LucidaGrande"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="Ib1-NY-Zgg" name="value" keyPath="selection.updatedAt" id="4bZ-gb-tV2"/>
                                         </connections>
                                     </textField>
                                 </subviews>
