@@ -139,7 +139,7 @@ describe(@"MKFileSystemSyncService", ^{
                 } afterDelay:1.5];
             });
             
-            fit(@"deletes note when file is deleted", ^AsyncBlock{
+            it(@"deletes note when file is deleted", ^AsyncBlock{
                 MKNote *note = [MKNote createEntity];
                 note.title = @"deleteme1";
                 note = [MKNote createEntity];
