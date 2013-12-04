@@ -168,21 +168,21 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		991A2C811817FF0000B6C024 /* New Tag */ = {
+		991A2C811817FF0000B6C024 /* Rename tag */ = {
 			isa = PBXGroup;
 			children = (
 				991A2C7B1817F88700B6C024 /* MKNewTagViewController.h */,
 				991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */,
 				991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */,
 			);
-			name = "New Tag";
+			name = "Rename tag";
 			sourceTree = "<group>";
 		};
 		991A2C821817FF0600B6C024 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				991A2C831817FF0B00B6C024 /* Main */,
-				991A2C811817FF0000B6C024 /* New Tag */,
+				991A2C811817FF0000B6C024 /* Rename tag */,
 				99E8160F183DFD1100602A94 /* Filesystem Settings */,
 			);
 			name = Components;

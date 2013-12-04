@@ -23,6 +23,8 @@
         [self.tagsArrayController addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:NULL];
         self.isSetup = YES;
         self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithKey:@"selectedTag" arrayController:self.tagsArrayController];
+        self.tagsTableView.target = self;
+        self.tagsTableView.doubleAction = @selector(editTagAction:);
     }
 }
 
@@ -48,7 +50,7 @@
 #pragma mark - Deleting tags
 
 - (void)deleteTagAction:(id)sender {
-    MKTag *tag = self.tagsArrayController.arrangedObjects[self.tagsTableView.clickedRow];
+    MKTag *tag = [self clickedTag];
     [self confirmWithUserAndDeleteTag:tag];
 }
 
@@ -75,6 +77,20 @@
 
 - (void)deleteTag:(MKTag *)tag {
     [tag deleteEntity];
+}
+
+#pragma mark - Editing tags
+
+- (void)editTagAction:(id)sender {
+    MKTag *tag = [self clickedTag];
+    NSLog(@"Editing tag: %@", tag);
+    NSRect rect = [self.tagsTableView frameOfCellAtColumn:self.tagsTableView.clickedColumn row:self.tagsTableView.clickedRow];
+}
+
+#pragma mark - Table helpers
+
+- (MKTag *)clickedTag {
+    return self.tagsArrayController.arrangedObjects[self.tagsTableView.clickedRow];
 }
 
 @end

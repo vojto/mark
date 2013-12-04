@@ -22,5 +22,6 @@
 @property (assign) IBOutlet NSWindow *window;
 
 - (IBAction)deleteTagAction:(id)sender;
+- (IBAction)editTagAction:(id)sender;
 
 @end
