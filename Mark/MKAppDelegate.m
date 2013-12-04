@@ -85,6 +85,7 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
     }
     
     NSView *view = self.window.contentView;
+    [self.createTagViewController reset];
     [self.createTagPopover showRelativeToRect:view.frame ofView:self.window.contentView preferredEdge:NSMaxYEdge];
     
     NSLog(@"Showing: %@", self.createTagPopover);

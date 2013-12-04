@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "MKTag.h"
 
 @interface MKTagFormViewController : NSViewController
 
@@ -14,8 +14,13 @@
 
 @property (assign) NSPopover *popover;
 
-@property (assign) IBOutlet NSTextField *name;
+@property (strong) NSString *name;
 
+@property (strong) MKTag *tag;
+
+- (id)initWithDefaultNib;
+
+- (void)reset;
 - (IBAction)createAction:(id)sender;
 
 @end

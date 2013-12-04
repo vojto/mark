@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MKTagFormViewController">
             <connections>
-                <outlet property="name" destination="VcJ-Om-UNC" id="vhr-Yo-Q7I"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -27,6 +26,11 @@
                     </textFieldCell>
                     <connections>
                         <action selector="createAction:" target="-2" id="eeP-mh-kXN"/>
+                        <binding destination="-2" name="value" keyPath="self.name" id="T9z-d1-5K2">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hoE-FQ-J5f">

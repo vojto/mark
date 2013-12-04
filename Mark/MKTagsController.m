@@ -85,6 +85,21 @@
     MKTag *tag = [self clickedTag];
     NSLog(@"Editing tag: %@", tag);
     NSRect rect = [self.tagsTableView frameOfCellAtColumn:self.tagsTableView.clickedColumn row:self.tagsTableView.clickedRow];
+    
+    if (!self.tagFormViewController) {
+        self.tagFormViewController = [[MKTagFormViewController alloc] initWithDefaultNib];
+    }
+    
+    if (!self.tagFormPopover) {
+        self.tagFormPopover = [[NSPopover alloc] init];
+        self.tagFormPopover.contentViewController = self.tagFormViewController;
+        self.tagFormPopover.behavior = NSPopoverBehaviorSemitransient;
+        self.tagFormViewController.popover = self.tagFormPopover;
+    }
+
+    
+    self.tagFormViewController.tag = tag;
+    [self.tagFormPopover showRelativeToRect:rect ofView:self.tagsTableView preferredEdge:NSMaxXEdge];
 }
 
 #pragma mark - Table helpers
