@@ -19,8 +19,8 @@
 		991A2C741817EF8400B6C024 /* Mark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C721817EF8400B6C024 /* Mark.xcdatamodeld */; };
 		991A2C771817F01B00B6C024 /* MKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C761817F01B00B6C024 /* MKTag.m */; };
 		991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C791817F01B00B6C024 /* MKNote.m */; };
-		991A2C7E1817F88700B6C024 /* MKNewTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */; };
-		991A2C7F1817F88700B6C024 /* MKNewTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */; };
+		991A2C7E1817F88700B6C024 /* MKTagFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C7C1817F88700B6C024 /* MKTagFormViewController.m */; };
+		991A2C7F1817F88700B6C024 /* MKTagFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 991A2C7D1817F88700B6C024 /* MKTagFormViewController.xib */; };
 		991A2C8A1818089900B6C024 /* MKTagsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C891818089900B6C024 /* MKTagsArrayController.m */; };
 		991A2C8D18180C2900B6C024 /* MKNotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C8C18180C2900B6C024 /* MKNotesController.m */; };
 		991A2C9018180CCD00B6C024 /* MKTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 991A2C8F18180CCD00B6C024 /* MKTagsController.m */; };
@@ -71,9 +71,9 @@
 		991A2C761817F01B00B6C024 /* MKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTag.m; sourceTree = "<group>"; };
 		991A2C781817F01B00B6C024 /* MKNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNote.h; sourceTree = "<group>"; };
 		991A2C791817F01B00B6C024 /* MKNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNote.m; sourceTree = "<group>"; };
-		991A2C7B1817F88700B6C024 /* MKNewTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNewTagViewController.h; sourceTree = "<group>"; };
-		991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNewTagViewController.m; sourceTree = "<group>"; };
-		991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKNewTagViewController.xib; sourceTree = "<group>"; };
+		991A2C7B1817F88700B6C024 /* MKTagFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTagFormViewController.h; sourceTree = "<group>"; };
+		991A2C7C1817F88700B6C024 /* MKTagFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTagFormViewController.m; sourceTree = "<group>"; };
+		991A2C7D1817F88700B6C024 /* MKTagFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKTagFormViewController.xib; sourceTree = "<group>"; };
 		991A2C881818089900B6C024 /* MKTagsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTagsArrayController.h; sourceTree = "<group>"; };
 		991A2C891818089900B6C024 /* MKTagsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTagsArrayController.m; sourceTree = "<group>"; };
 		991A2C8B18180C2900B6C024 /* MKNotesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNotesController.h; sourceTree = "<group>"; };
@@ -171,9 +171,9 @@
 		991A2C811817FF0000B6C024 /* Rename tag */ = {
 			isa = PBXGroup;
 			children = (
-				991A2C7B1817F88700B6C024 /* MKNewTagViewController.h */,
-				991A2C7C1817F88700B6C024 /* MKNewTagViewController.m */,
-				991A2C7D1817F88700B6C024 /* MKNewTagViewController.xib */,
+				991A2C7B1817F88700B6C024 /* MKTagFormViewController.h */,
+				991A2C7C1817F88700B6C024 /* MKTagFormViewController.m */,
+				991A2C7D1817F88700B6C024 /* MKTagFormViewController.xib */,
 			);
 			name = "Rename tag";
 			sourceTree = "<group>";
@@ -428,7 +428,7 @@
 				99A486131816DB5F00D7AE33 /* MainMenu.xib in Resources */,
 				99AFB130183BC2A90002DBB4 /* PageSyntax.plist in Resources */,
 				99AFB12F183BC2A90002DBB4 /* PageScheme.plist in Resources */,
-				991A2C7F1817F88700B6C024 /* MKNewTagViewController.xib in Resources */,
+				991A2C7F1817F88700B6C024 /* MKTagFormViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +513,7 @@
 				995880E61844DB3C002B494D /* MKTableViewSelectionPersisting.m in Sources */,
 				991A2C8A1818089900B6C024 /* MKTagsArrayController.m in Sources */,
 				99D9DAC7183CF28C00710F89 /* MKUUIDService.m in Sources */,
-				991A2C7E1817F88700B6C024 /* MKNewTagViewController.m in Sources */,
+				991A2C7E1817F88700B6C024 /* MKTagFormViewController.m in Sources */,
 				991A2C9318181A5000B6C024 /* DMSplitView.m in Sources */,
 				991A2C7A1817F01B00B6C024 /* MKNote.m in Sources */,
 				99D9DABF183CC37500710F89 /* MKFileSystemSyncService.m in Sources */,

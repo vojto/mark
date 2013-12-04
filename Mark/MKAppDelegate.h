@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MKNewTagViewController.h"
+#import "MKTagFormViewController.h"
 #import "MKTagsArrayController.h"
 #import "MKNotesController.h"
 #import "MKTagsController.h"
@@ -35,7 +35,7 @@ NSString * const kMKAppDidFinishLaunchingNotification;
 
 // New tag
 @property (strong) NSPopover *createTagPopover;
-@property (strong) MKNewTagViewController *createTagViewController;
+@property (strong) MKTagFormViewController *createTagViewController;
 
 // Tags
 @property (strong) IBOutlet MKTagsController *tagsController;

@@ -70,7 +70,7 @@ NSString * const kMKAppDidFinishLaunchingNotification = @"applicationDidFinishLa
 - (IBAction)newTagAction:(id)sender {
     // Ensure we have the controller
     if (!self.createTagViewController) {
-        self.createTagViewController = [[MKNewTagViewController alloc] initWithNibName:@"MKNewTagViewController" bundle:nil];
+        self.createTagViewController = [[MKTagFormViewController alloc] initWithNibName:@"MKTagFormViewController" bundle:nil];
         self.createTagViewController.context = self.managedContext;
     }
     if (!self.createTagPopover) {

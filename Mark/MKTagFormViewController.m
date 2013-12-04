@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Vojtech Rinik. All rights reserved.
 //
 
-#import "MKNewTagViewController.h"
+#import "MKTagFormViewController.h"
 #import "MKTag.h"
 
-@interface MKNewTagViewController ()
+@interface MKTagFormViewController ()
 
 @end
 
-@implementation MKNewTagViewController
+@implementation MKTagFormViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

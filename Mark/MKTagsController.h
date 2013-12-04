@@ -10,6 +10,7 @@
 #import "MKTag.h"
 #import "MKTableViewSelectionPersisting.h"
 
+
 @interface MKTagsController : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (assign) BOOL isSetup;

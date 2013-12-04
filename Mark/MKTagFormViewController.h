@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MKNewTagViewController : NSViewController
+@interface MKTagFormViewController : NSViewController
 
 @property (assign) NSManagedObjectContext *context;
 
