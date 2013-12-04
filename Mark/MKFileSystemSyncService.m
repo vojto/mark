@@ -321,7 +321,6 @@ typedef void(^MKBlock)(id sender);
         // Filter only files recently changed
         if (isIncremental && self.lastRestore) {
             files = [self filterFilesToChangedRecently:files];
-            NSLog(@"Recently changed files: %@", files);
         }
         
         NSMutableSet *updatedUUIDs = [NSMutableSet set];
@@ -375,7 +374,6 @@ typedef void(^MKBlock)(id sender);
     return [files select:^BOOL(NSString *file) {
         NSDictionary *attributes = [manager attributesOfItemAtPath:file error:NULL];
         NSDate *date = attributes[NSFileModificationDate];
-        NSLog(@"Modification date: %@", date);
         if ([date isGreaterThanOrEqualTo:self.lastRestore]) {
             return YES;
         } else {
