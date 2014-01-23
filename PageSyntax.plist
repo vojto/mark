@@ -29,15 +29,6 @@
 		<key>pattern</key>
 		<string>^\s*((\*|\-)\s*\[(x|X)\])\s*.*$</string>
 	</dict>
-	<key>todo-unchecked</key>
-	<dict>
-		<key>color</key>
-		<string>red</string>
-		<key>patternGroup</key>
-		<integer>1</integer>
-		<key>pattern</key>
-		<string>^\s*((\*|\-)\s*\[ \])\s*.*$</string>
-	</dict>
 	<key>markdown-header-1</key>
 	<dict>
 		<key>size</key>
