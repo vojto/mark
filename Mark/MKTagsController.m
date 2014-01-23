@@ -20,7 +20,12 @@
 
 - (void)awakeFromNib {
     if (!self.isSetup) {
+        
         [self.tagsArrayController addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:NULL];
+        // Setup sorting of tags
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+        self.tagsArrayController.sortDescriptors = @[sort];
+        
         self.isSetup = YES;
         self.selectionPersisting = [[MKTableViewSelectionPersisting alloc] initWithKey:@"selectedTag" arrayController:self.tagsArrayController];
         self.tagsTableView.target = self;
